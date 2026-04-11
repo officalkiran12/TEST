@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livestock Marketplace</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #10B981;
+      --primary-hover: #059669;
+      --secondary-color: #3b82f6;
+      --bg-color: #f8fafc;
+      --surface-color: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --danger: #ef4444;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius-md: 0.5rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --transition-fast: 0.2s ease;
+    }
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --surface-color: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast); }
+    body { background-color: var(--bg-color); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+    a { text-decoration: none; color: inherit; cursor: pointer; }
+    ul { list-style: none; }
+    
+    /* Navbar */
+    .glass-nav { position: sticky; top: 0; z-index: 50; background: rgba(var(--surface-color), 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-link { font-weight: 500; color: var(--text-secondary); transition: color var(--transition-fast); }
+    .nav-link:hover { color: var(--primary-color); }
+    
+    .btn { padding: 0.5rem 1.2rem; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all var(--transition-fast); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary-color) 0%, #047857 100%); color: white; box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
+    .btn-outline { background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); }
+    .btn-outline:hover { background: var(--primary-color); color: white; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-danger:hover { background: #dc2626; }
+    
+    #app-root { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+    .footer { background: var(--surface-color); border-top: 1px solid var(--border-color); padding: 2rem; text-align: center; color: var(--text-secondary); }
+    
+    /* Forms */
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary); }
+    .form-control { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--surface-color); color: var(--text-primary); outline: none; }
+    .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+    .auth-container { max-width: 400px; margin: 4rem auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); }
+    .auth-title { text-align: center; font-size: 1.8rem; margin-bottom: 1.5rem; }
+    
+    /* Alerts */
+    .alert-container { position: fixed; bottom: 2rem; right: 2rem; display: flex; flex-direction: column; gap: 1rem; z-index: 9999; }
+    .alert { padding: 1rem 1.5rem; border-radius: var(--radius-md); background: var(--surface-color); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.8rem; border-left: 4px solid var(--primary-color); animation: slideIn 0.3s forwards, fadeOut 0.3s forwards 3s; }
+    .alert.error { border-left-color: var(--danger); }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; display: none; } }
+    
+    /* Utilities & Layouts */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 1rem; } .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; } .mb-2 { margin-bottom: 2rem; }
+    
+    .grid { display: grid; gap: 1.5rem; }
+    .grid-cols-2 { grid-template-columns: repeat(var(--grid-tc, 2), 1fr); }
+    .grid-cols-3 { grid-template-columns: repeat(var(--grid-tc, 3), 1fr); }
+    .grid-cols-4 { grid-template-columns: repeat(var(--grid-tc, 4), 1fr); }
+    @media (max-width: 900px) { .grid-cols-4 { --grid-tc: 3; } .grid-cols-3 { --grid-tc: 2; } }
+    @media (max-width: 600px) { 
+      .grid-cols-4, .grid-cols-3, .grid-cols-2 { --grid-tc: 2; }
+      .nav-links { display: none; } 
+      .glass-nav { display: none; }
+      #app-root { padding-bottom: 5rem; }
+    }
+    
+    .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface-color); border-top: 1px solid var(--border-color); z-index: 50; justify-content: space-around; padding: 0.8rem 0; box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1); }
+    .bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); }
+    .bottom-nav a.active, .bottom-nav a:hover { color: var(--primary-color); }
+    .bottom-nav a i { font-size: 1.2rem; }
+    @media (max-width: 600px) { .bottom-nav { display: flex; } }
+    
+    /* Card */
+    .card { background: var(--surface-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .card-img-placeholder { width: 100%; height: 200px; background-color: var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+    .card-content { padding: 1rem; }
+    
+    /* Status Badges */
+    .badge { padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; }
+    .badge-success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+    .badge-warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+    .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+    .badge-secondary { background: rgba(100, 116, 139, 0.2); color: var(--text-secondary); }
+    
+    /* Loader */
+    .loader { border: 3px solid var(--border-color); border-top: 3px solid var(--primary-color); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Home Styles */
+    .hero-slider { height: 300px; background: var(--surface-color); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 2rem; }
+    .banner-slide { width: 100%; height: 100%; background-size: cover; background-position: center; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; text-align:center;}
+    .banner-slide.placeholder { background: linear-gradient(135deg, var(--primary-color) 0%, #047857 100%); }
+    .search-bar { display: flex; gap: 1rem; margin-bottom: 2rem; }
+    .search-bar input { flex:1; }
+    .categories-grid { display: flex; gap: 1rem; overflow-x: auto; margin-bottom: 2rem; padding-bottom: 1rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .categories-grid::-webkit-scrollbar { display: none; }
+    .category-card { flex: 0 0 auto; width: 120px; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; text-align: center; cursor: pointer; transition: all var(--transition-fast); display:block; color:inherit; }
+    .category-card:hover { border-color: var(--primary-color); color: var(--primary-color); transform: translateY(-3px); }
+    .cat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+    /* Settings Styles */
+    .settings-section { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1.5rem; overflow: hidden;}
+    .settings-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); font-weight: 600; background: var(--bg-color);}
+    .settings-item { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); cursor: pointer; transition: background var(--transition-fast); }
+    .settings-item:hover { background: var(--bg-color); color: var(--primary-color); }
+    .settings-item:last-child { border-bottom: none; }
+    .toggle-switch { position: relative; width: 40px; height: 20px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--primary-color); }
+    input:checked + .slider:before { transform: translateX(20px); }
+  </style>
+</head>
+<body>
+  
+  <nav class="glass-nav">
+    <div class="nav-container">
+      <a href="#/" class="logo">
+        <i class="fa-solid fa-cow"></i> AgroMart
+      </a>
+      <div class="nav-links" id="nav-links-container"></div>
+    </div>
+  </nav>
+
+  <main id="app-root">
+    <div style="height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <div class="loader" style="width:40px; height:40px; border-width:4px;"></div>
+      <p style="margin-top:1.5rem; color:var(--text-secondary); font-weight:500;">Connecting to AgroMart...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Livestock Marketplace. All rights reserved.</p>
+  </footer>
+
+  <nav class="bottom-nav">
+    <a href="#/" class="bottom-nav-link" data-path="/"><i class="fa-solid fa-home"></i> Home</a>
+    <a href="#/sell" class="bottom-nav-link" data-path="/sell"><i class="fa-solid fa-plus-circle"></i> Sell</a>
+    <a href="#/my-listings" class="bottom-nav-link" data-path="/my-listings"><i class="fa-solid fa-list"></i> Listings</a>
+    <a href="#/profile" class="bottom-nav-link" data-path="/profile"><i class="fa-solid fa-user"></i> Profile</a>
+  </nav>
+
+  <div id="alert-container" class="alert-container"></div>
+
+  <!-- FIREBASE SDK v10 (ES Modules) - REALTIME DB VERSION -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getDatabase, ref, get, set, push, child, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = { 
+        apiKey: "AIzaSyD-87xEUmQxE8wZqAgIm6MR4VRO-OPaxeU", 
+        authDomain: "market-place-fdc1d.firebaseapp.com", 
+        databaseURL: "https://market-place-fdc1d-default-rtdb.firebaseio.com", 
+        projectId: "market-place-fdc1d", 
+        storageBucket: "market-place-fdc1d.firebasestorage.app", 
+        messagingSenderId: "697357767573", 
+        appId: "1:697357767573:web:2930235fcf8abeae089c9c", 
+        measurementId: "G-YV80CKPZM1" 
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    window.showAlert = (msg, type = 'success') => {
+      const container = document.getElementById('alert-container');
+      const alert = document.createElement('div');
+      alert.className = `alert ${type}`;
+      alert.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}"></i><span>${msg}</span>`;
+      container.appendChild(alert);
+      setTimeout(() => { if(alert.parentNode) alert.remove(); }, 4000);
+    }
+
+    let currentUser = null;
+    let currentProfile = null;
+
+    const authService = {
+      async register(fullName, email, mobile, password) {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await set(ref(db, 'users/' + cred.user.uid), { 
+           id: cred.user.uid, 
+           name: fullName, 
+           email: email,
+           phone: mobile, 
+           kycStatus: 'Not Submitted', 
+           status: 'active',
+           isSeller: false,
+           location: '',
+           createdDate: Date.now() 
+        });
+        return cred.user;
+      },
+      async login(email, password) { return await signInWithEmailAndPassword(auth, email, password); },
+      logout: () => signOut(auth)
+    };
+
+    const marketService = {
+      async getBanners() {
+         try {
+           const snap = await get(ref(db, 'banners'));
+           if (snap.exists()) {
+             const data = snap.val();
+             if (Array.isArray(data)) return data.filter(d=>d);
+             return Object.keys(data).map(key => ({ id: key, ...data[key] }));
+           }
+         } catch(e) {}
+         return [];
+      },
+      async getNotification() {
+         try {
+           const snap = await get(ref(db, 'notices'));
+           if (snap.exists()) {
+             const data = snap.val();
+             let list = Array.isArray(data) ? data.filter(d=>d) : Object.keys(data).map(key => ({ id: key, ...data[key] }));
+             if(list && list.length > 0) {
+               list = list.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
+               return list[0];
+             }
+           }
+         } catch(e) { }
+         return null;
+      },
+      async getCategories() {
+        try {
+            const snap = await get(ref(db, 'categories'));
+            if (snap.exists()) return snap.val();
+        } catch(e) { }
+        return ['Cow', 'Buffalo', 'Goat', 'Sheep', 'Pig', 'Chicken', 'Duck', 'Horse', 'Dog', 'Cat', 'Other'];
+      },
+      async getLatestAnimals(filters = {}) {
+        try {
+          const snap = await get(ref(db, 'animals'));
+          if(!snap.exists()) return [];
+          const data = snap.val();
+          let animals = Array.isArray(data) ? data.filter(d=>d) : Object.keys(data).map(k => ({ id: k, ...data[k] }));
+          
+          animals = animals.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
+
+          const now = Date.now();
+          const maxAge = 90 * 24 * 60 * 60 * 1000;
+          animals = animals.filter(a => {
+             const t = a.timestamp || now;
+             return (now - t < maxAge);
+          });
+          
+          if(filters.search) animals = animals.filter(a => (a.title||a.name)?.toLowerCase().includes(filters.search.toLowerCase()) || a.category?.toLowerCase().includes(filters.search.toLowerCase()));
+          if(filters.category && filters.category !== 'all') animals = animals.filter(a => a.category?.toLowerCase() === filters.category.toLowerCase());
+          return animals;
+        } catch(e) { return []; }
+      },
+      async getAnimalDetails(id) {
+        try {
+          const snap = await get(ref(db, `animals/${id}`));
+          if (snap.exists()) {
+             const data = snap.val();
+             const views = (data.views || 0) + 1;
+             update(ref(db, `animals/${id}`), { views: views }).catch(console.error);
+             return { id: snap.key, ...data, views };
+          }
+          return null;
+        } catch(e) { return null; }
+      },
+      async postAnimal(data) {
+        const newRef = push(ref(db, 'animals'));
+        await set(newRef, { ...data, timestamp: Date.now(), status: 'active', featured: false });
+        return newRef.key;
+      }
+    };
+
+    const kycService = {
+      async submitKyc(userId, kycData) {
+        const newRef = push(ref(db, 'kyc'));
+        await set(newRef, { ...kycData, id: newRef.key, status: 'Pending', submittedAt: Date.now() });
+        await update(ref(db, 'users/' + userId), { kycStatus: 'Pending' });
+      },
+      async getKycStatus(userId) {
+        try {
+          const snap = await get(ref(db, 'users/' + userId));
+          if(snap.exists() && snap.val().kycStatus) return snap.val().kycStatus;
+        } catch(e) {}
+        return 'Not Submitted';
+      }
+    };
+
+    const userService = {
+      async getMyListings(userId) {
+        try {
+          const snap = await get(ref(db, 'animals'));
+          if(!snap.exists()) return [];
+          const data = snap.val();
+          let animals = Array.isArray(data) ? data.filter(d=>d) : Object.keys(data).map(k => ({ id: k, ...data[k] }));
+          animals = animals.filter(a => a.sellerId === userId);
+          
+          animals = animals.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
+
+          const now = Date.now();
+          return animals.map(data => {
+            let postTime = data.timestamp || now;
+            let status = data.status;
+            if (Date.now() - postTime >= 90 * 24 * 60 * 60 * 1000 && status !== 'sold') {
+              status = 'Expired';
+            }
+            return { ...data, displayStatus: status };
+          });
+        } catch(e) { return []; }
+      },
+      async updateListingStatus(id, status) { await update(ref(db, `animals/${id}`), { status }); },
+      async deleteListing(id) { await remove(ref(db, `animals/${id}`)); }
+    };
+
+    // 3. FULL FEATURES VIEWS
+    const views = {
+
+      async Home() {
+        const banners = await marketService.getBanners();
+        const notification = await marketService.getNotification();
+        const allAnimals = await marketService.getLatestAnimals();
+        const categories = await marketService.getCategories();
+
+        const latestAnimals = [...allAnimals];
+        const trendingAnimals = [...allAnimals].sort((a,b) => ((b.views||0)+(b.favoritesCount||0)) - ((a.views||0)+(a.favoritesCount||0))).slice(0, 4);
+
+        const bannerSlider = banners.length > 0 
+          ? banners.map(b => `<div class="banner-slide" style="background-image: url('${b.imageUrl || b.image_url || b.image || b.url}')"></div>`).join('')
+          : `<div class="banner-slide placeholder"><h1>Welcome to AgroMart</h1><p>The Premium Livestock Marketplace</p></div>`;
+
+        // KYC Approved Notifier Logic
+        let popupHtml = '';
+        const isKycApproved = currentProfile && currentProfile.kycStatus === 'Approved';
+        let kycNotifies = parseInt(localStorage.getItem('kyc_notifies_count') || '0');
+        
+        if (isKycApproved && kycNotifies < 2) {
+           popupHtml += `
+             <div id="kyc-popup" style="margin-bottom:2rem; background:rgba(16, 185, 129, 0.1); border:1px solid var(--success); padding:1rem 1.5rem; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+               <div style="display:flex; align-items:center; gap:1rem;"><i class="fa-solid fa-circle-check" style="color:var(--success); font-size:1.5rem;"></i>
+                 <div><strong style="color:var(--success)">KYC Verified Successfully</strong><br><span style="font-size:0.9rem; color:var(--text-secondary)">You can now start selling on AgroMart!</span></div>
+               </div>
+               <button onclick="document.getElementById('kyc-popup').remove(); localStorage.setItem('kyc_notifies_count', '${kycNotifies + 1}');" style="background:var(--success); color:white; border:none; padding:0.5rem 1rem; border-radius:var(--radius-md); cursor:pointer;">Close</button>
+             </div>
+           `;
+           setTimeout(() => { localStorage.setItem('kyc_notifies_count', kycNotifies + 1); }, 5000);
+        }
+
+        if (notification && (notification.message || notification.title || notification.description)) {
+           popupHtml += `
+             <div id="home-popup" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+               <div style="background:var(--surface-color); padding:2rem; border-radius:var(--radius-xl); width:90%; max-width:400px; position:relative; box-shadow:var(--shadow-lg); text-align:center; animation: slideIn 0.3s ease;">
+                  <button onclick="document.getElementById('home-popup').remove()" style="position:absolute; top:1rem; right:1.5rem; background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--text-secondary);">&times;</button>
+                  <i class="fa-solid fa-bell" style="font-size:3rem; color:var(--warning); margin-bottom:1rem;"></i>
+                  <h2 style="margin-bottom:1rem; color:var(--primary-color)">${notification.title || 'Notice'}</h2>
+                  <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:1.5rem">${notification.message || notification.description || notification.text || ''}</p>
+                  <button class="btn btn-primary" style="width:100%" onclick="document.getElementById('home-popup').remove()">OK, Got it</button>
+               </div>
+             </div>
+           `;
+        }
+
+        const renderAnimals = (list) => {
+          if(list.length === 0) return '<p class="text-secondary text-center">No animals found.</p>';
+          return list.map(a => `
+            <a href="#/animal/${a.id}" class="card" style="display:block; color:inherit;">
+              <div class="card-img-placeholder" style="background-image: url('${a.image || a.images?.[0] || 'https://placehold.co/600x400?text=No+Image'}'); background-size: cover; background-position: center; height: 160px;"></div>
+              <div class="card-content" style="padding: 0.8rem;">
+                <div style="display:flex;justify-content:space-between;align-items:start;"><h3 style="margin-bottom:0.3rem; font-size: 1rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${a.title || a.name || a.breed || 'Unknown'}</h3></div>
+                <span class="badge badge-success" style="font-size:0.7rem; margin-bottom: 0.5rem; display:inline-block">${a.category}</span>
+                <p style="color:var(--primary-color); font-weight:700; font-size:1.1rem; margin-bottom:0.3rem">Rs. ${(a.price || 0).toLocaleString()}</p>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><i class="fa-solid fa-location-dot"></i> ${a.location || 'Nepal'}</p>
+              </div>
+            </a>`).join('');
+        };
+
+        setTimeout(() => {
+          document.getElementById('search-btn')?.addEventListener('click', async () => {
+            const q = document.getElementById('search-input').value;
+            document.getElementById('latest-grid').innerHTML = renderAnimals(await marketService.getLatestAnimals({ search: q }));
+          });
+          document.querySelectorAll('.category-card').forEach(card => {
+            card.onclick = async () => {
+              document.getElementById('search-input').value = '';
+              const cat = card.getAttribute('data-cat');
+              const res = await marketService.getLatestAnimals({ category: cat });
+              document.getElementById('latest-grid').innerHTML = renderAnimals(res);
+            };
+          });
+        }, 0);
+
+        return `
+          ${popupHtml}
+          <div class="hero-slider">${bannerSlider}</div>
+          <div class="search-bar">
+            <input type="text" id="search-input" class="form-control" placeholder="Search for breeds, animals...">
+            <button id="search-btn" class="btn btn-primary"><i class="fa-solid fa-search"></i> Search</button>
+          </div>
+          <h2 style="margin-bottom:1rem">Categories</h2>
+          <div class="categories-grid">
+            ${categories.map(c => `
+              <div class="category-card" data-cat="${c}">
+                <div class="cat-icon"><i class="fa-solid fa-hippo"></i></div>
+                <span>${c}</span>
+              </div>
+            `).join('')}
+          </div>
+          <h2 style="margin-bottom:1rem">🔥 Trending Now</h2>
+          <div class="grid grid-cols-4" style="margin-bottom:2rem;">
+            ${trendingAnimals.length > 0 ? renderAnimals(trendingAnimals) : '<p class="text-secondary text-center" style="grid-column: 1 / -1;">No trending data yet.</p>'}
+          </div>
+          <h2 style="margin-bottom:1rem">🆕 Latest Animals</h2>
+          <div class="grid grid-cols-4" id="latest-grid">
+            ${renderAnimals(latestAnimals)}
+          </div>
+        `;
+      },
+
+      Login() {
+        setTimeout(() => {
+          document.getElementById('login-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Logging in...';
+            try {
+              await authService.login(document.getElementById('email').value, document.getElementById('password').value);
+              window.showAlert('Login successful'); window.location.hash = '#/';
+            } catch (err) { window.showAlert(err.message, 'error'); btn.disabled = false; btn.innerHTML = 'Login'; }
+          };
+        }, 0);
+        return `
+          <div class="auth-container">
+            <h2 class="auth-title">Welcome Back</h2>
+            <form id="login-form">
+              <div class="form-group"><label>Email Address</label><input type="email" id="email" class="form-control" placeholder="Enter your email" required></div>
+              <div class="form-group"><label>Password</label><input type="password" id="password" class="form-control" placeholder="••••••••" required></div>
+              <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <p class="text-center mt-1"><span style="color: var(--text-secondary)">Don't have an account?</span> <a href="#/register" style="color: var(--primary-color); font-weight: 600;">Register System</a></p>
+          </div>`;
+      },
+
+      Register() {
+        setTimeout(() => {
+          document.getElementById('register-form').onsubmit = async (e) => {
+            e.preventDefault();
+            if (document.getElementById('password').value !== document.getElementById('confirm-password').value) return window.showAlert("Passwords do not match", "error");
+            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Registering...';
+            try {
+              await authService.register(document.getElementById('fullname').value, document.getElementById('email').value, document.getElementById('mobile').value, document.getElementById('password').value);
+              window.showAlert('Registration successful'); window.location.hash = '#/';
+            } catch (err) { window.showAlert(err.message, 'error'); btn.disabled = false; btn.innerHTML = 'Register'; }
+          };
+        }, 0);
+        return `
+          <div class="auth-container">
+            <h2 class="auth-title">Create Account</h2>
+            <form id="register-form">
+              <div class="form-group"><label>Full Name</label><input type="text" id="fullname" class="form-control" required></div>
+              <div class="form-group"><label>Email Address</label><input type="email" id="email" class="form-control" required></div>
+              <div class="form-group"><label>Mobile Number</label><input type="tel" id="mobile" class="form-control" required></div>
+              <div class="form-group"><label>Password</label><input type="password" id="password" class="form-control" minlength="6" required></div>
+              <div class="form-group"><label>Confirm Password</label><input type="password" id="confirm-password" class="form-control" minlength="6" required></div>
+              <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+            <p class="text-center mt-1"><span style="color: var(--text-secondary)">Already have an account?</span> <a href="#/login" style="color: var(--primary-color); font-weight: 600;">Login Instead</a></p>
+          </div>`;
+      },
+
+      async AnimalDetails(id) {
+        const animal = await marketService.getAnimalDetails(id);
+        if (!animal) return `<div class="text-center mt-2"><h2>Animal not found</h2></div>`;
+        const isOwner = currentUser && animal.sellerId === currentUser.uid;
+
+        let displayImages = animal.images && animal.images.length > 0 ? animal.images : (animal.image ? [animal.image] : null);
+
+        const imagesHtml = displayImages
+          ? displayImages.map(img => `<img src="${img}" style="width:100%; border-radius: var(--radius-md); max-height:400px; object-fit:cover; margin-bottom:1rem;">`).join('')
+          : `<div style="width:100%; height:300px; background:var(--border-color); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); margin-bottom:1rem;">No Image</div>`;
+
+        return `
+          <div style="max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
+            <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:1.5rem">
+              <div>
+                <h1 style="font-size:2rem; margin-bottom:0.5rem">${animal.title || animal.name || animal.breed || animal.category}</h1>
+                <span class="badge badge-success">${animal.category || animal.animalType}</span>
+                <span class="badge badge-secondary ml-1"><i class="fa-solid fa-eye"></i> ${animal.views || 0} Views</span>
+                ${animal.status === 'sold' || animal.status === 'Sold' ? `<span class="badge badge-danger ml-1">Sold</span>` : ''}
+              </div>
+              <h2 style="color:var(--primary-color); font-size: 2rem;">Rs. ${(animal.price || 0).toLocaleString()}</h2>
+            </div>
+            ${imagesHtml}
+            <div class="grid grid-cols-2" style="margin-bottom:2rem">
+              <div>
+                <p><strong style="color:var(--text-secondary)">Age:</strong> ${animal.age || 'N/A'}</p>
+                <p><strong style="color:var(--text-secondary)">Weight:</strong> ${animal.weight || 'N/A'} kg</p>
+                <p><strong style="color:var(--text-secondary)">Gender:</strong> ${animal.gender || 'N/A'}</p>
+                <p><strong style="color:var(--text-secondary)">Color:</strong> ${animal.color || 'N/A'}</p>
+              </div>
+              <div>
+                <p><strong style="color:var(--text-secondary)">Condition:</strong> ${animal.healthCondition || 'N/A'}</p>
+                <p><strong style="color:var(--text-secondary)">Vaccinated:</strong> ${animal.vaccinationStatus || 'No'}</p>
+                <p><strong style="color:var(--text-secondary)">Location:</strong> ${animal.location || 'N/A'}</p>
+                <p><strong style="color:var(--text-secondary)">Negotiable:</strong> ${animal.negotiable === 'Yes' ? 'Yes' : 'No'}</p>
+              </div>
+            </div>
+            <div>
+              <h3 style="margin-bottom:0.5rem">Description</h3>
+              <p style="color:var(--text-secondary); line-height:1.6">${animal.description || 'No description provided.'}</p>
+            </div>
+            <hr style="border:0; border-top:1px solid var(--border-color); margin: 2rem 0;">
+            <div style="display:flex; gap:1rem;">
+              ${!isOwner ? `<button class="btn btn-primary" style="flex:1" onclick="window.location.href='tel:${animal.sellerPhone || animal.sellerContact || ''}'"><i class="fa-solid fa-phone"></i> Contact Seller (${animal.sellerPhone || 'N/A'})</button>` : `<div class="alert success" style="width:100%; border:none; margin:0; background:rgba(16, 185, 129, 0.1); color:var(--success);">This is your listing. Edit in My Listings.</div>`}
+            </div>
+          </div>`;
+      },
+
+      async Sell() {
+        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login" style="color:var(--primary-color)">Login</a> to sell animals.</h2></div>`;
+        const kycStatus = currentProfile?.kycStatus || 'Not Submitted';
+        if (kycStatus === 'Not Submitted' || kycStatus === 'Rejected') return `<div class="auth-container text-center"><i class="fa-solid fa-id-card" style="font-size:3rem; color:var(--text-secondary); margin-bottom:1rem;"></i><h2 style="margin-bottom:1rem">KYC Required</h2><p style="color:var(--text-secondary); margin-bottom:2rem">You must complete your KYC verification before you can post animals for sale.</p><a href="#/kyc" class="btn btn-primary">Complete KYC Now</a></div>`;
+        if (kycStatus === 'Pending' || kycStatus === 'pending') return `<div class="auth-container text-center"><i class="fa-solid fa-clock-rotate-left" style="font-size:3rem; color:var(--warning); margin-bottom:1rem;"></i><h2 style="margin-bottom:1rem">KYC Under Review</h2><p style="color:var(--text-secondary)">Your KYC application is currently being reviewed by our team. You can sell once it is approved.</p></div>`;
+        
+        const categories = await marketService.getCategories();
+
+        setTimeout(() => {
+          document.getElementById('sell-form').onsubmit = async(e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Posting...';
+            try {
+              let photoHtml = 'https://placehold.co/600x400/10B981/FFF?text=Animal+Photo';
+              // Check if any url was uploaded in custom field (optional native implementation simulation)
+              const photoInput = document.getElementById('tempPhotoUrl')?.value;
+              if (photoInput && photoInput.startsWith('http')) photoHtml = photoInput;
+
+              const docData = {
+                sellerId: currentUser.uid, 
+                sellerPhone: document.getElementById('contactPhone').value,
+                category: document.getElementById('animalType').value, 
+                title: document.getElementById('breed').value,
+                name: document.getElementById('breed').value, // match admin panel
+                gender: document.getElementById('gender').value, 
+                age: document.getElementById('age').value,
+                weight: document.getElementById('weight').value, 
+                color: document.getElementById('color').value,
+                healthCondition: document.getElementById('health').value, 
+                vaccinationStatus: document.getElementById('vaccination').value,
+                price: Number(document.getElementById('price').value), 
+                negotiable: document.getElementById('negotiable').value,
+                location: `${document.getElementById('mun').value}, ${document.getElementById('dist').value}`,
+                description: document.getElementById('desc').value,
+                image: photoHtml,
+                images: [photoHtml]
+              };
+              await marketService.postAnimal(docData);
+              window.showAlert("Animal posted successfully!"); window.location.hash = '#/my-listings';
+            } catch (err) { window.showAlert("Failed to post animal: " + err.message, "error"); btn.disabled = false; btn.innerHTML = 'Post Listing'; }
+          };
+        }, 0);
+
+        return `
+          <div style="max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
+            <h2 style="margin-bottom:2rem; font-size:1.8rem"><i class="fa-solid fa-plus-circle"></i> Add Animal for Sale</h2>
+            <form id="sell-form">
+              <h3 style="margin-bottom:1rem; color:var(--primary-color)">Animal Info</h3>
+              <div class="grid grid-cols-2">
+                <div class="form-group"><label>Animal Category</label><select id="animalType" class="form-control" required>${categories.map(c=>`<option>${c}</option>`).join('')}</select></div>
+                <div class="form-group"><label>Breed / Title</label><input type="text" id="breed" class="form-control" maxlength="30" placeholder="Max 30 chars" required></div>
+                <div class="form-group"><label>Gender</label><select id="gender" class="form-control" required><option>Male</option><option>Female</option></select></div>
+                <div class="form-group"><label>Age</label><input type="text" id="age" class="form-control" placeholder="e.g. 2 years" required></div>
+                <div class="form-group"><label>Weight (kg)</label><input type="number" id="weight" class="form-control" required></div>
+                <div class="form-group"><label>Color</label><input type="text" id="color" class="form-control"></div>
+                <div class="form-group"><label>Health Condition</label><input type="text" id="health" class="form-control" placeholder="e.g. Healthy" required></div>
+                <div class="form-group"><label>Vaccination Status</label><select id="vaccination" class="form-control" required><option>Yes</option><option>No</option></select></div>
+              </div>
+              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Pricing Details</h3>
+              <div class="grid grid-cols-2">
+                <div class="form-group"><label>Price (Rs.)</label><input type="number" id="price" class="form-control" required></div>
+                <div class="form-group"><label>Negotiable</label><select id="negotiable" class="form-control" required><option>Yes</option><option>No</option></select></div>
+              </div>
+              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Contact & Location Details</h3>
+              <div class="grid grid-cols-2">
+                <div class="form-group"><label>Contact Number</label><input type="tel" id="contactPhone" class="form-control" value="${currentProfile?.phone || currentProfile?.mobileNumber || ''}" required></div>
+                <div class="form-group"><label>District</label><input type="text" id="dist" class="form-control" required></div>
+                <div class="form-group"><label>Municipality</label><input type="text" id="mun" class="form-control" required></div>
+              </div>
+              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Photo Upload</h3>
+              <div class="form-group"><label>Attach public Google Drive / ImgBB URL (Optional)</label><input type="text" id="tempPhotoUrl" class="form-control" placeholder="https://i.ibb.co/123/img.jpg"></div>
+              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Additional Info</h3>
+              <div class="form-group"><label>Description</label><textarea id="desc" class="form-control" rows="4" maxlength="1000" placeholder="Max 1000 characters"></textarea></div>
+              <button type="submit" id="submit-btn" class="btn btn-primary" style="margin-top:2rem; width:100%; font-size:1.1rem">Post Listing</button>
+            </form>
+          </div>`;
+      },
+
+      async Kyc() {
+        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login" style="color:var(--primary-color)">Login</a> to complete KYC.</h2></div>`;
+        const currentStatus = await kycService.getKycStatus(currentUser.uid);
+        if (currentStatus === 'Pending' || currentStatus === 'pending') return `<div class="auth-container text-center"><i class="fa-solid fa-hourglass-half" style="font-size:3rem; color:var(--warning); margin-bottom:1rem;"></i><h2>KYC Status: Pending</h2><p style="color:var(--text-secondary); margin-top:1rem;">Your submitted documents are under verification. Please wait.</p><a href="#/profile" class="btn btn-outline mt-2">Go to Profile</a></div>`;
+        if (currentStatus === 'Approved' || currentStatus === 'approved') return `<div class="auth-container text-center"><i class="fa-solid fa-circle-check" style="font-size:3rem; color:var(--success); margin-bottom:1rem;"></i><h2>KYC Verified</h2><p style="color:var(--text-secondary); margin-top:1rem;">Congratulations! You are a verified seller.</p><a href="#/sell" class="btn btn-primary mt-2">Start Selling</a></div>`;
+
+        setTimeout(() => {
+          document.getElementById('kyc-form').addEventListener('submit', async(e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Submitting...';
+            try {
+              const kycData = {
+                 userId: currentUser.uid,
+                 name: document.getElementById('k_fname').value,
+                 phone: document.getElementById('k_phone').value,
+                 citizenship: document.getElementById('k_cit_no').value,
+                 address: `${document.getElementById('k_ward').value}, ${document.getElementById('k_mun').value}, ${document.getElementById('k_dist').value}, ${document.getElementById('k_prov').value}`,
+                 citizenshipFrontUrl: document.getElementById('u_front')?.value || 'https://placehold.co/300x200?text=Front',
+                 citizenshipBackUrl: document.getElementById('u_back')?.value || 'https://placehold.co/300x200?text=Back',
+                 selfieUrl: document.getElementById('u_selfie')?.value || 'https://placehold.co/300x200?text=Selfie',
+                 
+                 // extended schema properties
+                 fatherName: document.getElementById('k_father').value,
+                 grandfatherName: document.getElementById('k_gfather').value,
+                 dob: document.getElementById('k_dob').value,
+                 gender: document.getElementById('k_gender').value,
+                 issueDate: document.getElementById('k_cit_date').value, 
+                 issueDistrict: document.getElementById('k_cit_dist').value,
+              };
+              await kycService.submitKyc(currentUser.uid, kycData);
+              window.showAlert("KYC Application Submitted Successfully!"); window.location.hash = '#/profile';
+            } catch (err) { window.showAlert("Submission failed: " + err.message, "error"); btn.disabled = false; btn.innerHTML = 'Submit KYC'; }
+          });
+        }, 0);
+
+        return `
+          <div style="max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
+            <h2 style="text-align:center; margin-bottom:2rem; font-size:1.8rem"><i class="fa-solid fa-id-card-clip"></i> KYC Verification</h2>
+            ${currentStatus === 'Rejected' ? `<div class="alert error" style="margin-bottom:2rem">Your previous KYC application was rejected. Please review your details and resubmit.</div>` : ''}
+            <form id="kyc-form">
+              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
+                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-user"></i> Step 1: Personal Details</h3>
+                <div class="grid grid-cols-2">
+                  <div class="form-group"><label>Full Name</label><input type="text" id="k_fname" value="${currentProfile?.name || currentProfile?.fullName || ''}" class="form-control" required></div>
+                  <div class="form-group"><label>Mobile Number</label><input type="text" id="k_phone" value="${currentProfile?.phone || currentProfile?.mobileNumber || ''}" class="form-control" required></div>
+                  <div class="form-group"><label>Date of Birth</label><input type="date" id="k_dob" class="form-control" required></div>
+                  <div class="form-group"><label>Gender</label><select id="k_gender" class="form-control" required><option>Male</option><option>Female</option><option>Other</option></select></div>
+                  <div class="form-group"><label>Father's Name</label><input type="text" id="k_father" class="form-control" required></div>
+                  <div class="form-group"><label>Grandfather's Name</label><input type="text" id="k_gfather" class="form-control" required></div>
+                </div>
+              </div>
+              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
+                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-address-card"></i> Step 2: Citizenship Details</h3>
+                <div class="grid grid-cols-2">
+                  <div class="form-group"><label>Citizenship Number</label><input type="text" id="k_cit_no" class="form-control" required></div>
+                  <div class="form-group"><label>Issue Date</label><input type="date" id="k_cit_date" class="form-control" required></div>
+                  <div class="form-group"><label>Issue District</label><input type="text" id="k_cit_dist" class="form-control" required></div>
+                </div>
+              </div>
+              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
+                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-location-crosshairs"></i> Step 3: Current Address</h3>
+                <div class="grid grid-cols-2">
+                  <div class="form-group"><label>Province</label><input type="text" id="k_prov" class="form-control" required></div>
+                  <div class="form-group"><label>District</label><input type="text" id="k_dist" class="form-control" required></div>
+                  <div class="form-group"><label>Municipality</label><input type="text" id="k_mun" class="form-control" required></div>
+                  <div class="form-group"><label>Ward No</label><input type="number" id="k_ward" class="form-control" required></div>
+                </div>
+              </div>
+              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
+                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-camera"></i> Step 4: Documents (ImgBB URLs)</h3>
+                <div class="form-group"><label>Citizenship Front Photo URL</label><input type="text" id="u_front" class="form-control" placeholder="Optional public URL"></div>
+                <div class="form-group"><label>Citizenship Back Photo URL</label><input type="text" id="u_back" class="form-control" placeholder="Optional public URL"></div>
+                <div class="form-group"><label>Selfie Image URL</label><input type="text" id="u_selfie" class="form-control" placeholder="Optional public URL"></div>
+              </div>
+              <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; font-size:1.2rem; padding:1rem">Submit KYC</button>
+            </form>
+          </div>`;
+      },
+
+      Settings() {
+        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login" style="color:var(--primary-color)">Login</a>.</h2></div>`;
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        const notifAlerts = localStorage.getItem('notif_listing') !== 'false';
+        const notifUpdates = localStorage.getItem('notif_updates') !== 'false';
+
+        const openModal = (html) => {
+          const existing = document.getElementById('settings-modal');
+          if(existing) existing.remove();
+          const el = document.createElement('div');
+          el.id = 'settings-modal';
+          el.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);';
+          el.innerHTML = `<div style="background:var(--surface-color);padding:2rem;border-radius:var(--radius-xl);width:100%;max-width:420px;box-shadow:var(--shadow-lg);position:relative;animation:slideIn 0.2s ease;">${html}</div>`;
+          document.body.appendChild(el);
+        };
+        const closeModal = () => { document.getElementById('settings-modal')?.remove(); };
+
+        setTimeout(() => {
+          // Logout
+          document.getElementById('logout-btn')?.addEventListener('click', async () => {
+            await authService.logout(); window.showAlert("Logged out safely."); window.location.hash = '#/login';
+          });
+          // Dark mode
+          document.getElementById('theme-toggle')?.addEventListener('change', (e) => {
+            localStorage.setItem('darkMode', e.target.checked);
+            if(e.target.checked) document.documentElement.setAttribute('data-theme','dark');
+            else document.documentElement.removeAttribute('data-theme');
+          });
+          // Notification toggles
+          document.getElementById('notif-alerts-toggle')?.addEventListener('change', (e) => {
+            localStorage.setItem('notif_listing', e.target.checked);
+            window.showAlert(e.target.checked ? 'Listing alerts enabled' : 'Listing alerts disabled');
+          });
+          document.getElementById('notif-updates-toggle')?.addEventListener('change', (e) => {
+            localStorage.setItem('notif_updates', e.target.checked);
+            window.showAlert(e.target.checked ? 'Update notifications enabled' : 'Update notifications disabled');
+          });
+          // Update Name
+          document.getElementById('s-update-name')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-user-pen" style="color:var(--primary-color)"></i> Update Name</h3>
+              <div class="form-group"><label>Full Name</label><input type="text" id="m-name" class="form-control" value="${currentProfile?.name || ''}"></div>
+              <div style="display:flex;gap:1rem;margin-top:1rem">
+                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1" id="m-save-name">Save</button>
+              </div>`);
+            document.getElementById('m-save-name').onclick = async () => {
+              const val = document.getElementById('m-name').value.trim();
+              if(!val) return window.showAlert('Name cannot be empty','error');
+              await update(ref(db,'users/'+currentUser.uid),{name:val});
+              currentProfile.name = val; closeModal();
+              window.showAlert('Name updated successfully');
+              document.getElementById('nav-links-container').innerHTML = '';
+              renderNav();
+            };
+          });
+          // Update Profile Photo
+          document.getElementById('s-update-photo')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-camera" style="color:var(--primary-color)"></i> Update Profile Photo</h3>
+              <div class="form-group"><label>Photo URL (ImgBB / Google Drive public link)</label><input type="text" id="m-photo" class="form-control" placeholder="https://i.ibb.co/..." value="${currentProfile?.photoUrl || ''}"></div>
+              <div style="display:flex;gap:1rem;margin-top:1rem">
+                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1" id="m-save-photo">Save</button>
+              </div>`);
+            document.getElementById('m-save-photo').onclick = async () => {
+              const val = document.getElementById('m-photo').value.trim();
+              if(!val || !val.startsWith('http')) return window.showAlert('Please enter a valid URL','error');
+              await update(ref(db,'users/'+currentUser.uid),{photoUrl:val});
+              currentProfile.photoUrl = val; closeModal();
+              window.showAlert('Profile photo updated');
+            };
+          });
+          // Update Address
+          document.getElementById('s-update-address')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-location-dot" style="color:var(--primary-color)"></i> Update Address</h3>
+              <div class="form-group"><label>Province</label><input type="text" id="m-prov" class="form-control" value="${currentProfile?.province || ''}"></div>
+              <div class="form-group"><label>District</label><input type="text" id="m-dist" class="form-control" value="${currentProfile?.district || ''}"></div>
+              <div class="form-group"><label>Municipality</label><input type="text" id="m-mun" class="form-control" value="${currentProfile?.municipality || ''}"></div>
+              <div class="form-group"><label>Ward No</label><input type="number" id="m-ward" class="form-control" value="${currentProfile?.ward || ''}"></div>
+              <div style="display:flex;gap:1rem;margin-top:1rem">
+                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1" id="m-save-address">Save</button>
+              </div>`);
+            document.getElementById('m-save-address').onclick = async () => {
+              const prov=document.getElementById('m-prov').value, dist=document.getElementById('m-dist').value, mun=document.getElementById('m-mun').value, ward=document.getElementById('m-ward').value;
+              if(!dist||!mun) return window.showAlert('District and Municipality required','error');
+              const loc = `${mun}-${ward}, ${dist}, ${prov}`;
+              await update(ref(db,'users/'+currentUser.uid),{province:prov,district:dist,municipality:mun,ward,location:loc});
+              Object.assign(currentProfile,{province:prov,district:dist,municipality:mun,ward,location:loc});
+              closeModal(); window.showAlert('Address updated');
+            };
+          });
+          // Change Password
+          document.getElementById('s-change-pass')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-lock" style="color:var(--primary-color)"></i> Change Password</h3>
+              <div class="form-group"><label>New Password</label><input type="password" id="m-newpass" class="form-control" placeholder="Min 6 characters" minlength="6"></div>
+              <div class="form-group"><label>Confirm New Password</label><input type="password" id="m-confirmpass" class="form-control" minlength="6"></div>
+              <div style="display:flex;gap:1rem;margin-top:1rem">
+                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1" id="m-save-pass">Update</button>
+              </div>`);
+            document.getElementById('m-save-pass').onclick = async () => {
+              const np = document.getElementById('m-newpass').value, cp = document.getElementById('m-confirmpass').value;
+              if(np.length < 6) return window.showAlert('Password must be at least 6 characters','error');
+              if(np !== cp) return window.showAlert('Passwords do not match','error');
+              try {
+                const { updatePassword } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
+                await updatePassword(currentUser, np);
+                closeModal(); window.showAlert('Password changed successfully');
+              } catch(err) { window.showAlert('Error: ' + err.message, 'error'); }
+            };
+          });
+          // Update Location (simplified)
+          document.getElementById('s-update-location')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-map-pin" style="color:var(--primary-color)"></i> Update Location</h3>
+              <div class="form-group"><label>Current Location (City/District)</label><input type="text" id="m-location" class="form-control" placeholder="e.g. Kathmandu, Bagmati" value="${currentProfile?.location || ''}"></div>
+              <div style="display:flex;gap:1rem;margin-top:1rem">
+                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1" id="m-save-location">Save</button>
+              </div>`);
+            document.getElementById('m-save-location').onclick = async () => {
+              const val = document.getElementById('m-location').value.trim();
+              if(!val) return window.showAlert('Location required','error');
+              await update(ref(db,'users/'+currentUser.uid),{location:val});
+              currentProfile.location = val; closeModal(); window.showAlert('Location updated');
+            };
+          });
+          // FAQ
+          document.getElementById('s-faq')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-circle-question" style="color:var(--primary-color)"></i> Frequently Asked Questions</h3>
+              <div style="display:flex;flex-direction:column;gap:1rem;max-height:350px;overflow-y:auto;">
+                ${[['How do I sell an animal?','Complete your KYC verification, then go to the Sell section and fill in the details.'],['How does KYC work?','Submit your personal details and citizenship documents. Our team verifies within 24-48 hours.'],['Can I edit my listing?','Go to My Listings and click Mark Sold or Delete. Re-list to update details.'],['How does payment work?','Payments are handled directly between buyer and seller. AgroMart does not process payments.'],['How do I contact a seller?','Click on any listing and tap the Contact Seller button to dial them directly.']].map(([q,a])=>`<div style="border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1rem;"><strong>${q}</strong><p style="color:var(--text-secondary);margin-top:0.5rem;font-size:0.9rem;">${a}</p></div>`).join('')}
+              </div>
+              <button class="btn btn-primary" style="width:100%;margin-top:1.5rem" onclick="document.getElementById('settings-modal').remove()">Close</button>`);
+          });
+          // Contact Support
+          document.getElementById('s-contact')?.addEventListener('click', () => {
+            openModal(`
+              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-headset" style="color:var(--primary-color)"></i> Contact Support</h3>
+              <div class="form-group"><label>Subject</label><input type="text" id="m-subject" class="form-control" placeholder="Brief description of issue"></div>
+              <div class="form-group"><label>Message</label><textarea id="m-message" class="form-control" rows="4" placeholder="Describe your issue..."></textarea></div>
+              <div style="display:flex;gap:1rem;margin-top:1rem">
+                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1" id="m-send-support">Send</button>
+              </div>`);
+            document.getElementById('m-send-support').onclick = async () => {
+              const subject = document.getElementById('m-subject').value.trim();
+              const message = document.getElementById('m-message').value.trim();
+              if(!subject||!message) return window.showAlert('Please fill all fields','error');
+              const newRef = push(ref(db,'support'));
+              await set(newRef,{userId:currentUser.uid,name:currentProfile?.name||'',email:currentProfile?.email||'',subject,message,timestamp:Date.now(),status:'open'});
+              closeModal(); window.showAlert('Support ticket submitted! We will respond via email.');
+            };
+          });
+        }, 0);
+
+        return `
+          <div id="settings-modal-host"></div>
+          <div style="max-width: 600px; margin: 0 auto;">
+            <h2 style="margin-bottom:2rem; font-size:1.8rem"><i class="fa-solid fa-gear"></i> Settings</h2>
+            
+            <div class="settings-section">
+               <div class="settings-header">🌙 App Settings</div>
+               <div class="settings-item"><span>Dark Mode</span><label class="toggle-switch"><input type="checkbox" id="theme-toggle" ${isDark ? 'checked' : ''}><span class="slider"></span></label></div>
+               <div class="settings-item"><span>Language</span><span style="font-size:0.9rem;color:var(--text-secondary)">English 🇬🇧</span></div>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">👤 Profile Settings</div>
+               <div class="settings-item" id="s-update-name"><span><i class="fa-solid fa-user-pen" style="width:20px;color:var(--primary-color)"></i> Update Name</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+               <div class="settings-item" id="s-update-photo"><span><i class="fa-solid fa-camera" style="width:20px;color:var(--primary-color)"></i> Update Profile Photo</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+               <div class="settings-item" id="s-update-address"><span><i class="fa-solid fa-location-dot" style="width:20px;color:var(--primary-color)"></i> Update Address</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">🪪 KYC Settings</div>
+               <a href="#/kyc" class="settings-item"><span><i class="fa-solid fa-id-card" style="width:20px;color:var(--primary-color)"></i> Complete KYC / Resubmit</span><span class="badge badge-${currentProfile?.kycStatus === 'Approved' ? 'success' : currentProfile?.kycStatus === 'Pending' ? 'warning' : 'danger'}">${currentProfile?.kycStatus || 'Not Submitted'}</span></a>
+               <a href="#/kyc" class="settings-item"><span><i class="fa-solid fa-eye" style="width:20px;color:var(--primary-color)"></i> View KYC Status</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></a>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">🔐 Security</div>
+               <div class="settings-item" id="s-change-pass"><span><i class="fa-solid fa-lock" style="width:20px;color:var(--primary-color)"></i> Change Password</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">🔔 Notification Settings</div>
+               <div class="settings-item"><span><i class="fa-solid fa-bell" style="width:20px;color:var(--primary-color)"></i> Listing Alerts</span><label class="toggle-switch"><input type="checkbox" id="notif-alerts-toggle" ${notifAlerts ? 'checked' : ''}><span class="slider"></span></label></div>
+               <div class="settings-item"><span><i class="fa-solid fa-rotate" style="width:20px;color:var(--primary-color)"></i> App Updates</span><label class="toggle-switch"><input type="checkbox" id="notif-updates-toggle" ${notifUpdates ? 'checked' : ''}><span class="slider"></span></label></div>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">📍 Location Settings</div>
+               <div class="settings-item" id="s-update-location"><span><i class="fa-solid fa-map-pin" style="width:20px;color:var(--primary-color)"></i> Update Location</span><span style="font-size:0.85rem;color:var(--text-secondary);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${currentProfile?.location || 'Not set'}</span></div>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">🧾 Help & Support</div>
+               <div class="settings-item" id="s-faq"><span><i class="fa-solid fa-circle-question" style="width:20px;color:var(--primary-color)"></i> FAQ</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+               <div class="settings-item" id="s-contact"><span><i class="fa-solid fa-headset" style="width:20px;color:var(--primary-color)"></i> Contact Support</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+            </div>
+
+            <div class="settings-section">
+               <div class="settings-header">📊 Activity History</div>
+               <a href="#/my-listings" class="settings-item"><span><i class="fa-solid fa-list" style="width:20px;color:var(--primary-color)"></i> My Listings History</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></a>
+            </div>
+
+            <button id="logout-btn" class="btn btn-danger" style="width:100%; font-size:1.1rem; padding:1rem; margin-top:1rem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+            <div style="height: 40px"></div>
+          </div>`;
+      },
+
+
+
+      async MyListings() {
+        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login">Login</a> to view your listings.</h2></div>`;
+        const listings = await userService.getMyListings(currentUser.uid);
+        const getStatusBadge = (status) => {
+          if (status === 'active' || status === 'Active') return `<span class="badge badge-success">Active</span>`;
+          if (status === 'sold' || status === 'Sold') return `<span class="badge badge-warning">Sold</span>`;
+          if (status === 'expired' || status === 'Expired') return `<span class="badge badge-danger">Expired</span>`;
+          return `<span class="badge badge-secondary">${status}</span>`;
+        };
+
+        setTimeout(() => {
+          document.querySelectorAll('.mark-sold').forEach(btn => btn.addEventListener('click', async () => {
+              if(confirm("Mark this animal as sold?")) { await userService.updateListingStatus(btn.dataset.id, 'sold'); window.showAlert("Updated successfully"); window.location.reload(); }
+          }));
+          document.querySelectorAll('.btn-delete').forEach(btn => btn.addEventListener('click', async () => {
+              if(confirm("Delete this listing?")) { await userService.deleteListing(btn.dataset.id); window.showAlert("Deleted successfully"); window.location.reload(); }
+          }));
+        }, 0);
+
+        return `
+          <div style="max-width: 800px; margin: 0 auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
+              <h2><i class="fa-solid fa-list"></i> My Listings</h2>
+              <a href="#/sell" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New</a>
+            </div>
+            <div class="grid grid-cols-2">
+              ${listings.length === 0 ? `<div class="card" style="padding:2rem; text-align:center"><p class="text-secondary">You have no listings yet.</p> <a href="#/sell" class="btn btn-primary mt-1">Post one now</a></div>` : listings.map(l => `
+                <div class="card" style="display:flex; flex-direction:column; padding:1.5rem; gap:1rem;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;"><h3 style="font-size:1.2rem">${l.title || l.breed || l.animalType} <span style="font-size:0.9rem; font-weight:normal; color:var(--text-secondary)">- ${l.category || l.animalType}</span></h3>${getStatusBadge(l.displayStatus)}</div>
+                  <div style="display:flex; gap:1rem;"><img src="${l.image || l.images?.[0] || 'https://placehold.co/100x100?text=No+Img'}" style="width:80px; height:80px; border-radius:var(--radius-md); object-fit:cover;">
+                     <div style="flex:1"><p style="color:var(--primary-color); font-weight:bold; margin-bottom:0.3rem">Rs. ${l.price}</p><p style="font-size:0.9rem; color:var(--text-secondary)">Posted on: ${new Date(l.timestamp||0).toLocaleDateString()}</p></div>
+                  </div>
+                  <hr style="border:0; border-top:1px solid var(--border-color)">
+                  <div style="display:flex; justify-content:space-between; gap:1rem">
+                     ${l.displayStatus === 'active' || l.displayStatus === 'Active' ? `<button class="btn btn-outline mark-sold" data-id="${l.id}" style="flex:1">Mark Sold</button>` : '<span></span>'}
+                     <button class="btn btn-danger btn-delete" data-id="${l.id}" style="flex:1">Delete</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>`;
+      },
+
+      Profile() {
+        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login">Login</a>.</h2></div>`;
+        return `
+          <div style="max-width: 600px; margin: 0 auto; background: var(--surface-color); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); overflow: hidden;">
+            <div style="background: linear-gradient(135deg, var(--primary-color) 0%, #047857 100%); height: 120px;"></div>
+            <div style="padding: 2rem; position: relative; text-align: center;">
+              <div style="width: 100px; height: 100px; background: var(--surface-color); border-radius: 50%; box-shadow: var(--shadow-sm); margin: -70px auto 1rem; border: 4px solid var(--surface-color); display:flex; align-items:center; justify-content:center; font-size:3rem; color:var(--text-secondary)"><i class="fa-solid fa-user"></i></div>
+              <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem">${currentProfile?.name || currentProfile?.fullName || 'User'}</h2>
+              <p style="color:var(--text-secondary); margin-bottom: 1rem;"><i class="fa-solid fa-phone"></i> ${currentProfile?.phone || currentProfile?.mobileNumber || ''}</p>
+              <div style="margin-bottom: 2rem;"><span class="badge badge-${(currentProfile?.kycStatus === 'Approved' || currentProfile?.kycStatus === 'approved') ? 'success' : 'warning'}">KYC: ${currentProfile?.kycStatus || 'Not Submitted'}</span></div>
+            </div>
+          </div>`;
+      }
+    };
+
+    const renderNav = () => {
+      document.getElementById('nav-links-container').innerHTML = currentUser 
+        ? `<a href="#/" class="nav-link">Home</a> <a href="#/sell" class="btn btn-primary">Sell</a> <a href="#/my-listings" class="nav-link">My Listings</a> <a href="#/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>`
+        : `<a href="#/" class="nav-link">Home</a> <a href="#/login" class="nav-link">Login</a> <a href="#/register" class="btn btn-primary">Register</a>`;
+    };
+
+    const router = async () => {
+      const path = window.location.hash.slice(1) || '/';
+      const root = document.getElementById('app-root');
+      root.innerHTML = '<div class="text-center mt-2"><div class="loader"></div></div>';
+      
+      document.querySelectorAll('.bottom-nav-link').forEach(link => {
+         if (link.getAttribute('data-path') === path) link.classList.add('active');
+         else link.classList.remove('active');
+      });
+
+      try {
+        if(path === '/') root.innerHTML = await views.Home();
+        else if(path === '/login') root.innerHTML = views.Login();
+        else if(path === '/register') root.innerHTML = views.Register();
+        else if(path === '/sell') root.innerHTML = await views.Sell();
+        else if(path === '/profile') root.innerHTML = views.Profile();
+        else if(path === '/kyc') root.innerHTML = await views.Kyc();
+        else if(path === '/settings') root.innerHTML = views.Settings();
+        else if(path === '/my-listings') root.innerHTML = await views.MyListings();
+        else if(path.startsWith('/animal/')) root.innerHTML = await views.AnimalDetails(path.split('/')[2]);
+        else root.innerHTML = '<h2>404 Not Found</h2>';
+      } catch(e) {
+        console.error(e);
+        root.innerHTML = '<div class="alert error">Error rendering view</div>';
+      }
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if(user) {
+        try {
+          const snap = await get(ref(db, 'users/' + user.uid));
+          if(snap.exists()) currentProfile = snap.val();
+        } catch(e) {
+          console.error("Failed to load profile", e);
+        }
+      } else { currentProfile = null; }
+      renderNav();
+      router();
+    });
+
+    window.addEventListener('hashchange', router);
+    if(localStorage.getItem('darkMode') === 'true') document.documentElement.setAttribute('data-theme', 'dark');
+
+  </script>
+</body>
+</html>
