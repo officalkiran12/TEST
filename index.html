@@ -1,1032 +1,1742 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Livestock Marketplace</title>
-  <!-- Google Fonts & FontAwesome -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    :root {
-      --primary-color: #10B981;
-      --primary-hover: #059669;
-      --secondary-color: #3b82f6;
-      --bg-color: #f8fafc;
-      --surface-color: #ffffff;
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
-      --border-color: #e2e8f0;
-      --danger: #ef4444;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-      --radius-md: 0.5rem;
-      --radius-lg: 1rem;
-      --radius-xl: 1.5rem;
-      --transition-fast: 0.2s ease;
+    <!-- === CRITICAL SEO META TAGS === -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- Primary Title & Description -->
+    <title>National Job Service Nepal 🇳🇵 | Find Government & Private Sector Jobs | 10,000+ Live Listings</title>
+    <meta name="description" content="Nepal's fastest growing job portal with 10,000+ real-time job listings. Find government jobs, private sector positions, remote work, and international opportunities. Updated every 30 minutes.">
+    <meta name="keywords" content="Nepal jobs, government jobs Nepal, private sector jobs, remote jobs Nepal, job search Nepal, career Nepal, employment Nepal, job portal Nepal, नेपाल नोकरी, सरकारी नोकरी नेपाल">
+    
+    <!-- Open Graph Tags for Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://127.0.0.1:8000/nepal">
+    <meta property="og:title" content="National Job Service Nepal - Find Your Dream Job">
+    <meta property="og:description" content="10,000+ live job listings from Nepal. Government jobs, private sector, and remote opportunities. Real-time updates every 30 minutes.">
+    <meta property="og:image" content="http://127.0.0.1:8000/frontend/assets/nepal-og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ne_NP">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="National Job Service Nepal - 10,000+ Live Jobs">
+    <meta name="twitter:description" content="Real-time job listings from government and private sectors. Find your next opportunity in Nepal.">
+    <meta name="twitter:image" content="http://127.0.0.1:8000/frontend/assets/nepal-twitter-image.png">
+    <meta name="twitter:creator" content="@nationaljobservice">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://127.0.0.1:8000/nepal">
+    
+    <!-- Alternate Language Versions -->
+    <link rel="alternate" hreflang="en" href="http://127.0.0.1:8000/nepal">
+    <link rel="alternate" hreflang="ne" href="http://127.0.0.1:8000/nepal?lang=ne">
+    <link rel="alternate" hreflang="x-default" href="http://127.0.0.1:8000">
+    
+    <!-- Search Engine Verification -->
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+    <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="author" content="National Job Service Portal">
+    <meta name="publisher" content="National Job Service">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English, Nepali">
+    <meta name="revisit-after" content="3 days">
+    <meta name="rating" content="general">
+    <meta name="copyright" content="© 2026 National Job Service Nepal. All rights reserved.">
+    
+    <!-- Mobile & Accessibility -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="National Job Service">
+    <meta name="theme-color" content="#DC143C">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CclipPath id='nepal'%3E%3Cpolygon points='5,0 95,0 95,35 85,35 85,60 75,60 75,85 65,85 65,100 5,100'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url(%23nepal)'%3E%3Crect width='100' height='100' fill='%23DC143C'/%3E%3Crect x='3' y='3' width='94' height='94' fill='none' stroke='%23003399' stroke-width='6'/%3E%3Cpath d='M50 25 Q60 40 50 55 Q40 40 50 25Z' fill='white'/%3E%3Ccircle cx='50' cy='70' r='12' fill='white'/%3E%3Cline x1='50' y1='58' x2='50' y2='82' stroke='%23DC143C' stroke-width='2'/%3E%3Cline x1='38' y1='70' x2='62' y2='70' stroke='%23DC143C' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect fill='%23DC143C' width='180' height='180'/%3E%3C/svg%3E">
+    
+    <!-- JSON-LD Structured Data for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "JobBoard",
+      "name": "National Job Service Nepal",
+      "description": "Official employment portal providing real-time job listings from government and private sectors",
+      "url": "http://127.0.0.1:8000/nepal",
+      "logo": "http://127.0.0.1:8000/frontend/assets/logo.png",
+      "image": "http://127.0.0.1:8000/frontend/assets/nepal-og-image.png",
+      "sameAs": [
+        "https://www.facebook.com/nationaljobservice",
+        "https://www.twitter.com/nationaljobservice",
+        "https://www.linkedin.com/company/national-job-service"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "support@nationaljobservice.np",
+        "availableLanguage": ["en", "ne"]
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Nepal"
+      },
+      "jobLocationsPerPage": 10000,
+      "dateModified": "2026-05-24"
     }
-    [data-theme="dark"] {
-      --bg-color: #0f172a;
-      --surface-color: #1e293b;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --border-color: #334155;
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+    </script>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "National Job Service Nepal",
+      "alternateName": "नेपाल नोकरी सेवा",
+      "url": "http://127.0.0.1:8000/nepal",
+      "logo": "http://127.0.0.1:8000/frontend/assets/logo.png",
+      "description": "Nepal's official government job portal with real-time listings",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "NP",
+        "addressRegion": "Kathmandu",
+        "streetAddress": "Lalitpur"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "support@nationaljobservice.np",
+        "telephone": "+977-1-5XXXXXXX"
+      },
+      "foundingDate": "2024",
+      "foundingLocation": "Kathmandu, Nepal"
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast); }
-    body { background-color: var(--bg-color); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
-    a { text-decoration: none; color: inherit; cursor: pointer; }
-    ul { list-style: none; }
+    </script>
     
-    /* Navbar */
-    .glass-nav { position: sticky; top: 0; z-index: 50; background: rgba(var(--surface-color), 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); }
-    .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-link { font-weight: 500; color: var(--text-secondary); transition: color var(--transition-fast); }
-    .nav-link:hover { color: var(--primary-color); }
-    
-    .btn { padding: 0.5rem 1.2rem; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all var(--transition-fast); }
-    .btn-primary { background: linear-gradient(135deg, var(--primary-color) 0%, #047857 100%); color: white; box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
-    .btn-outline { background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); }
-    .btn-outline:hover { background: var(--primary-color); color: white; }
-    .btn-danger { background: var(--danger); color: white; }
-    .btn-danger:hover { background: #dc2626; }
-    
-    #app-root { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
-    .footer { background: var(--surface-color); border-top: 1px solid var(--border-color); padding: 2rem; text-align: center; color: var(--text-secondary); }
-    
-    /* Forms */
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary); }
-    .form-control { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--surface-color); color: var(--text-primary); outline: none; }
-    .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
-    .auth-container { max-width: 400px; margin: 4rem auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); }
-    .auth-title { text-align: center; font-size: 1.8rem; margin-bottom: 1.5rem; }
-    
-    /* Alerts */
-    .alert-container { position: fixed; bottom: 2rem; right: 2rem; display: flex; flex-direction: column; gap: 1rem; z-index: 9999; }
-    .alert { padding: 1rem 1.5rem; border-radius: var(--radius-md); background: var(--surface-color); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.8rem; border-left: 4px solid var(--primary-color); animation: slideIn 0.3s forwards, fadeOut 0.3s forwards 3s; }
-    .alert.error { border-left-color: var(--danger); }
-    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; display: none; } }
-    
-    /* Utilities & Layouts */
-    .hidden { display: none !important; }
-    .text-center { text-align: center; }
-    .mt-1 { margin-top: 1rem; } .mt-2 { margin-top: 2rem; }
-    .mb-1 { margin-bottom: 1rem; } .mb-2 { margin-bottom: 2rem; }
-    
-    .grid { display: grid; gap: 1.5rem; }
-    .grid-cols-2 { grid-template-columns: repeat(var(--grid-tc, 2), 1fr); }
-    .grid-cols-3 { grid-template-columns: repeat(var(--grid-tc, 3), 1fr); }
-    .grid-cols-4 { grid-template-columns: repeat(var(--grid-tc, 4), 1fr); }
-    @media (max-width: 900px) { .grid-cols-4 { --grid-tc: 3; } .grid-cols-3 { --grid-tc: 2; } }
-    @media (max-width: 600px) { 
-      .grid-cols-4, .grid-cols-3, .grid-cols-2 { --grid-tc: 2; }
-      .nav-links { display: none; } 
-      .glass-nav { display: none; }
-      #app-root { padding-bottom: 5rem; }
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "http://127.0.0.1:8000/nepal"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Search Jobs",
+          "item": "http://127.0.0.1:8000/nepal/search"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Categories",
+          "item": "http://127.0.0.1:8000/nepal/categories"
+        }
+      ]
     }
+    </script>
     
-    .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface-color); border-top: 1px solid var(--border-color); z-index: 50; justify-content: space-around; padding: 0.8rem 0; box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1); }
-    .bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); }
-    .bottom-nav a.active, .bottom-nav a:hover { color: var(--primary-color); }
-    .bottom-nav a i { font-size: 1.2rem; }
-    @media (max-width: 600px) { .bottom-nav { display: flex; } }
-    
-    /* Card */
-    .card { background: var(--surface-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
-    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-    .card-img-placeholder { width: 100%; height: 200px; background-color: var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
-    .card-content { padding: 1rem; }
-    
-    /* Status Badges */
-    .badge { padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; }
-    .badge-success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-    .badge-warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-    .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-    .badge-secondary { background: rgba(100, 116, 139, 0.2); color: var(--text-secondary); }
-    
-    /* Loader */
-    .loader { border: 3px solid var(--border-color); border-top: 3px solid var(--primary-color); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-    /* Home Styles */
-    .hero-slider { height: 300px; background: var(--surface-color); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 2rem; }
-    .banner-slide { width: 100%; height: 100%; background-size: cover; background-position: center; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; text-align:center;}
-    .banner-slide.placeholder { background: linear-gradient(135deg, var(--primary-color) 0%, #047857 100%); }
-    .search-bar { display: flex; gap: 1rem; margin-bottom: 2rem; }
-    .search-bar input { flex:1; }
-    .categories-grid { display: flex; gap: 1rem; overflow-x: auto; margin-bottom: 2rem; padding-bottom: 1rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-    .categories-grid::-webkit-scrollbar { display: none; }
-    .category-card { flex: 0 0 auto; width: 120px; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; text-align: center; cursor: pointer; transition: all var(--transition-fast); display:block; color:inherit; }
-    .category-card:hover { border-color: var(--primary-color); color: var(--primary-color); transform: translateY(-3px); }
-    .cat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-
-    /* Settings Styles */
-    .settings-section { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1.5rem; overflow: hidden;}
-    .settings-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); font-weight: 600; background: var(--bg-color);}
-    .settings-item { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); cursor: pointer; transition: background var(--transition-fast); }
-    .settings-item:hover { background: var(--bg-color); color: var(--primary-color); }
-    .settings-item:last-child { border-bottom: none; }
-    .toggle-switch { position: relative; width: 40px; height: 20px; }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
-    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
-    input:checked + .slider { background-color: var(--primary-color); }
-    input:checked + .slider:before { transform: translateX(20px); }
-  </style>
+    <link rel="stylesheet" href="css/nepal-style.css">
+    <style>
+        .spa-view { display: none; animation: fadeUp 0.3s ease; }
+        .spa-view.active { display: block; }
+        .hidden { display: none !important; }
+        .back-btn {
+            background: none; border: 1px solid var(--np-border); color: var(--np-text-secondary);
+            font-family: inherit; font-size: 0.78rem; font-weight: 500;
+            padding: 0.35rem 0.8rem; border-radius: var(--radius-sm); cursor: pointer;
+            transition: var(--transition); display: inline-flex; align-items: center; gap: 0.3rem;
+        }
+        .back-btn:hover { border-color: var(--np-red); color: var(--np-red); }
+        .org-logo-img { width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius-sm); }
+        .job-card-full { padding: 1rem; }
+        .job-card-full .btn-apply { width: 100%; justify-content: center; }
+        .compose-text-muted { color: var(--np-text-muted); }
+        .compose-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 768px) { .compose-layout { grid-template-columns: 1fr; } }
+        .dash-stat { transition: transform 0.2s, box-shadow 0.2s; }
+        .dash-stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    </style>
 </head>
 <body>
-  
-  <nav class="glass-nav">
-    <div class="nav-container">
-      <a href="#/" class="logo">
-        <i class="fa-solid fa-cow"></i> AgroMart
-      </a>
-      <div class="nav-links" id="nav-links-container"></div>
+
+<!-- TOP BAR -->
+<div class="top-banner">
+    <div class="top-banner-inner">
+        <span class="flag-strip">
+            <span class="flag-dot"></span><span class="flag-dot" style="background:var(--np-blue)"></span>
+            National Job Service Portal
+            <span class="flag-dot" style="background:var(--np-blue)"></span><span class="flag-dot"></span>
+        </span>
+        <span id="live-status-header">10,000+ Jobs — Official Portal</span>
     </div>
-  </nav>
+</div>
 
-  <main id="app-root">
-    <div style="height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-      <div class="loader" style="width:40px; height:40px; border-width:4px;"></div>
-      <p style="margin-top:1.5rem; color:var(--text-secondary); font-weight:500;">Connecting to AgroMart...</p>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <p>&copy; 2026 Livestock Marketplace. All rights reserved.</p>
-  </footer>
-
-  <nav class="bottom-nav">
-    <a href="#/" class="bottom-nav-link" data-path="/"><i class="fa-solid fa-home"></i> Home</a>
-    <a href="#/sell" class="bottom-nav-link" data-path="/sell"><i class="fa-solid fa-plus-circle"></i> Sell</a>
-    <a href="#/my-listings" class="bottom-nav-link" data-path="/my-listings"><i class="fa-solid fa-list"></i> Listings</a>
-    <a href="#/profile" class="bottom-nav-link" data-path="/profile"><i class="fa-solid fa-user"></i> Profile</a>
-  </nav>
-
-  <div id="alert-container" class="alert-container"></div>
-
-  <!-- FIREBASE SDK v10 (ES Modules) - REALTIME DB VERSION -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getDatabase, ref, get, set, push, child, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-    const firebaseConfig = { 
-        apiKey: "AIzaSyD-87xEUmQxE8wZqAgIm6MR4VRO-OPaxeU", 
-        authDomain: "market-place-fdc1d.firebaseapp.com", 
-        databaseURL: "https://market-place-fdc1d-default-rtdb.firebaseio.com", 
-        projectId: "market-place-fdc1d", 
-        storageBucket: "market-place-fdc1d.firebasestorage.app", 
-        messagingSenderId: "697357767573", 
-        appId: "1:697357767573:web:2930235fcf8abeae089c9c", 
-        measurementId: "G-YV80CKPZM1" 
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-
-    window.showAlert = (msg, type = 'success') => {
-      const container = document.getElementById('alert-container');
-      const alert = document.createElement('div');
-      alert.className = `alert ${type}`;
-      alert.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}"></i><span>${msg}</span>`;
-      container.appendChild(alert);
-      setTimeout(() => { if(alert.parentNode) alert.remove(); }, 4000);
-    }
-
-    let currentUser = null;
-    let currentProfile = null;
-
-    const authService = {
-      async register(fullName, email, mobile, password) {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        await set(ref(db, 'users/' + cred.user.uid), { 
-           id: cred.user.uid, 
-           name: fullName, 
-           email: email,
-           phone: mobile, 
-           kycStatus: 'Not Submitted', 
-           status: 'active',
-           isSeller: false,
-           location: '',
-           createdDate: Date.now() 
-        });
-        return cred.user;
-      },
-      async login(email, password) { return await signInWithEmailAndPassword(auth, email, password); },
-      logout: () => signOut(auth)
-    };
-
-    const marketService = {
-      async getBanners() {
-         try {
-           const snap = await get(ref(db, 'banners'));
-           if (snap.exists()) {
-             const data = snap.val();
-             if (Array.isArray(data)) return data.filter(d=>d);
-             return Object.keys(data).map(key => ({ id: key, ...data[key] }));
-           }
-         } catch(e) {}
-         return [];
-      },
-      async getNotification() {
-         try {
-           const snap = await get(ref(db, 'notices'));
-           if (snap.exists()) {
-             const data = snap.val();
-             let list = Array.isArray(data) ? data.filter(d=>d) : Object.keys(data).map(key => ({ id: key, ...data[key] }));
-             if(list && list.length > 0) {
-               list = list.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
-               return list[0];
-             }
-           }
-         } catch(e) { }
-         return null;
-      },
-      async getCategories() {
-        try {
-            const snap = await get(ref(db, 'categories'));
-            if (snap.exists()) return snap.val();
-        } catch(e) { }
-        return ['Cow', 'Buffalo', 'Goat', 'Sheep', 'Pig', 'Chicken', 'Duck', 'Horse', 'Dog', 'Cat', 'Other'];
-      },
-      async getLatestAnimals(filters = {}) {
-        try {
-          const snap = await get(ref(db, 'animals'));
-          if(!snap.exists()) return [];
-          const data = snap.val();
-          let animals = Array.isArray(data) ? data.filter(d=>d) : Object.keys(data).map(k => ({ id: k, ...data[k] }));
-          
-          animals = animals.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
-
-          const now = Date.now();
-          const maxAge = 90 * 24 * 60 * 60 * 1000;
-          animals = animals.filter(a => {
-             const t = a.timestamp || now;
-             return (now - t < maxAge);
-          });
-          
-          if(filters.search) animals = animals.filter(a => (a.title||a.name)?.toLowerCase().includes(filters.search.toLowerCase()) || a.category?.toLowerCase().includes(filters.search.toLowerCase()));
-          if(filters.category && filters.category !== 'all') animals = animals.filter(a => a.category?.toLowerCase() === filters.category.toLowerCase());
-          return animals;
-        } catch(e) { return []; }
-      },
-      async getAnimalDetails(id) {
-        try {
-          const snap = await get(ref(db, `animals/${id}`));
-          if (snap.exists()) {
-             const data = snap.val();
-             const views = (data.views || 0) + 1;
-             update(ref(db, `animals/${id}`), { views: views }).catch(console.error);
-             return { id: snap.key, ...data, views };
-          }
-          return null;
-        } catch(e) { return null; }
-      },
-      async postAnimal(data) {
-        const newRef = push(ref(db, 'animals'));
-        await set(newRef, { ...data, timestamp: Date.now(), status: 'active', featured: false });
-        return newRef.key;
-      }
-    };
-
-    const kycService = {
-      async submitKyc(userId, kycData) {
-        const newRef = push(ref(db, 'kyc'));
-        await set(newRef, { ...kycData, id: newRef.key, status: 'Pending', submittedAt: Date.now() });
-        await update(ref(db, 'users/' + userId), { kycStatus: 'Pending' });
-      },
-      async getKycStatus(userId) {
-        try {
-          const snap = await get(ref(db, 'users/' + userId));
-          if(snap.exists() && snap.val().kycStatus) return snap.val().kycStatus;
-        } catch(e) {}
-        return 'Not Submitted';
-      }
-    };
-
-    const userService = {
-      async getMyListings(userId) {
-        try {
-          const snap = await get(ref(db, 'animals'));
-          if(!snap.exists()) return [];
-          const data = snap.val();
-          let animals = Array.isArray(data) ? data.filter(d=>d) : Object.keys(data).map(k => ({ id: k, ...data[k] }));
-          animals = animals.filter(a => a.sellerId === userId);
-          
-          animals = animals.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
-
-          const now = Date.now();
-          return animals.map(data => {
-            let postTime = data.timestamp || now;
-            let status = data.status;
-            if (Date.now() - postTime >= 90 * 24 * 60 * 60 * 1000 && status !== 'sold') {
-              status = 'Expired';
-            }
-            return { ...data, displayStatus: status };
-          });
-        } catch(e) { return []; }
-      },
-      async updateListingStatus(id, status) { await update(ref(db, `animals/${id}`), { status }); },
-      async deleteListing(id) { await remove(ref(db, `animals/${id}`)); }
-    };
-
-    // 3. FULL FEATURES VIEWS
-    const views = {
-
-      async Home() {
-        const banners = await marketService.getBanners();
-        const notification = await marketService.getNotification();
-        const allAnimals = await marketService.getLatestAnimals();
-        const categories = await marketService.getCategories();
-
-        const latestAnimals = [...allAnimals];
-        const trendingAnimals = [...allAnimals].sort((a,b) => ((b.views||0)+(b.favoritesCount||0)) - ((a.views||0)+(a.favoritesCount||0))).slice(0, 4);
-
-        const bannerSlider = banners.length > 0 
-          ? banners.map(b => `<div class="banner-slide" style="background-image: url('${b.imageUrl || b.image_url || b.image || b.url}')"></div>`).join('')
-          : `<div class="banner-slide placeholder"><h1>Welcome to AgroMart</h1><p>The Premium Livestock Marketplace</p></div>`;
-
-        // KYC Approved Notifier Logic
-        let popupHtml = '';
-        const isKycApproved = currentProfile && currentProfile.kycStatus === 'Approved';
-        let kycNotifies = parseInt(localStorage.getItem('kyc_notifies_count') || '0');
-        
-        if (isKycApproved && kycNotifies < 2) {
-           popupHtml += `
-             <div id="kyc-popup" style="margin-bottom:2rem; background:rgba(16, 185, 129, 0.1); border:1px solid var(--success); padding:1rem 1.5rem; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
-               <div style="display:flex; align-items:center; gap:1rem;"><i class="fa-solid fa-circle-check" style="color:var(--success); font-size:1.5rem;"></i>
-                 <div><strong style="color:var(--success)">KYC Verified Successfully</strong><br><span style="font-size:0.9rem; color:var(--text-secondary)">You can now start selling on AgroMart!</span></div>
-               </div>
-               <button onclick="document.getElementById('kyc-popup').remove(); localStorage.setItem('kyc_notifies_count', '${kycNotifies + 1}');" style="background:var(--success); color:white; border:none; padding:0.5rem 1rem; border-radius:var(--radius-md); cursor:pointer;">Close</button>
-             </div>
-           `;
-           setTimeout(() => { localStorage.setItem('kyc_notifies_count', kycNotifies + 1); }, 5000);
-        }
-
-        if (notification && (notification.message || notification.title || notification.description)) {
-           popupHtml += `
-             <div id="home-popup" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
-               <div style="background:var(--surface-color); padding:2rem; border-radius:var(--radius-xl); width:90%; max-width:400px; position:relative; box-shadow:var(--shadow-lg); text-align:center; animation: slideIn 0.3s ease;">
-                  <button onclick="document.getElementById('home-popup').remove()" style="position:absolute; top:1rem; right:1.5rem; background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--text-secondary);">&times;</button>
-                  <i class="fa-solid fa-bell" style="font-size:3rem; color:var(--warning); margin-bottom:1rem;"></i>
-                  <h2 style="margin-bottom:1rem; color:var(--primary-color)">${notification.title || 'Notice'}</h2>
-                  <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:1.5rem">${notification.message || notification.description || notification.text || ''}</p>
-                  <button class="btn btn-primary" style="width:100%" onclick="document.getElementById('home-popup').remove()">OK, Got it</button>
-               </div>
-             </div>
-           `;
-        }
-
-        const renderAnimals = (list) => {
-          if(list.length === 0) return '<p class="text-secondary text-center">No animals found.</p>';
-          return list.map(a => `
-            <a href="#/animal/${a.id}" class="card" style="display:block; color:inherit;">
-              <div class="card-img-placeholder" style="background-image: url('${a.image || a.images?.[0] || 'https://placehold.co/600x400?text=No+Image'}'); background-size: cover; background-position: center; height: 160px;"></div>
-              <div class="card-content" style="padding: 0.8rem;">
-                <div style="display:flex;justify-content:space-between;align-items:start;"><h3 style="margin-bottom:0.3rem; font-size: 1rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${a.title || a.name || a.breed || 'Unknown'}</h3></div>
-                <span class="badge badge-success" style="font-size:0.7rem; margin-bottom: 0.5rem; display:inline-block">${a.category}</span>
-                <p style="color:var(--primary-color); font-weight:700; font-size:1.1rem; margin-bottom:0.3rem">Rs. ${(a.price || 0).toLocaleString()}</p>
-                <p style="font-size: 0.8rem; color: var(--text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><i class="fa-solid fa-location-dot"></i> ${a.location || 'Nepal'}</p>
-              </div>
-            </a>`).join('');
-        };
-
-        setTimeout(() => {
-          document.getElementById('search-btn')?.addEventListener('click', async () => {
-            const q = document.getElementById('search-input').value;
-            document.getElementById('latest-grid').innerHTML = renderAnimals(await marketService.getLatestAnimals({ search: q }));
-          });
-          document.querySelectorAll('.category-card').forEach(card => {
-            card.onclick = async () => {
-              document.getElementById('search-input').value = '';
-              const cat = card.getAttribute('data-cat');
-              const res = await marketService.getLatestAnimals({ category: cat });
-              document.getElementById('latest-grid').innerHTML = renderAnimals(res);
-            };
-          });
-        }, 0);
-
-        return `
-          ${popupHtml}
-          <div class="hero-slider">${bannerSlider}</div>
-          <div class="search-bar">
-            <input type="text" id="search-input" class="form-control" placeholder="Search for breeds, animals...">
-            <button id="search-btn" class="btn btn-primary"><i class="fa-solid fa-search"></i> Search</button>
-          </div>
-          <h2 style="margin-bottom:1rem">Categories</h2>
-          <div class="categories-grid">
-            ${categories.map(c => `
-              <div class="category-card" data-cat="${c}">
-                <div class="cat-icon"><i class="fa-solid fa-hippo"></i></div>
-                <span>${c}</span>
-              </div>
-            `).join('')}
-          </div>
-          <h2 style="margin-bottom:1rem">🔥 Trending Now</h2>
-          <div class="grid grid-cols-4" style="margin-bottom:2rem;">
-            ${trendingAnimals.length > 0 ? renderAnimals(trendingAnimals) : '<p class="text-secondary text-center" style="grid-column: 1 / -1;">No trending data yet.</p>'}
-          </div>
-          <h2 style="margin-bottom:1rem">🆕 Latest Animals</h2>
-          <div class="grid grid-cols-4" id="latest-grid">
-            ${renderAnimals(latestAnimals)}
-          </div>
-        `;
-      },
-
-      Login() {
-        setTimeout(() => {
-          document.getElementById('login-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Logging in...';
-            try {
-              await authService.login(document.getElementById('email').value, document.getElementById('password').value);
-              window.showAlert('Login successful'); window.location.hash = '#/';
-            } catch (err) { window.showAlert(err.message, 'error'); btn.disabled = false; btn.innerHTML = 'Login'; }
-          };
-        }, 0);
-        return `
-          <div class="auth-container">
-            <h2 class="auth-title">Welcome Back</h2>
-            <form id="login-form">
-              <div class="form-group"><label>Email Address</label><input type="email" id="email" class="form-control" placeholder="Enter your email" required></div>
-              <div class="form-group"><label>Password</label><input type="password" id="password" class="form-control" placeholder="••••••••" required></div>
-              <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Login</button>
-            </form>
-            <p class="text-center mt-1"><span style="color: var(--text-secondary)">Don't have an account?</span> <a href="#/register" style="color: var(--primary-color); font-weight: 600;">Register System</a></p>
-          </div>`;
-      },
-
-      Register() {
-        setTimeout(() => {
-          document.getElementById('register-form').onsubmit = async (e) => {
-            e.preventDefault();
-            if (document.getElementById('password').value !== document.getElementById('confirm-password').value) return window.showAlert("Passwords do not match", "error");
-            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Registering...';
-            try {
-              await authService.register(document.getElementById('fullname').value, document.getElementById('email').value, document.getElementById('mobile').value, document.getElementById('password').value);
-              window.showAlert('Registration successful'); window.location.hash = '#/';
-            } catch (err) { window.showAlert(err.message, 'error'); btn.disabled = false; btn.innerHTML = 'Register'; }
-          };
-        }, 0);
-        return `
-          <div class="auth-container">
-            <h2 class="auth-title">Create Account</h2>
-            <form id="register-form">
-              <div class="form-group"><label>Full Name</label><input type="text" id="fullname" class="form-control" required></div>
-              <div class="form-group"><label>Email Address</label><input type="email" id="email" class="form-control" required></div>
-              <div class="form-group"><label>Mobile Number</label><input type="tel" id="mobile" class="form-control" required></div>
-              <div class="form-group"><label>Password</label><input type="password" id="password" class="form-control" minlength="6" required></div>
-              <div class="form-group"><label>Confirm Password</label><input type="password" id="confirm-password" class="form-control" minlength="6" required></div>
-              <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Register</button>
-            </form>
-            <p class="text-center mt-1"><span style="color: var(--text-secondary)">Already have an account?</span> <a href="#/login" style="color: var(--primary-color); font-weight: 600;">Login Instead</a></p>
-          </div>`;
-      },
-
-      async AnimalDetails(id) {
-        const animal = await marketService.getAnimalDetails(id);
-        if (!animal) return `<div class="text-center mt-2"><h2>Animal not found</h2></div>`;
-        const isOwner = currentUser && animal.sellerId === currentUser.uid;
-
-        let displayImages = animal.images && animal.images.length > 0 ? animal.images : (animal.image ? [animal.image] : null);
-
-        const imagesHtml = displayImages
-          ? displayImages.map(img => `<img src="${img}" style="width:100%; border-radius: var(--radius-md); max-height:400px; object-fit:cover; margin-bottom:1rem;">`).join('')
-          : `<div style="width:100%; height:300px; background:var(--border-color); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); margin-bottom:1rem;">No Image</div>`;
-
-        return `
-          <div style="max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
-            <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:1.5rem">
-              <div>
-                <h1 style="font-size:2rem; margin-bottom:0.5rem">${animal.title || animal.name || animal.breed || animal.category}</h1>
-                <span class="badge badge-success">${animal.category || animal.animalType}</span>
-                <span class="badge badge-secondary ml-1"><i class="fa-solid fa-eye"></i> ${animal.views || 0} Views</span>
-                ${animal.status === 'sold' || animal.status === 'Sold' ? `<span class="badge badge-danger ml-1">Sold</span>` : ''}
-              </div>
-              <h2 style="color:var(--primary-color); font-size: 2rem;">Rs. ${(animal.price || 0).toLocaleString()}</h2>
+<!-- HEADER -->
+<header class="header">
+    <div class="header-inner">
+        <a class="seal" onclick="showView('home')" style="cursor:pointer;display:flex;align-items:center;gap:0.8rem;">
+            <img src="https://i.ibb.co/0VdzySCb/IMG-20260525-085705.png" alt="National Job Service Logo" style="height:48px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:all 0.25s ease;">
+            <div class="seal-text">
+                <span class="seal-title">National Job Service</span>
+                <span class="seal-subtitle">Official Employment Portal</span>
             </div>
-            ${imagesHtml}
-            <div class="grid grid-cols-2" style="margin-bottom:2rem">
-              <div>
-                <p><strong style="color:var(--text-secondary)">Age:</strong> ${animal.age || 'N/A'}</p>
-                <p><strong style="color:var(--text-secondary)">Weight:</strong> ${animal.weight || 'N/A'} kg</p>
-                <p><strong style="color:var(--text-secondary)">Gender:</strong> ${animal.gender || 'N/A'}</p>
-                <p><strong style="color:var(--text-secondary)">Color:</strong> ${animal.color || 'N/A'}</p>
-              </div>
-              <div>
-                <p><strong style="color:var(--text-secondary)">Condition:</strong> ${animal.healthCondition || 'N/A'}</p>
-                <p><strong style="color:var(--text-secondary)">Vaccinated:</strong> ${animal.vaccinationStatus || 'No'}</p>
-                <p><strong style="color:var(--text-secondary)">Location:</strong> ${animal.location || 'N/A'}</p>
-                <p><strong style="color:var(--text-secondary)">Negotiable:</strong> ${animal.negotiable === 'Yes' ? 'Yes' : 'No'}</p>
-              </div>
+        </a>
+        <nav class="nav-desktop">
+            <button class="nav-link active" onclick="showView('home')" id="nav-home">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5M9 22V12h6v10"/></svg>Home
+            </button>
+            <button class="nav-link" onclick="showView('search')" id="nav-search">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><path d="M16.5 16.5L21 21"/></svg>Search
+            </button>
+            <button class="nav-link" onclick="showView('global')" id="nav-global">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><path d="M3 12h18"/></svg>Global
+            </button>
+            <button class="nav-link" onclick="showView('categories')" id="nav-categories">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7.5C3 6.12 4.12 5 5.5 5H9l2 2h7.5c1.38 0 2.5 1.12 2.5 2.5v7c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 19 3 17.88 3 16.5v-9z"/></svg>Categories
+            </button>
+            <button class="nav-link" onclick="showView('saved')" id="nav-saved">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>Saved
+            </button>
+            <button class="nav-link" onclick="showView('dashboard')" id="nav-dashboard">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="14" width="5" height="7" rx="1"/><rect x="9.5" y="8" width="5" height="13" rx="1"/><rect x="16" y="3" width="5" height="18" rx="1"/></svg>Dashboard
+            </button>
+            <button class="nav-link highlight" onclick="showView('ai')" id="nav-ai">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2l2.5 6.5L22 11l-6.5 2.5L13 20l-2.5-6.5L4 11l6.5-2.5L13 2z"/></svg>AI
+            </button>
+            <button class="nav-link" onclick="showView('post')" id="nav-post" style="background:var(--np-green);color:white;">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>Post
+            </button>
+            <button class="nav-link" onclick="showView('compose')" id="nav-compose" style="background:var(--np-green);color:white;">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4.5l4 4L7 20l-5 1 1-5L14.5 4.5z"/></svg>Letter
+            </button>
+        </nav>
+        <button class="hamburger" onclick="toggleDrawer()" id="hamburger-btn" aria-label="Menu">☰</button>
+    </div>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<div class="drawer" id="drawer">
+    <div class="drawer-header">
+        <div class="seal-emblem">
+            <svg viewBox="0 0 100 100" width="34" height="34">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="#003893" stroke-width="2"/>
+                <circle cx="50" cy="50" r="45" fill="#C41E3A"/>
+                <path d="M50 10 L58 35 L85 35 L63 50 L70 78 L50 62 L30 78 L37 50 L15 35 L42 35 Z" fill="white"/>
+                <circle cx="50" cy="48" r="8" fill="#003893"/>
+            </svg>
+        </div>
+        <span class="seal-title" style="font-size:0.85rem;">National Job Service</span>
+    </div>
+    <button class="drawer-link active" onclick="showView('home');toggleDrawer()" id="mnav-home">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5M9 22V12h6v10"/></svg>Home
+    </button>
+    <button class="drawer-link" onclick="showView('search');toggleDrawer()" id="mnav-search">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><path d="M16.5 16.5L21 21"/></svg>Search
+    </button>
+    <button class="drawer-link" onclick="showView('global');toggleDrawer()" id="mnav-global">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><path d="M3 12h18"/></svg>Global Jobs
+    </button>
+    <button class="drawer-link" onclick="showView('categories');toggleDrawer()" id="mnav-categories">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7.5C3 6.12 4.12 5 5.5 5H9l2 2h7.5c1.38 0 2.5 1.12 2.5 2.5v7c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 19 3 17.88 3 16.5v-9z"/></svg>Categories
+    </button>
+    <button class="drawer-link" onclick="showView('saved');toggleDrawer()" id="mnav-saved">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>Saved Jobs
+    </button>
+    <button class="drawer-link" onclick="showView('dashboard');toggleDrawer()" id="mnav-dashboard">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="14" width="5" height="7" rx="1"/><rect x="9.5" y="8" width="5" height="13" rx="1"/><rect x="16" y="3" width="5" height="18" rx="1"/></svg>Dashboard
+    </button>
+    <button class="drawer-link highlight" onclick="showView('ai');toggleDrawer()" id="mnav-ai">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2l2.5 6.5L22 11l-6.5 2.5L13 20l-2.5-6.5L4 11l6.5-2.5L13 2z"/></svg>AI Search
+    </button>
+    <button class="drawer-link" onclick="showView('post');toggleDrawer()" id="mnav-post">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>Post Job
+    </button>
+    <button class="drawer-link" onclick="showView('compose');toggleDrawer()" id="mnav-compose">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4.5l4 4L7 20l-5 1 1-5L14.5 4.5z"/></svg>Cover Letter
+    </button>
+</div>
+
+<!-- BOTTOM NAV (Mobile) -->
+<div class="bottom-nav" id="bottom-nav">
+    <div class="bottom-nav-inner">
+        <button class="bottom-nav-item active" onclick="showView('home')" id="bnav-home">
+            <span class="bnav-icon"><svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5M9 22V12h6v10"/></svg></span> Home
+        </button>
+        <button class="bottom-nav-item" onclick="showView('search')" id="bnav-search">
+            <span class="bnav-icon"><svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><path d="M16.5 16.5L21 21"/></svg></span> Search
+        </button>
+        <button class="bottom-nav-item" onclick="showView('global')" id="bnav-global">
+            <span class="bnav-icon"><svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><path d="M3 12h18"/></svg></span> Global
+    </button>
+        <button class="bottom-nav-item" onclick="showView('post')" id="bnav-post">
+            <span class="bnav-icon"><svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></span> Post
+        </button>
+        <button class="bottom-nav-item" onclick="showView('saved')" id="bnav-saved">
+            <span class="bnav-icon"><svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span> Saved
+        </button>
+    </div>
+</div>
+
+<!-- LIVE STATUS BAR -->
+<div class="live-bar">
+    <div class="live-bar-inner">
+        <span><span class="live-dot"></span> <strong id="live-total-bar">0</strong> Jobs Live — Auto-collected in Real-time</span>
+        <span style="display:flex;gap:0.3rem;flex-wrap:wrap;">
+            <span class="live-source">Nepal</span>
+            <span class="live-source">Global</span>
+            <span class="live-source">Remote</span>
+            <span class="live-source">Updates every 30 min</span>
+        </span>
+    </div>
+</div>
+
+<!-- ========== VIEW: HOME ========== -->
+<div id="view-home" class="spa-view active">
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Official Employment Service Portal</div>
+            <h1>
+                Jobs From Around The World<br>
+                <span class="highlight-red">Collected &amp; Verified Live</span>
+            </h1>
+            <p>5,000+ real jobs from Nepal, USA, Japan, Germany, Canada, UK, India & more. Real salaries, real locations, real companies.</p>
+            <div class="stats-row">
+                <div class="stat"><div class="stat-value" id="stat-total">10K+</div><div class="stat-label">Total Jobs</div></div>
+                <div class="stat"><div class="stat-value" id="stat-gov">3K+</div><div class="stat-label">Government</div></div>
+                <div class="stat"><div class="stat-value" id="stat-private">6K+</div><div class="stat-label">Private Sector</div></div>
+                <div class="stat"><div class="stat-value" id="stat-remote">1K+</div><div class="stat-label">Remote</div></div>
+                <div class="stat"><div class="stat-value" id="stat-update">30 min</div><div class="stat-label">Auto Updates</div></div>
+            </div>
+            <div class="search-wrapper" style="position:relative;">
+                <div class="search-field" style="position:relative;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="home-search-input" placeholder="Search jobs... e.g. Teacher, Nurse, Engineer, Remote..." onkeyup="handleHomeSearchKey(event)" autocomplete="off">
+                    <div id="home-suggestions" class="suggestions" style="display:none;"></div>
+                </div>
+                <button class="btn-search" onclick="doHomeSearch()">Search Jobs</button>
+            </div>
+            <div class="quick-tags" id="quick-tags-home">
+                <span style="font-size:0.7rem;color:var(--np-text-muted);">Popular:</span>
+                <span class="quick-tag" onclick="quickSearch('Teacher')">Teacher</span>
+                <span class="quick-tag" onclick="quickSearch('Nurse')">Nurse</span>
+                <span class="quick-tag" onclick="quickSearch('Engineer')">Engineer</span>
+                <span class="quick-tag" onclick="quickSearch('Remote')">Remote</span>
+                <span class="quick-tag" onclick="quickSearch('Japan')">Japan</span>
+                <span class="quick-tag" onclick="quickSearch('USA')">USA</span>
+                <span class="quick-tag" onclick="quickSearch('Germany')">Germany</span>
+                <span class="quick-tag" onclick="quickSearch('Canada')">Canada</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Categories -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Job Categories</h2>
+        </div>
+        <div class="cat-grid" id="categories-home-grid"></div>
+    </section>
+
+    <!-- Latest Jobs -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Latest Jobs</h2>
+            <button class="view-all" onclick="showView('search')">View All &rarr;</button>
+        </div>
+        <div class="job-grid" id="home-jobs-grid"></div>
+    </section>
+</div>
+
+<!-- ========== VIEW: SEARCH ========== -->
+<div id="view-search" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">Job Search</h2>
+            <span style="font-size:0.78rem;color:var(--np-text-muted);" id="search-count">Search results</span>
+        </div>
+        <div class="filter-layout">
+            <aside class="sidebar">
+                <div class="filter-group">
+                    <div class="filter-label">Keyword</div>
+                    <div style="position:relative;">
+                        <input type="text" class="filter-input" id="filter-keyword" placeholder="Job title, skills..." onkeyup="handleFilterKey(event)" autocomplete="off">
+                        <div id="filter-suggestions" class="suggestions" style="display:none;"></div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Location</div>
+                    <input type="text" class="filter-input" id="filter-location" placeholder="Kathmandu, Pokhara, Remote...">
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Filters</div>
+                    <div class="filter-checkboxes">
+                        <label class="filter-checkbox"><input type="checkbox" id="filter-remote"> Remote Only</label>
+                        <label class="filter-checkbox"><input type="checkbox" id="filter-gov"> Government</label>
+                        <label class="filter-checkbox"><input type="checkbox" id="filter-visa"> Visa Sponsorship</label>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Min Salary</div>
+                    <input type="number" class="filter-input" id="filter-salary" placeholder="e.g. 50000">
+                </div>
+                <button class="btn-filter" onclick="applyFilters()">Apply Filters</button>
+                <button class="btn-filter-reset" onclick="resetFilters()">Reset</button>
+            </aside>
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                    <div id="search-availability" class="availability hidden" style="margin-bottom:0;flex:1;">
+                        <div class="availability-title">Jobs by Country</div>
+                        <div class="chips" id="search-chips"></div>
+                    </div>
+                    <div style="display:flex;gap:0.35rem;margin-left:1rem;flex-shrink:0;">
+                        <button class="view-toggle" id="view-toggle-cards" onclick="setViewMode('cards')" title="Card View">⊞</button>
+                        <button class="view-toggle" id="view-toggle-table" onclick="setViewMode('table')" title="Table View">⊟</button>
+                    </div>
+                </div>
+                <div class="job-grid" id="search-results-grid"></div>
+                <div class="table-wrapper hidden" id="search-results-table-wrapper">
+                    <table class="table" id="search-results-table">
+                        <thead><tr>
+                            <th>Title</th><th>Company</th><th>Location</th><th>Country</th>
+                            <th style="color:var(--np-green);">Salary</th><th>Type</th><th>Source</th><th>Posted</th><th>Save</th>
+                        </tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== VIEW: GLOBAL ========== -->
+<div id="view-global" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">Global Jobs</h2>
+            <span style="font-size:0.78rem;color:var(--np-text-muted);" id="global-count">Loading...</span>
+        </div>
+        <div id="global-country-chips" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;"></div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
+            <input type="text" class="filter-input" id="global-keyword" placeholder="Search jobs..." style="flex:1;min-width:180px;" oninput="applyGlobalFilters()">
+            <input type="text" class="filter-input" id="global-country" placeholder="Country..." style="width:140px;" oninput="applyGlobalFilters()">
+            <select class="filter-input" id="global-remote" onchange="applyGlobalFilters()" style="width:130px;">
+                <option value="">All Types</option>
+                <option value="true">Remote Only</option>
+                <option value="false">Office Only</option>
+            </select>
+            <div style="display:flex;gap:0.35rem;">
+                <button class="view-toggle active" id="gtoggle-cards" onclick="setGlobalViewMode('cards')">⊞</button>
+                <button class="view-toggle" id="gtoggle-table" onclick="setGlobalViewMode('table')">⊟</button>
+            </div>
+        </div>
+        <div class="job-grid" id="global-jobs-grid"></div>
+        <div class="table-wrapper hidden" id="global-table-wrapper">
+            <table class="table" id="global-jobs-table">
+                <thead><tr>
+                    <th>Title</th><th>Company</th><th>Location</th><th>Country</th>
+                    <th style="color:var(--np-green);">Salary</th><th>Type</th><th>Source</th><th>Posted</th><th>Save</th>
+                </tr></thead>
+                <tbody id="global-table-body"></tbody>
+            </table>
+        </div>
+        <div style="text-align:center;margin-top:1.5rem;">
+            <button class="btn-filter" id="global-load-more" onclick="loadMoreGlobal()" style="padding:0.5rem 2rem;width:auto;">Load More</button>
+        </div>
+    </section>
+</div>
+
+<!-- ========== VIEW: CATEGORIES ========== -->
+<div id="view-categories" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">All Categories</h2>
+        </div>
+        <div class="cat-grid" id="categories-full-grid"></div>
+    </section>
+</div>
+
+<!-- ========== VIEW: SAVED ========== -->
+<div id="view-saved" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">Saved Jobs</h2>
+        </div>
+        <div class="job-grid" id="saved-jobs-grid"></div>
+    </section>
+</div>
+
+<!-- ========== VIEW: DASHBOARD ========== -->
+<div id="view-dashboard" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">Dashboard</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.8rem;margin-bottom:1.5rem;">
+            <div class="detail-widget dash-stat" onclick="dashboardFilter('total')" style="text-align:center;border-top:3px solid var(--np-blue);cursor:pointer;">
+                <div style="font-size:1.5rem;font-weight:900;color:var(--np-blue);" id="db-total">0</div>
+                <div style="font-size:0.7rem;color:var(--np-text-muted);font-weight:500;">Total Jobs</div>
+            </div>
+            <div class="detail-widget dash-stat" onclick="dashboardFilter('gov')" style="text-align:center;border-top:3px solid var(--np-blue);cursor:pointer;">
+                <div style="font-size:1.3rem;font-weight:900;color:var(--np-blue);" id="db-gov">0</div>
+                <div style="font-size:0.7rem;color:var(--np-text-muted);font-weight:500;">Government</div>
+            </div>
+            <div class="detail-widget dash-stat" onclick="dashboardFilter('private')" style="text-align:center;border-top:3px solid var(--np-green);cursor:pointer;">
+                <div style="font-size:1.3rem;font-weight:900;color:var(--np-green);" id="db-private">0</div>
+                <div style="font-size:0.7rem;color:var(--np-text-muted);font-weight:500;">Private</div>
+            </div>
+            <div class="detail-widget dash-stat" onclick="dashboardFilter('remote')" style="text-align:center;border-top:3px solid var(--np-red);cursor:pointer;">
+                <div style="font-size:1.3rem;font-weight:900;color:var(--np-red);" id="db-remote">0</div>
+                <div style="font-size:0.7rem;color:var(--np-text-muted);font-weight:500;">Remote</div>
+            </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="detail-widget">
+                <h3>Jobs by Source</h3>
+                <div id="db-source-chart"></div>
+            </div>
+            <div class="detail-widget">
+                <h3>Jobs by Country</h3>
+                <div id="db-category-chart"></div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== VIEW: AI SEARCH ========== -->
+<div id="view-ai" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">AI Job Search</h2>
+        </div>
+        <div style="max-width:650px;margin:0 auto;">
+            <div class="detail-widget" style="border:2px solid var(--np-blue);">
+                <div style="display:flex;gap:1rem;">
+                    <textarea id="ai-input" style="flex:1;background:var(--np-cream);border:1px solid var(--np-border);border-radius:var(--radius-sm);padding:0.7rem;font-family:inherit;font-size:0.85rem;color:var(--np-text);resize:none;min-height:50px;outline:none;" placeholder="e.g. Teacher jobs in Kathmandu or Remote Python Developer Nepal"></textarea>
+                    <button class="btn-search" onclick="doAISearch()" style="padding:0.7rem 1rem;">Search</button>
+                </div>
+                <div class="quick-tags" style="margin-top:0.8rem;">
+                    <span class="quick-tag" onclick="setAI('Teacher jobs in Kathmandu')">Teacher Kathmandu</span>
+                    <span class="quick-tag" onclick="setAI('Remote Python Developer Nepal')">Remote Python</span>
+                    <span class="quick-tag" onclick="setAI('Government jobs Nepal')">Government Jobs</span>
+                    <span class="quick-tag" onclick="setAI('Nurse jobs Kathmandu')">Nurse Kathmandu</span>
+                </div>
+            </div>
+            <div id="ai-availability" class="availability hidden" style="margin-top:1.5rem;">
+                <div class="availability-title">Country Analysis</div>
+                <div class="chips" id="ai-chips"></div>
+            </div>
+            <div class="job-grid" id="ai-results-grid" style="margin-top:1.5rem;"></div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== VIEW: COMPOSE ========== -->
+<div id="view-compose" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">Cover Letter Builder</h2>
+            <span style="font-size:0.78rem;color:var(--np-text-muted);">AI-powered application builder</span>
+        </div>
+        <div class="compose-layout">
+            <div class="detail-widget">
+                <h3>Application Details</h3>
+                <div style="display:flex;flex-direction:column;gap:0.8rem;margin-top:0.8rem;">
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Your Name</label>
+                        <input type="text" class="filter-input" id="compose-name" placeholder="e.g. Ram Sharma">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Email</label>
+                        <input type="email" class="filter-input" id="compose-email" placeholder="e.g. ram@example.com">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Job Title</label>
+                        <input type="text" class="filter-input" id="compose-job-title" placeholder="e.g. Software Engineer" oninput="updateComposePreview()">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Company</label>
+                        <input type="text" class="filter-input" id="compose-company" placeholder="e.g. Google" oninput="updateComposePreview()">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Skills</label>
+                        <input type="text" class="filter-input" id="compose-skills" placeholder="e.g. Python, React, PostgreSQL" oninput="updateComposePreview()">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Experience</label>
+                        <select class="filter-input" id="compose-experience">
+                            <option value="Fresher">Fresher</option>
+                            <option value="0-1 years">0-1 years</option>
+                            <option value="1-3 years">1-3 years</option>
+                            <option value="3-5 years">3-5 years</option>
+                            <option value="5+ years">5+ years</option>
+                            <option value="10+ years">10+ years</option>
+                        </select>
+                    </div>
+                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                        <button class="btn-search" onclick="generateCoverLetter()" style="flex:1;">Generate Cover Letter</button>
+                        <button class="btn-filter" onclick="copyComposeText()" style="flex:1;background:var(--np-blue);">Copy</button>
+                    </div>
+                    <button class="btn-filter-reset" onclick="resetCompose()">Reset</button>
+                </div>
+            </div>
+            <div class="detail-widget">
+                <h3>Preview</h3>
+                <div id="compose-preview" style="margin-top:0.8rem;background:var(--np-cream);border:1px solid var(--np-border);border-radius:var(--radius-sm);padding:1rem;min-height:250px;font-size:0.82rem;line-height:1.7;white-space:pre-wrap;color:var(--np-text);overflow-y:auto;max-height:450px;">
+                    <span style="color:var(--np-text-muted);">Fill in the form and click "Generate Cover Letter"</span>
+                </div>
+            </div>
+        </div>
+        <div class="detail-widget" style="margin-top:1.5rem;">
+            <h3>Quick Pick from Saved Jobs</h3>
+            <div id="compose-saved-jobs" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.7rem;">
+                <span style="color:var(--np-text-muted);font-size:0.78rem;">Loading saved jobs...</span>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== VIEW: DETAILS ========== -->
+<div id="view-details" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <button class="back-btn" onclick="showView('search')" style="width:auto;padding:0.35rem 0.8rem;margin-bottom:1rem;">&larr; Back</button>
+        <div class="detail-layout">
+            <div class="detail-main">
+                <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;border-bottom:1px solid var(--np-cream-dark);padding-bottom:1rem;">
+                    <div class="org-logo" style="width:56px;height:56px;font-size:1.3rem;" id="detail-logo">M</div>
+                    <div>
+                        <h1 id="detail-title" style="font-size:1.3rem;">Job Title</h1>
+                        <p id="detail-org" style="color:var(--np-blue);font-weight:600;">Company</p>
+                    </div>
+                </div>
+                <h3 style="font-size:0.95rem;margin-bottom:0.7rem;">Description</h3>
+                <div class="detail-desc" id="detail-desc">—</div>
+            </div>
+            <div class="detail-sidebar">
+                <div class="detail-widget">
+                    <h3>Job Info</h3>
+                    <div class="detail-meta">
+                        <div class="detail-meta-item"><span class="detail-meta-label">Salary</span><span class="detail-meta-value" id="detail-salary">—</span></div>
+                        <div class="detail-meta-item"><span class="detail-meta-label">Location</span><span class="detail-meta-value" id="detail-location">—</span></div>
+                        <div class="detail-meta-item"><span class="detail-meta-label">Type</span><span class="detail-meta-value" id="detail-type">—</span></div>
+                        <div class="detail-meta-item"><span class="detail-meta-label">Source</span><span class="detail-meta-value" id="detail-source">—</span></div>
+                    </div>
+                </div>
+                <div class="detail-widget">
+                    <h3>Skills</h3>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.25rem;" id="detail-skills">—</div>
+                </div>
+                <button class="btn-search" id="detail-apply-btn" style="width:100%;text-align:center;" onclick="openApplyLink()">Apply Now</button>
+                <button class="btn-filter-reset" id="detail-save-btn" style="width:100%;margin-top:0.4rem;" onclick="toggleSave(currentDetailJob?.id)">Save</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== VIEW: POST ========== -->
+<div id="view-post" class="spa-view">
+    <section class="section" style="margin-top:1.5rem;">
+        <div class="section-header">
+            <h2 class="section-title">Post a Job</h2>
+            <span style="font-size:0.78rem;color:var(--np-text-muted);">Free job posting for employers</span>
+        </div>
+        <div class="compose-layout">
+            <div class="detail-widget">
+                <h3>Job Details</h3>
+                <div style="display:flex;flex-direction:column;gap:0.8rem;margin-top:0.8rem;">
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Job Title *</label>
+                        <input type="text" class="filter-input" id="post-title" placeholder="e.g. Software Engineer">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Company *</label>
+                        <input type="text" class="filter-input" id="post-company" placeholder="e.g. Tech Company">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Location *</label>
+                        <input type="text" class="filter-input" id="post-location" placeholder="e.g. Kathmandu or Remote">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Salary (Optional)</label>
+                        <input type="text" class="filter-input" id="post-salary" placeholder="e.g. NPR 50,000 - 80,000">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Description *</label>
+                        <textarea class="filter-input" id="post-description" placeholder="Describe the role, responsibilities, and requirements..." style="min-height:100px;resize:vertical;font-family:inherit;"></textarea>
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Contact Email *</label>
+                        <input type="email" class="filter-input" id="post-email" placeholder="employer@company.com">
+                    </div>
+                    <div>
+                        <label style="font-size:0.78rem;font-weight:600;color:var(--np-text);display:block;margin-bottom:0.25rem;">Contact Phone (Optional)</label>
+                        <input type="text" class="filter-input" id="post-phone" placeholder="e.g. +977-9800000000">
+                    </div>
+                    <button class="btn-search" onclick="submitJobPost()" style="width:100%;">Post Job</button>
+                </div>
             </div>
             <div>
-              <h3 style="margin-bottom:0.5rem">Description</h3>
-              <p style="color:var(--text-secondary); line-height:1.6">${animal.description || 'No description provided.'}</p>
-            </div>
-            <hr style="border:0; border-top:1px solid var(--border-color); margin: 2rem 0;">
-            <div style="display:flex; gap:1rem;">
-              ${!isOwner ? `<button class="btn btn-primary" style="flex:1" onclick="window.location.href='tel:${animal.sellerPhone || animal.sellerContact || ''}'"><i class="fa-solid fa-phone"></i> Contact Seller (${animal.sellerPhone || 'N/A'})</button>` : `<div class="alert success" style="width:100%; border:none; margin:0; background:rgba(16, 185, 129, 0.1); color:var(--success);">This is your listing. Edit in My Listings.</div>`}
-            </div>
-          </div>`;
-      },
-
-      async Sell() {
-        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login" style="color:var(--primary-color)">Login</a> to sell animals.</h2></div>`;
-        const kycStatus = currentProfile?.kycStatus || 'Not Submitted';
-        if (kycStatus === 'Not Submitted' || kycStatus === 'Rejected') return `<div class="auth-container text-center"><i class="fa-solid fa-id-card" style="font-size:3rem; color:var(--text-secondary); margin-bottom:1rem;"></i><h2 style="margin-bottom:1rem">KYC Required</h2><p style="color:var(--text-secondary); margin-bottom:2rem">You must complete your KYC verification before you can post animals for sale.</p><a href="#/kyc" class="btn btn-primary">Complete KYC Now</a></div>`;
-        if (kycStatus === 'Pending' || kycStatus === 'pending') return `<div class="auth-container text-center"><i class="fa-solid fa-clock-rotate-left" style="font-size:3rem; color:var(--warning); margin-bottom:1rem;"></i><h2 style="margin-bottom:1rem">KYC Under Review</h2><p style="color:var(--text-secondary)">Your KYC application is currently being reviewed by our team. You can sell once it is approved.</p></div>`;
-        
-        const categories = await marketService.getCategories();
-
-        setTimeout(() => {
-          document.getElementById('sell-form').onsubmit = async(e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Posting...';
-            try {
-              let photoHtml = 'https://placehold.co/600x400/10B981/FFF?text=Animal+Photo';
-              // Check if any url was uploaded in custom field (optional native implementation simulation)
-              const photoInput = document.getElementById('tempPhotoUrl')?.value;
-              if (photoInput && photoInput.startsWith('http')) photoHtml = photoInput;
-
-              const docData = {
-                sellerId: currentUser.uid, 
-                sellerPhone: document.getElementById('contactPhone').value,
-                category: document.getElementById('animalType').value, 
-                title: document.getElementById('breed').value,
-                name: document.getElementById('breed').value, // match admin panel
-                gender: document.getElementById('gender').value, 
-                age: document.getElementById('age').value,
-                weight: document.getElementById('weight').value, 
-                color: document.getElementById('color').value,
-                healthCondition: document.getElementById('health').value, 
-                vaccinationStatus: document.getElementById('vaccination').value,
-                price: Number(document.getElementById('price').value), 
-                negotiable: document.getElementById('negotiable').value,
-                location: `${document.getElementById('mun').value}, ${document.getElementById('dist').value}`,
-                description: document.getElementById('desc').value,
-                image: photoHtml,
-                images: [photoHtml]
-              };
-              await marketService.postAnimal(docData);
-              window.showAlert("Animal posted successfully!"); window.location.hash = '#/my-listings';
-            } catch (err) { window.showAlert("Failed to post animal: " + err.message, "error"); btn.disabled = false; btn.innerHTML = 'Post Listing'; }
-          };
-        }, 0);
-
-        return `
-          <div style="max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
-            <h2 style="margin-bottom:2rem; font-size:1.8rem"><i class="fa-solid fa-plus-circle"></i> Add Animal for Sale</h2>
-            <form id="sell-form">
-              <h3 style="margin-bottom:1rem; color:var(--primary-color)">Animal Info</h3>
-              <div class="grid grid-cols-2">
-                <div class="form-group"><label>Animal Category</label><select id="animalType" class="form-control" required>${categories.map(c=>`<option>${c}</option>`).join('')}</select></div>
-                <div class="form-group"><label>Breed / Title</label><input type="text" id="breed" class="form-control" maxlength="30" placeholder="Max 30 chars" required></div>
-                <div class="form-group"><label>Gender</label><select id="gender" class="form-control" required><option>Male</option><option>Female</option></select></div>
-                <div class="form-group"><label>Age</label><input type="text" id="age" class="form-control" placeholder="e.g. 2 years" required></div>
-                <div class="form-group"><label>Weight (kg)</label><input type="number" id="weight" class="form-control" required></div>
-                <div class="form-group"><label>Color</label><input type="text" id="color" class="form-control"></div>
-                <div class="form-group"><label>Health Condition</label><input type="text" id="health" class="form-control" placeholder="e.g. Healthy" required></div>
-                <div class="form-group"><label>Vaccination Status</label><select id="vaccination" class="form-control" required><option>Yes</option><option>No</option></select></div>
-              </div>
-              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Pricing Details</h3>
-              <div class="grid grid-cols-2">
-                <div class="form-group"><label>Price (Rs.)</label><input type="number" id="price" class="form-control" required></div>
-                <div class="form-group"><label>Negotiable</label><select id="negotiable" class="form-control" required><option>Yes</option><option>No</option></select></div>
-              </div>
-              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Contact & Location Details</h3>
-              <div class="grid grid-cols-2">
-                <div class="form-group"><label>Contact Number</label><input type="tel" id="contactPhone" class="form-control" value="${currentProfile?.phone || currentProfile?.mobileNumber || ''}" required></div>
-                <div class="form-group"><label>District</label><input type="text" id="dist" class="form-control" required></div>
-                <div class="form-group"><label>Municipality</label><input type="text" id="mun" class="form-control" required></div>
-              </div>
-              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Photo Upload</h3>
-              <div class="form-group"><label>Attach public Google Drive / ImgBB URL (Optional)</label><input type="text" id="tempPhotoUrl" class="form-control" placeholder="https://i.ibb.co/123/img.jpg"></div>
-              <h3 style="margin: 2rem 0 1rem; color:var(--primary-color)">Additional Info</h3>
-              <div class="form-group"><label>Description</label><textarea id="desc" class="form-control" rows="4" maxlength="1000" placeholder="Max 1000 characters"></textarea></div>
-              <button type="submit" id="submit-btn" class="btn btn-primary" style="margin-top:2rem; width:100%; font-size:1.1rem">Post Listing</button>
-            </form>
-          </div>`;
-      },
-
-      async Kyc() {
-        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login" style="color:var(--primary-color)">Login</a> to complete KYC.</h2></div>`;
-        const currentStatus = await kycService.getKycStatus(currentUser.uid);
-        if (currentStatus === 'Pending' || currentStatus === 'pending') return `<div class="auth-container text-center"><i class="fa-solid fa-hourglass-half" style="font-size:3rem; color:var(--warning); margin-bottom:1rem;"></i><h2>KYC Status: Pending</h2><p style="color:var(--text-secondary); margin-top:1rem;">Your submitted documents are under verification. Please wait.</p><a href="#/profile" class="btn btn-outline mt-2">Go to Profile</a></div>`;
-        if (currentStatus === 'Approved' || currentStatus === 'approved') return `<div class="auth-container text-center"><i class="fa-solid fa-circle-check" style="font-size:3rem; color:var(--success); margin-bottom:1rem;"></i><h2>KYC Verified</h2><p style="color:var(--text-secondary); margin-top:1rem;">Congratulations! You are a verified seller.</p><a href="#/sell" class="btn btn-primary mt-2">Start Selling</a></div>`;
-
-        setTimeout(() => {
-          document.getElementById('kyc-form').addEventListener('submit', async(e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn'); btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Submitting...';
-            try {
-              const kycData = {
-                 userId: currentUser.uid,
-                 name: document.getElementById('k_fname').value,
-                 phone: document.getElementById('k_phone').value,
-                 citizenship: document.getElementById('k_cit_no').value,
-                 address: `${document.getElementById('k_ward').value}, ${document.getElementById('k_mun').value}, ${document.getElementById('k_dist').value}, ${document.getElementById('k_prov').value}`,
-                 citizenshipFrontUrl: document.getElementById('u_front')?.value || 'https://placehold.co/300x200?text=Front',
-                 citizenshipBackUrl: document.getElementById('u_back')?.value || 'https://placehold.co/300x200?text=Back',
-                 selfieUrl: document.getElementById('u_selfie')?.value || 'https://placehold.co/300x200?text=Selfie',
-                 
-                 // extended schema properties
-                 fatherName: document.getElementById('k_father').value,
-                 grandfatherName: document.getElementById('k_gfather').value,
-                 dob: document.getElementById('k_dob').value,
-                 gender: document.getElementById('k_gender').value,
-                 issueDate: document.getElementById('k_cit_date').value, 
-                 issueDistrict: document.getElementById('k_cit_dist').value,
-              };
-              await kycService.submitKyc(currentUser.uid, kycData);
-              window.showAlert("KYC Application Submitted Successfully!"); window.location.hash = '#/profile';
-            } catch (err) { window.showAlert("Submission failed: " + err.message, "error"); btn.disabled = false; btn.innerHTML = 'Submit KYC'; }
-          });
-        }, 0);
-
-        return `
-          <div style="max-width: 800px; margin: 0 auto; background: var(--surface-color); padding: 2rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
-            <h2 style="text-align:center; margin-bottom:2rem; font-size:1.8rem"><i class="fa-solid fa-id-card-clip"></i> KYC Verification</h2>
-            ${currentStatus === 'Rejected' ? `<div class="alert error" style="margin-bottom:2rem">Your previous KYC application was rejected. Please review your details and resubmit.</div>` : ''}
-            <form id="kyc-form">
-              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
-                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-user"></i> Step 1: Personal Details</h3>
-                <div class="grid grid-cols-2">
-                  <div class="form-group"><label>Full Name</label><input type="text" id="k_fname" value="${currentProfile?.name || currentProfile?.fullName || ''}" class="form-control" required></div>
-                  <div class="form-group"><label>Mobile Number</label><input type="text" id="k_phone" value="${currentProfile?.phone || currentProfile?.mobileNumber || ''}" class="form-control" required></div>
-                  <div class="form-group"><label>Date of Birth</label><input type="date" id="k_dob" class="form-control" required></div>
-                  <div class="form-group"><label>Gender</label><select id="k_gender" class="form-control" required><option>Male</option><option>Female</option><option>Other</option></select></div>
-                  <div class="form-group"><label>Father's Name</label><input type="text" id="k_father" class="form-control" required></div>
-                  <div class="form-group"><label>Grandfather's Name</label><input type="text" id="k_gfather" class="form-control" required></div>
+                <div class="detail-widget" style="margin-bottom:0.8rem;">
+                    <h3>Recently Posted</h3>
                 </div>
-              </div>
-              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
-                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-address-card"></i> Step 2: Citizenship Details</h3>
-                <div class="grid grid-cols-2">
-                  <div class="form-group"><label>Citizenship Number</label><input type="text" id="k_cit_no" class="form-control" required></div>
-                  <div class="form-group"><label>Issue Date</label><input type="date" id="k_cit_date" class="form-control" required></div>
-                  <div class="form-group"><label>Issue District</label><input type="text" id="k_cit_dist" class="form-control" required></div>
-                </div>
-              </div>
-              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
-                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-location-crosshairs"></i> Step 3: Current Address</h3>
-                <div class="grid grid-cols-2">
-                  <div class="form-group"><label>Province</label><input type="text" id="k_prov" class="form-control" required></div>
-                  <div class="form-group"><label>District</label><input type="text" id="k_dist" class="form-control" required></div>
-                  <div class="form-group"><label>Municipality</label><input type="text" id="k_mun" class="form-control" required></div>
-                  <div class="form-group"><label>Ward No</label><input type="number" id="k_ward" class="form-control" required></div>
-                </div>
-              </div>
-              <div style="background:var(--bg-color); padding:1.5rem; border-radius:var(--radius-md); margin-bottom:2rem; border:1px solid var(--border-color);">
-                <h3 style="margin-bottom:1rem; color:var(--primary-color)"><i class="fa-solid fa-camera"></i> Step 4: Documents (ImgBB URLs)</h3>
-                <div class="form-group"><label>Citizenship Front Photo URL</label><input type="text" id="u_front" class="form-control" placeholder="Optional public URL"></div>
-                <div class="form-group"><label>Citizenship Back Photo URL</label><input type="text" id="u_back" class="form-control" placeholder="Optional public URL"></div>
-                <div class="form-group"><label>Selfie Image URL</label><input type="text" id="u_selfie" class="form-control" placeholder="Optional public URL"></div>
-              </div>
-              <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; font-size:1.2rem; padding:1rem">Submit KYC</button>
-            </form>
-          </div>`;
-      },
-
-      Settings() {
-        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login" style="color:var(--primary-color)">Login</a>.</h2></div>`;
-        const isDark = localStorage.getItem('darkMode') === 'true';
-        const notifAlerts = localStorage.getItem('notif_listing') !== 'false';
-        const notifUpdates = localStorage.getItem('notif_updates') !== 'false';
-
-        const openModal = (html) => {
-          const existing = document.getElementById('settings-modal');
-          if(existing) existing.remove();
-          const el = document.createElement('div');
-          el.id = 'settings-modal';
-          el.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);';
-          el.innerHTML = `<div style="background:var(--surface-color);padding:2rem;border-radius:var(--radius-xl);width:100%;max-width:420px;box-shadow:var(--shadow-lg);position:relative;animation:slideIn 0.2s ease;">${html}</div>`;
-          document.body.appendChild(el);
-        };
-        const closeModal = () => { document.getElementById('settings-modal')?.remove(); };
-
-        setTimeout(() => {
-          // Logout
-          document.getElementById('logout-btn')?.addEventListener('click', async () => {
-            await authService.logout(); window.showAlert("Logged out safely."); window.location.hash = '#/login';
-          });
-          // Dark mode
-          document.getElementById('theme-toggle')?.addEventListener('change', (e) => {
-            localStorage.setItem('darkMode', e.target.checked);
-            if(e.target.checked) document.documentElement.setAttribute('data-theme','dark');
-            else document.documentElement.removeAttribute('data-theme');
-          });
-          // Notification toggles
-          document.getElementById('notif-alerts-toggle')?.addEventListener('change', (e) => {
-            localStorage.setItem('notif_listing', e.target.checked);
-            window.showAlert(e.target.checked ? 'Listing alerts enabled' : 'Listing alerts disabled');
-          });
-          document.getElementById('notif-updates-toggle')?.addEventListener('change', (e) => {
-            localStorage.setItem('notif_updates', e.target.checked);
-            window.showAlert(e.target.checked ? 'Update notifications enabled' : 'Update notifications disabled');
-          });
-          // Update Name
-          document.getElementById('s-update-name')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-user-pen" style="color:var(--primary-color)"></i> Update Name</h3>
-              <div class="form-group"><label>Full Name</label><input type="text" id="m-name" class="form-control" value="${currentProfile?.name || ''}"></div>
-              <div style="display:flex;gap:1rem;margin-top:1rem">
-                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1" id="m-save-name">Save</button>
-              </div>`);
-            document.getElementById('m-save-name').onclick = async () => {
-              const val = document.getElementById('m-name').value.trim();
-              if(!val) return window.showAlert('Name cannot be empty','error');
-              await update(ref(db,'users/'+currentUser.uid),{name:val});
-              currentProfile.name = val; closeModal();
-              window.showAlert('Name updated successfully');
-              document.getElementById('nav-links-container').innerHTML = '';
-              renderNav();
-            };
-          });
-          // Update Profile Photo
-          document.getElementById('s-update-photo')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-camera" style="color:var(--primary-color)"></i> Update Profile Photo</h3>
-              <div class="form-group"><label>Photo URL (ImgBB / Google Drive public link)</label><input type="text" id="m-photo" class="form-control" placeholder="https://i.ibb.co/..." value="${currentProfile?.photoUrl || ''}"></div>
-              <div style="display:flex;gap:1rem;margin-top:1rem">
-                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1" id="m-save-photo">Save</button>
-              </div>`);
-            document.getElementById('m-save-photo').onclick = async () => {
-              const val = document.getElementById('m-photo').value.trim();
-              if(!val || !val.startsWith('http')) return window.showAlert('Please enter a valid URL','error');
-              await update(ref(db,'users/'+currentUser.uid),{photoUrl:val});
-              currentProfile.photoUrl = val; closeModal();
-              window.showAlert('Profile photo updated');
-            };
-          });
-          // Update Address
-          document.getElementById('s-update-address')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-location-dot" style="color:var(--primary-color)"></i> Update Address</h3>
-              <div class="form-group"><label>Province</label><input type="text" id="m-prov" class="form-control" value="${currentProfile?.province || ''}"></div>
-              <div class="form-group"><label>District</label><input type="text" id="m-dist" class="form-control" value="${currentProfile?.district || ''}"></div>
-              <div class="form-group"><label>Municipality</label><input type="text" id="m-mun" class="form-control" value="${currentProfile?.municipality || ''}"></div>
-              <div class="form-group"><label>Ward No</label><input type="number" id="m-ward" class="form-control" value="${currentProfile?.ward || ''}"></div>
-              <div style="display:flex;gap:1rem;margin-top:1rem">
-                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1" id="m-save-address">Save</button>
-              </div>`);
-            document.getElementById('m-save-address').onclick = async () => {
-              const prov=document.getElementById('m-prov').value, dist=document.getElementById('m-dist').value, mun=document.getElementById('m-mun').value, ward=document.getElementById('m-ward').value;
-              if(!dist||!mun) return window.showAlert('District and Municipality required','error');
-              const loc = `${mun}-${ward}, ${dist}, ${prov}`;
-              await update(ref(db,'users/'+currentUser.uid),{province:prov,district:dist,municipality:mun,ward,location:loc});
-              Object.assign(currentProfile,{province:prov,district:dist,municipality:mun,ward,location:loc});
-              closeModal(); window.showAlert('Address updated');
-            };
-          });
-          // Change Password
-          document.getElementById('s-change-pass')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-lock" style="color:var(--primary-color)"></i> Change Password</h3>
-              <div class="form-group"><label>New Password</label><input type="password" id="m-newpass" class="form-control" placeholder="Min 6 characters" minlength="6"></div>
-              <div class="form-group"><label>Confirm New Password</label><input type="password" id="m-confirmpass" class="form-control" minlength="6"></div>
-              <div style="display:flex;gap:1rem;margin-top:1rem">
-                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1" id="m-save-pass">Update</button>
-              </div>`);
-            document.getElementById('m-save-pass').onclick = async () => {
-              const np = document.getElementById('m-newpass').value, cp = document.getElementById('m-confirmpass').value;
-              if(np.length < 6) return window.showAlert('Password must be at least 6 characters','error');
-              if(np !== cp) return window.showAlert('Passwords do not match','error');
-              try {
-                const { updatePassword } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
-                await updatePassword(currentUser, np);
-                closeModal(); window.showAlert('Password changed successfully');
-              } catch(err) { window.showAlert('Error: ' + err.message, 'error'); }
-            };
-          });
-          // Update Location (simplified)
-          document.getElementById('s-update-location')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-map-pin" style="color:var(--primary-color)"></i> Update Location</h3>
-              <div class="form-group"><label>Current Location (City/District)</label><input type="text" id="m-location" class="form-control" placeholder="e.g. Kathmandu, Bagmati" value="${currentProfile?.location || ''}"></div>
-              <div style="display:flex;gap:1rem;margin-top:1rem">
-                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1" id="m-save-location">Save</button>
-              </div>`);
-            document.getElementById('m-save-location').onclick = async () => {
-              const val = document.getElementById('m-location').value.trim();
-              if(!val) return window.showAlert('Location required','error');
-              await update(ref(db,'users/'+currentUser.uid),{location:val});
-              currentProfile.location = val; closeModal(); window.showAlert('Location updated');
-            };
-          });
-          // FAQ
-          document.getElementById('s-faq')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-circle-question" style="color:var(--primary-color)"></i> Frequently Asked Questions</h3>
-              <div style="display:flex;flex-direction:column;gap:1rem;max-height:350px;overflow-y:auto;">
-                ${[['How do I sell an animal?','Complete your KYC verification, then go to the Sell section and fill in the details.'],['How does KYC work?','Submit your personal details and citizenship documents. Our team verifies within 24-48 hours.'],['Can I edit my listing?','Go to My Listings and click Mark Sold or Delete. Re-list to update details.'],['How does payment work?','Payments are handled directly between buyer and seller. AgroMart does not process payments.'],['How do I contact a seller?','Click on any listing and tap the Contact Seller button to dial them directly.']].map(([q,a])=>`<div style="border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1rem;"><strong>${q}</strong><p style="color:var(--text-secondary);margin-top:0.5rem;font-size:0.9rem;">${a}</p></div>`).join('')}
-              </div>
-              <button class="btn btn-primary" style="width:100%;margin-top:1.5rem" onclick="document.getElementById('settings-modal').remove()">Close</button>`);
-          });
-          // Contact Support
-          document.getElementById('s-contact')?.addEventListener('click', () => {
-            openModal(`
-              <h3 style="margin-bottom:1.5rem"><i class="fa-solid fa-headset" style="color:var(--primary-color)"></i> Contact Support</h3>
-              <div class="form-group"><label>Subject</label><input type="text" id="m-subject" class="form-control" placeholder="Brief description of issue"></div>
-              <div class="form-group"><label>Message</label><textarea id="m-message" class="form-control" rows="4" placeholder="Describe your issue..."></textarea></div>
-              <div style="display:flex;gap:1rem;margin-top:1rem">
-                <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('settings-modal').remove()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1" id="m-send-support">Send</button>
-              </div>`);
-            document.getElementById('m-send-support').onclick = async () => {
-              const subject = document.getElementById('m-subject').value.trim();
-              const message = document.getElementById('m-message').value.trim();
-              if(!subject||!message) return window.showAlert('Please fill all fields','error');
-              const newRef = push(ref(db,'support'));
-              await set(newRef,{userId:currentUser.uid,name:currentProfile?.name||'',email:currentProfile?.email||'',subject,message,timestamp:Date.now(),status:'open'});
-              closeModal(); window.showAlert('Support ticket submitted! We will respond via email.');
-            };
-          });
-        }, 0);
-
-        return `
-          <div id="settings-modal-host"></div>
-          <div style="max-width: 600px; margin: 0 auto;">
-            <h2 style="margin-bottom:2rem; font-size:1.8rem"><i class="fa-solid fa-gear"></i> Settings</h2>
-            
-            <div class="settings-section">
-               <div class="settings-header">🌙 App Settings</div>
-               <div class="settings-item"><span>Dark Mode</span><label class="toggle-switch"><input type="checkbox" id="theme-toggle" ${isDark ? 'checked' : ''}><span class="slider"></span></label></div>
-               <div class="settings-item"><span>Language</span><span style="font-size:0.9rem;color:var(--text-secondary)">English 🇬🇧</span></div>
+                <div id="recent-posts-list" style="display:flex;flex-direction:column;gap:0.7rem;"></div>
             </div>
+        </div>
+    </section>
+</div>
 
-            <div class="settings-section">
-               <div class="settings-header">👤 Profile Settings</div>
-               <div class="settings-item" id="s-update-name"><span><i class="fa-solid fa-user-pen" style="width:20px;color:var(--primary-color)"></i> Update Name</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
-               <div class="settings-item" id="s-update-photo"><span><i class="fa-solid fa-camera" style="width:20px;color:var(--primary-color)"></i> Update Profile Photo</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
-               <div class="settings-item" id="s-update-address"><span><i class="fa-solid fa-location-dot" style="width:20px;color:var(--primary-color)"></i> Update Address</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- DEVELOPER INFO SECTION -->
+<section class="developer-section" style="background: linear-gradient(135deg, var(--np-blue-light) 0%, var(--np-red-light) 100%); padding: 2rem 1rem; text-align: center; border-top: 3px solid var(--np-blue); margin: 2rem 0 0 0;">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h3 style="font-size: 1.1rem; color: var(--np-text); margin-bottom: 1rem; font-weight: 700;">Developed By</h3>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <a href="https://officalkiran2.vercel.app/" target="_blank" style="display: inline-block; transition: var(--transition);">
+                <img src="https://i.ibb.co/0VdzySCb/IMG-20260525-085705.png" alt="Developer Logo" style="height: 60px; border-radius: var(--radius-md); box-shadow: var(--shadow-md); transition: var(--transition);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+            <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--np-blue); margin-bottom: 0.25rem;">GHANSHYAMOLI</h4>
+                <p style="font-size: 0.85rem; color: var(--np-text-muted); margin-bottom: 0.5rem;">Full-Stack Developer & Designer</p>
+                <a href="https://officalkiran2.vercel.app/" target="_blank" style="display: inline-block; background: var(--np-blue); color: white; padding: 0.4rem 0.9rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: var(--transition);" onmouseover="this.style.background='var(--np-blue-dark)'" onmouseout="this.style.background='var(--np-blue)'">Visit Portfolio &rarr;</a>
             </div>
+        </div>
+    </div>
+</section>
 
-            <div class="settings-section">
-               <div class="settings-header">🪪 KYC Settings</div>
-               <a href="#/kyc" class="settings-item"><span><i class="fa-solid fa-id-card" style="width:20px;color:var(--primary-color)"></i> Complete KYC / Resubmit</span><span class="badge badge-${currentProfile?.kycStatus === 'Approved' ? 'success' : currentProfile?.kycStatus === 'Pending' ? 'warning' : 'danger'}">${currentProfile?.kycStatus || 'Not Submitted'}</span></a>
-               <a href="#/kyc" class="settings-item"><span><i class="fa-solid fa-eye" style="width:20px;color:var(--primary-color)"></i> View KYC Status</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></a>
-            </div>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-col">
+            <h3>National Job Service</h3>
+            <p>Official Employment Portal &middot; Real-time compilation of government and private sector jobs from Nepal and around the world.<br><br>Founded by <strong>GHANSHYAMOLI</strong> — This portal is built to connect job seekers with real employment opportunities globally. Real jobs, real locations, real companies — updated live every 30 minutes.</p>
+        </div>
+        <div class="footer-col">
+            <h3>Our Mission</h3>
+            <p>To provide a free, real-time job aggregation platform that helps Nepali and international job seekers find verified employment opportunities across government, private, and remote sectors worldwide. Making career growth accessible to everyone.</p>
+        </div>
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+            <a href="#" onclick="showView('home')">Home</a>
+            <a href="#" onclick="showView('search')">Search Jobs</a>
+            <a href="#" onclick="showView('global')">Global Jobs</a>
+            <a href="#" onclick="showView('dashboard')">Dashboard</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 National Job Service Portal — Developed by GHANSHYAMOLI</span>
+        <span>Auto-collected &middot; Real-time &middot; Free Service</span>
+    </div>
+</footer>
 
-            <div class="settings-section">
-               <div class="settings-header">🔐 Security</div>
-               <div class="settings-item" id="s-change-pass"><span><i class="fa-solid fa-lock" style="width:20px;color:var(--primary-color)"></i> Change Password</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
-            </div>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
+<script>
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAgwk1f1jGKICbuExi4o-dErMQIxImWmLw",
+  authDomain: "loan-management-apps.firebaseapp.com",
+  databaseURL: "https://loan-management-apps-default-rtdb.firebaseio.com",
+  projectId: "loan-management-apps",
+  storageBucket: "loan-management-apps.firebasestorage.app",
+  messagingSenderId: "167835472146",
+  appId: "1:167835472146:web:d803067a054fb1b8a1e3cb",
+  measurementId: "G-L6W1GW15BV"
+};
 
-            <div class="settings-section">
-               <div class="settings-header">🔔 Notification Settings</div>
-               <div class="settings-item"><span><i class="fa-solid fa-bell" style="width:20px;color:var(--primary-color)"></i> Listing Alerts</span><label class="toggle-switch"><input type="checkbox" id="notif-alerts-toggle" ${notifAlerts ? 'checked' : ''}><span class="slider"></span></label></div>
-               <div class="settings-item"><span><i class="fa-solid fa-rotate" style="width:20px;color:var(--primary-color)"></i> App Updates</span><label class="toggle-switch"><input type="checkbox" id="notif-updates-toggle" ${notifUpdates ? 'checked' : ''}><span class="slider"></span></label></div>
-            </div>
+let firebase_connected = false;
+let server_down = false;
+let firebase_app = null;
+let firebase_db = null;
 
-            <div class="settings-section">
-               <div class="settings-header">📍 Location Settings</div>
-               <div class="settings-item" id="s-update-location"><span><i class="fa-solid fa-map-pin" style="width:20px;color:var(--primary-color)"></i> Update Location</span><span style="font-size:0.85rem;color:var(--text-secondary);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${currentProfile?.location || 'Not set'}</span></div>
-            </div>
+// Initialize Firebase (will run after SDK loads)
+if (typeof firebase !== 'undefined') {
+  firebase_app = firebase.initializeApp(firebaseConfig);
+  firebase_db = firebase.database(firebase_app);
+  
+  firebase_db.ref('.info/connected').on('value', snap => {
+    firebase_connected = snap.val() === true;
+    console.log('🔥 Firebase connected:', firebase_connected);
+  });
+} else {
+  console.log('⚠️ Firebase SDK not loaded, using server-only mode');
+}
 
-            <div class="settings-section">
-               <div class="settings-header">🧾 Help & Support</div>
-               <div class="settings-item" id="s-faq"><span><i class="fa-solid fa-circle-question" style="width:20px;color:var(--primary-color)"></i> FAQ</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
-               <div class="settings-item" id="s-contact"><span><i class="fa-solid fa-headset" style="width:20px;color:var(--primary-color)"></i> Contact Support</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></div>
-            </div>
-
-            <div class="settings-section">
-               <div class="settings-header">📊 Activity History</div>
-               <a href="#/my-listings" class="settings-item"><span><i class="fa-solid fa-list" style="width:20px;color:var(--primary-color)"></i> My Listings History</span><i class="fa-solid fa-chevron-right" style="font-size:0.8rem"></i></a>
-            </div>
-
-            <button id="logout-btn" class="btn btn-danger" style="width:100%; font-size:1.1rem; padding:1rem; margin-top:1rem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
-            <div style="height: 40px"></div>
-          </div>`;
-      },
-
-
-
-      async MyListings() {
-        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login">Login</a> to view your listings.</h2></div>`;
-        const listings = await userService.getMyListings(currentUser.uid);
-        const getStatusBadge = (status) => {
-          if (status === 'active' || status === 'Active') return `<span class="badge badge-success">Active</span>`;
-          if (status === 'sold' || status === 'Sold') return `<span class="badge badge-warning">Sold</span>`;
-          if (status === 'expired' || status === 'Expired') return `<span class="badge badge-danger">Expired</span>`;
-          return `<span class="badge badge-secondary">${status}</span>`;
-        };
-
-        setTimeout(() => {
-          document.querySelectorAll('.mark-sold').forEach(btn => btn.addEventListener('click', async () => {
-              if(confirm("Mark this animal as sold?")) { await userService.updateListingStatus(btn.dataset.id, 'sold'); window.showAlert("Updated successfully"); window.location.reload(); }
-          }));
-          document.querySelectorAll('.btn-delete').forEach(btn => btn.addEventListener('click', async () => {
-              if(confirm("Delete this listing?")) { await userService.deleteListing(btn.dataset.id); window.showAlert("Deleted successfully"); window.location.reload(); }
-          }));
-        }, 0);
-
-        return `
-          <div style="max-width: 800px; margin: 0 auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
-              <h2><i class="fa-solid fa-list"></i> My Listings</h2>
-              <a href="#/sell" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New</a>
-            </div>
-            <div class="grid grid-cols-2">
-              ${listings.length === 0 ? `<div class="card" style="padding:2rem; text-align:center"><p class="text-secondary">You have no listings yet.</p> <a href="#/sell" class="btn btn-primary mt-1">Post one now</a></div>` : listings.map(l => `
-                <div class="card" style="display:flex; flex-direction:column; padding:1.5rem; gap:1rem;">
-                  <div style="display:flex; justify-content:space-between; align-items:center;"><h3 style="font-size:1.2rem">${l.title || l.breed || l.animalType} <span style="font-size:0.9rem; font-weight:normal; color:var(--text-secondary)">- ${l.category || l.animalType}</span></h3>${getStatusBadge(l.displayStatus)}</div>
-                  <div style="display:flex; gap:1rem;"><img src="${l.image || l.images?.[0] || 'https://placehold.co/100x100?text=No+Img'}" style="width:80px; height:80px; border-radius:var(--radius-md); object-fit:cover;">
-                     <div style="flex:1"><p style="color:var(--primary-color); font-weight:bold; margin-bottom:0.3rem">Rs. ${l.price}</p><p style="font-size:0.9rem; color:var(--text-secondary)">Posted on: ${new Date(l.timestamp||0).toLocaleDateString()}</p></div>
-                  </div>
-                  <hr style="border:0; border-top:1px solid var(--border-color)">
-                  <div style="display:flex; justify-content:space-between; gap:1rem">
-                     ${l.displayStatus === 'active' || l.displayStatus === 'Active' ? `<button class="btn btn-outline mark-sold" data-id="${l.id}" style="flex:1">Mark Sold</button>` : '<span></span>'}
-                     <button class="btn btn-danger btn-delete" data-id="${l.id}" style="flex:1">Delete</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>`;
-      },
-
-      Profile() {
-        if(!currentUser) return `<div class="text-center mt-2"><h2>Please <a href="#/login">Login</a>.</h2></div>`;
-        return `
-          <div style="max-width: 600px; margin: 0 auto; background: var(--surface-color); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); overflow: hidden;">
-            <div style="background: linear-gradient(135deg, var(--primary-color) 0%, #047857 100%); height: 120px;"></div>
-            <div style="padding: 2rem; position: relative; text-align: center;">
-              <div style="width: 100px; height: 100px; background: var(--surface-color); border-radius: 50%; box-shadow: var(--shadow-sm); margin: -70px auto 1rem; border: 4px solid var(--surface-color); display:flex; align-items:center; justify-content:center; font-size:3rem; color:var(--text-secondary)"><i class="fa-solid fa-user"></i></div>
-              <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem">${currentProfile?.name || currentProfile?.fullName || 'User'}</h2>
-              <p style="color:var(--text-secondary); margin-bottom: 1rem;"><i class="fa-solid fa-phone"></i> ${currentProfile?.phone || currentProfile?.mobileNumber || ''}</p>
-              <div style="margin-bottom: 2rem;"><span class="badge badge-${(currentProfile?.kycStatus === 'Approved' || currentProfile?.kycStatus === 'approved') ? 'success' : 'warning'}">KYC: ${currentProfile?.kycStatus || 'Not Submitted'}</span></div>
-            </div>
-          </div>`;
-      }
-    };
-
-    const renderNav = () => {
-      document.getElementById('nav-links-container').innerHTML = currentUser 
-        ? `<a href="#/" class="nav-link">Home</a> <a href="#/sell" class="btn btn-primary">Sell</a> <a href="#/my-listings" class="nav-link">My Listings</a> <a href="#/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>`
-        : `<a href="#/" class="nav-link">Home</a> <a href="#/login" class="nav-link">Login</a> <a href="#/register" class="btn btn-primary">Register</a>`;
-    };
-
-    const router = async () => {
-      const path = window.location.hash.slice(1) || '/';
-      const root = document.getElementById('app-root');
-      root.innerHTML = '<div class="text-center mt-2"><div class="loader"></div></div>';
-      
-      document.querySelectorAll('.bottom-nav-link').forEach(link => {
-         if (link.getAttribute('data-path') === path) link.classList.add('active');
-         else link.classList.remove('active');
-      });
-
-      try {
-        if(path === '/') root.innerHTML = await views.Home();
-        else if(path === '/login') root.innerHTML = views.Login();
-        else if(path === '/register') root.innerHTML = views.Register();
-        else if(path === '/sell') root.innerHTML = await views.Sell();
-        else if(path === '/profile') root.innerHTML = views.Profile();
-        else if(path === '/kyc') root.innerHTML = await views.Kyc();
-        else if(path === '/settings') root.innerHTML = views.Settings();
-        else if(path === '/my-listings') root.innerHTML = await views.MyListings();
-        else if(path.startsWith('/animal/')) root.innerHTML = await views.AnimalDetails(path.split('/')[2]);
-        else root.innerHTML = '<h2>404 Not Found</h2>';
-      } catch(e) {
-        console.error(e);
-        root.innerHTML = '<div class="alert error">Error rendering view</div>';
-      }
-    };
-
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user;
-      if(user) {
-        try {
-          const snap = await get(ref(db, 'users/' + user.uid));
-          if(snap.exists()) currentProfile = snap.val();
-        } catch(e) {
-          console.error("Failed to load profile", e);
-        }
-      } else { currentProfile = null; }
-      renderNav();
-      router();
+// Functions to save jobs to Firebase
+async function saveJobsToFirebase(jobs) {
+  if (!firebase_connected || !firebase_db) {
+    return;
+  }
+  try {
+    const timestamp = new Date().toISOString();
+    await firebase_db.ref(`jobs/nepal/${Date.now()}`).set({
+      count: jobs.length,
+      jobs: jobs,
+      timestamp: timestamp,
+      server_status: server_down ? 'down' : 'up'
     });
+    console.log(`✅ Saved ${jobs.length} jobs to Firebase`);
+  } catch (e) {
+    console.error('Firebase save error:', e);
+  }
+}
 
-    window.addEventListener('hashchange', router);
-    if(localStorage.getItem('darkMode') === 'true') document.documentElement.setAttribute('data-theme', 'dark');
+// Get jobs from Firebase when server is down
+async function getJobsFromFirebase() {
+  if (!firebase_connected || !firebase_db) return null;
+  try {
+    const ref = firebase_db.ref('jobs/nepal');
+    const snapshot = await ref.limitToLast(1).once('value');
+    const data = snapshot.val();
+    if (data) {
+      const latestKey = Object.keys(data)[Object.keys(data).length - 1];
+      const latestData = data[latestKey];
+      console.log(`📥 Retrieved ${latestData.jobs.length} jobs from Firebase`);
+      return latestData.jobs;
+    }
+  } catch (e) {
+    console.error('Firebase retrieve error:', e);
+  }
+  return null;
+}
 
-  </script>
+// Check server health
+async function checkServerHealth() {
+  try {
+    const res = await fetch(`${API || 'http://127.0.0.1:8000/api'}/health`, { method: 'GET' });
+    return res.ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Hybrid API: Firebase First (Fast) + Server Sync (Fresh)
+async function apiGetWithFallback(url) {
+  // Step 1: Try to get cached data from Firebase (instant)
+  let firebaseData = null;
+  if (firebase_connected && firebase_db && url.includes('/jobs')) {
+    firebaseData = await getJobsFromFirebase();
+    if (firebaseData) {
+      console.log('🔥 Firebase first: Showing cached data');
+      // Return Firebase data immediately
+      const result = { 
+        results: firebaseData, 
+        count: firebaseData.length,
+        from_cache: true,
+        message: 'Real-time data (cached)'
+      };
+      
+      // Step 2: Fetch fresh data from server in background (don't wait)
+      fetchServerDataInBackground(url);
+      
+      return result;
+    }
+  }
+  
+  // Step 3: If no Firebase cache, try server
+  try {
+    const res = await fetch(url, { timeout: 5000 });
+    if (res.ok) {
+      server_down = false;
+      const data = await res.json();
+      // Auto-save to Firebase for backup
+      if (url.includes('/jobs') && data.results) {
+        saveJobsToFirebase(data.results);
+        console.log('💾 Server data saved to Firebase');
+      }
+      return data;
+    }
+  } catch (e) {
+    console.warn('⚠️ Server error:', e.message);
+    server_down = true;
+  }
+  
+  // Step 4: Server failed, try Firebase fallback
+  if (server_down && firebase_connected) {
+    console.log('📱 Server down, using Firebase backup...');
+    const backupJobs = await getJobsFromFirebase();
+    if (backupJobs) {
+      return { 
+        results: backupJobs, 
+        count: backupJobs.length,
+        from_backup: true,
+        message: 'Showing cached data from Firebase'
+      };
+    }
+  }
+  
+  return null;
+}
+
+// Background server fetch (non-blocking)
+async function fetchServerDataInBackground(url) {
+  try {
+    const res = await fetch(url);
+    if (res.ok) {
+      const freshData = await res.json();
+      console.log('✨ Fresh server data received');
+      
+      // Save to Firebase
+      if (url.includes('/jobs') && freshData.results) {
+        await saveJobsToFirebase(freshData.results);
+        console.log('💾 Updated Firebase with fresh server data');
+        
+        // Update UI with fresh data
+        updateUIWithFreshData(freshData);
+      }
+      
+      server_down = false;
+    }
+  } catch (e) {
+    console.warn('Background fetch failed:', e.message);
+  }
+}
+
+// Update UI when fresh data arrives
+function updateUIWithFreshData(freshData) {
+  if (!freshData || !freshData.results) return;
+  
+  const activeView = document.querySelector('.spa-view.active');
+  if (!activeView) return;
+  
+  // Only update if we're on home or search page
+  if (activeView.id === 'view-home') {
+    const grid = document.getElementById('home-jobs-grid');
+    if (grid) {
+      const hasBackupMsg = grid.querySelector('[style*="FFF3CD"]');
+      if (hasBackupMsg) hasBackupMsg.remove();
+      
+      // Add refresh indicator
+      const refreshMsg = document.createElement('div');
+      refreshMsg.style.cssText = 'background:#D4EDDA;border:1px solid #C3E6CB;padding:0.8rem;border-radius:var(--radius-sm);margin-bottom:1rem;font-size:0.85rem;color:#155724;animation:fadeUp 0.3s ease;';
+      refreshMsg.innerHTML = '✅ Fresh data loaded from server';
+      grid.insertBefore(refreshMsg, grid.firstChild);
+      
+      // Fade out message after 3 seconds
+      setTimeout(() => {
+        refreshMsg.style.animation = 'fadeDown 0.3s ease';
+        setTimeout(() => refreshMsg.remove(), 300);
+      }, 3000);
+      
+      // Update job cards with animation
+      const newHtml = freshData.results.map(renderCard).join('');
+      grid.innerHTML = refreshMsg.outerHTML + newHtml;
+      console.log('🔄 UI updated with fresh jobs from server');
+    }
+  } else if (activeView.id === 'view-search') {
+    const grid = document.getElementById('search-results-grid');
+    if (grid) {
+      grid.innerHTML = freshData.results.map(renderCard).join('');
+      showToast('✅ Search results refreshed with latest data');
+      console.log('🔄 Search results updated with fresh data');
+    }
+  }
+}
+
+// Sync jobs back to server when it recovers
+async function syncJobsToServer() {
+  if (!server_down || !firebase_connected) return;
+  
+  const health = await checkServerHealth();
+  if (!health) return;
+  
+  console.log('🔄 Server recovered, syncing jobs...');
+  try {
+    const backupJobs = await getJobsFromFirebase();
+    if (backupJobs && backupJobs.length > 0) {
+      await fetch(`${API}/sync-backup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobs: backupJobs,
+          timestamp: new Date().toISOString(),
+          action: 'sync'
+        })
+      });
+      console.log('✅ Jobs synced to recovered server');
+      server_down = false;
+      showToast('✅ Server recovered and data synced!');
+    }
+  } catch (e) {
+    console.error('Sync error:', e);
+  }
+}
+
+// Auto-check server health every 30 seconds
+setInterval(async () => {
+  if (server_down) {
+    const health = await checkServerHealth();
+    if (health) {
+      await syncJobsToServer();
+    }
+  }
+}, 30000);
+
+</script>
+
+<script>
+const API = 'http://127.0.0.1:8000/api';
+let currentDetailJob = null;
+let jobCache = [];
+let viewMode = 'cards';
+
+const CATEGORIES = [
+    { id: 'software-dev', name: 'Software Dev', icon: '💻', keywords: 'software,developer,programmer,engineer,backend,frontend,fullstack,api' },
+    { id: 'web-dev', name: 'Web Dev', icon: '🌐', keywords: 'web,developer,html,css,javascript,react,angular,vue,node,django,php,wordpress' },
+    { id: 'mobile-dev', name: 'Mobile Dev', icon: '📱', keywords: 'mobile,android,ios,flutter,react native,kotlin,swift' },
+    { id: 'ai-ml', name: 'AI / ML', icon: '🤖', keywords: 'ai,artificial intelligence,machine learning,deep learning,ml,data science,nlp' },
+    { id: 'data-science', name: 'Data Science', icon: '📊', keywords: 'data science,analytics,data analyst,python,r,sql,big data' },
+    { id: 'cybersecurity', name: 'Cyber Security', icon: '🔒', keywords: 'cybersecurity,security,ethical hacking,network security,infosec' },
+    { id: 'cloud', name: 'Cloud', icon: '☁️', keywords: 'cloud,aws,azure,gcp,devops,kubernetes,docker' },
+    { id: 'devops', name: 'DevOps', icon: '🔄', keywords: 'devops,ci/cd,kubernetes,docker,jenkins,terraform,ansible' },
+    { id: 'ui-ux', name: 'UI/UX Design', icon: '🎨', keywords: 'ui,ux,design,figma,sketch,prototype,user interface,user experience' },
+    { id: 'graphic-design', name: 'Graphic Design', icon: '🖌️', keywords: 'graphic design,photoshop,illustrator,logo,branding,visual' },
+    { id: 'video-editing', name: 'Video Editing', icon: '🎬', keywords: 'video editing,premiere pro,final cut,after effects,motion graphics' },
+    { id: 'digital-marketing', name: 'Digital Marketing', icon: '📈', keywords: 'digital marketing,social media,smm,seo,sem,advertising' },
+    { id: 'content-writing', name: 'Content Writing', icon: '✍️', keywords: 'content writing,blog,article,copy,technical writing' },
+    { id: 'customer-support', name: 'Customer Support', icon: '🎧', keywords: 'customer support,call center,help desk,customer service' },
+    { id: 'sales', name: 'Sales & Marketing', icon: '📣', keywords: 'sales,marketing,business development,sales representative' },
+    { id: 'accounting', name: 'Accounting', icon: '💰', keywords: 'accounting,finance,accountant,audit,tax,financial' },
+    { id: 'banking', name: 'Banking', icon: '🏦', keywords: 'bank,banking,teller,loan,credit,financial' },
+    { id: 'hr', name: 'Human Resources', icon: '👥', keywords: 'hr,human resources,recruitment,talent,people operations' },
+    { id: 'project-management', name: 'Project Management', icon: '📋', keywords: 'project manager,project management,pm,scrum,agile' },
+    { id: 'teaching', name: 'Teaching & Education', icon: '📚', keywords: 'teacher,teaching,education,professor,lecturer,instructor' },
+    { id: 'healthcare', name: 'Healthcare', icon: '🏥', keywords: 'healthcare,nurse,nursing,doctor,medical,health' },
+    { id: 'engineering', name: 'Engineering', icon: '⚙️', keywords: 'engineer,engineering,mechanical,civil,electrical' },
+    { id: 'government', name: 'Government', icon: '🏛️', keywords: 'government,govt,psc,loksewa,civil service' },
+    { id: 'ngo', name: 'NGO / INGO', icon: '🤲', keywords: 'ngo,ingo,nonprofit,development,social work' },
+    { id: 'remote', name: 'Remote Jobs', icon: '🏠', keywords: 'remote,work from home,telecommute,online' },
+    { id: 'freelance', name: 'Freelance', icon: '🆓', keywords: 'freelance,freelancer,contract,gig,independent' },
+    { id: 'part-time', name: 'Part-Time', icon: '⏰', keywords: 'part time,parttime,evening,weekend' },
+    { id: 'internship', name: 'Internship', icon: '🎯', keywords: 'internship,intern,trainee,fresher' },
+    { id: 'international', name: 'International', icon: '🌏', keywords: 'international,abroad,overseas,foreign,global' },
+];
+
+function showView(viewId) {
+    document.querySelectorAll('.spa-view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById('view-' + viewId);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    const navBtn = document.getElementById('nav-' + viewId);
+    if (navBtn) navBtn.classList.add('active');
+    document.querySelectorAll('.drawer-link').forEach(l => l.classList.remove('active'));
+    const mNav = document.getElementById('mnav-' + viewId);
+    if (mNav) mNav.classList.add('active');
+    document.querySelectorAll('.bottom-nav-item').forEach(l => l.classList.remove('active'));
+    const bNav = document.getElementById('bnav-' + viewId);
+    if (bNav) bNav.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (viewId === 'home') bootHome();
+    if (viewId === 'search') bootSearch();
+    if (viewId === 'global') bootGlobal();
+    if (viewId === 'categories') bootCategories();
+    if (viewId === 'saved') bootSaved();
+    if (viewId === 'dashboard') bootDashboard();
+    if (viewId === 'compose') bootCompose();
+    if (viewId === 'post') bootPost();
+}
+
+function toggleDrawer() {
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    const isOpen = drawer.classList.contains('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.getElementById('hamburger-btn').textContent = isOpen ? '☰' : '✕';
+}
+
+async function apiGet(url) {
+    return await apiGetWithFallback(url);
+}
+
+async function fetchNepalJobs(params = {}) {
+    const q = new URLSearchParams();
+    if (params.keyword) q.set('keyword', params.keyword);
+    if (params.location) q.set('location', params.location);
+    if (params.remote_only) q.set('remote_only', 'true');
+    if (params.gov_only) q.set('gov_only', 'true');
+    if (params.private_only) q.set('private_only', 'true');
+    if (params.min_salary) q.set('min_salary', params.min_salary);
+    q.set('page', params.page || 1);
+    q.set('limit', params.limit || 50);
+    return await apiGet(`${API}/jobs?${q.toString()}`);
+}
+
+async function fetchNepalStats() {
+    return await apiGet(`${API}/nepal/stats`);
+}
+
+/* ---- fetch global jobs ---- */
+async function fetchGlobalJobs(params = {}) {
+    const q = new URLSearchParams();
+    if (params.keyword) q.set('keyword', params.keyword);
+    if (params.country) q.set('country', params.country);
+    if (params.is_remote !== undefined) q.set('is_remote', params.is_remote);
+    q.set('page', params.page || 1);
+    q.set('limit', params.limit || 50);
+    return await apiGet(`${API}/jobs?${q.toString()}`);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function timeAgo(d) {
+    const diff = Date.now() - new Date(d).getTime();
+    const h = Math.floor(diff / 3600000);
+    if (h < 1) return 'Just now';
+    if (h < 24) return `${h}h ago`;
+    return `${Math.floor(h/24)}d ago`;
+}
+
+function getApplyLink(job) {
+    const link = (job.apply_link || '').trim();
+    const title = encodeURIComponent(job.title || '');
+    const source = (job.source || '').toLowerCase();
+    if (link.includes('karmakarta.com')) return `https://merojob.com/search/?q=${title}`;
+    if (link.includes('psc.gov.np') && (link.includes('/?s=') || link.includes('/notice/'))) return 'https://psc.gov.np/vacancy';
+    if (!link || !link.startsWith('http')) {
+        if (source.includes('linkedin')) return `https://www.linkedin.com/jobs/search/?keywords=${title}&location=Nepal`;
+        if (source.includes('upwork')) return `https://www.upwork.com/search/jobs/?q=${title}`;
+        return `https://merojob.com/search/?q=${title}`;
+    }
+    return link;
+}
+
+function countryFlag(code) {
+    if (!code || code === 'GL') return '';
+    const cp = code.toUpperCase().split('').map(c => 0x1F1E6 + c.charCodeAt(0) - 65);
+    return String.fromCodePoint(...cp);
+}
+
+function displayCountry(job) {
+    const cn = job.country_name || 'Global';
+    const cc = job.country_code || 'GL';
+    return `${countryFlag(cc)} ${cn}`;
+}
+
+function displayLocation(job) {
+    if (job.is_remote) return `${job.location} (${displayCountry(job)})`;
+    return `${job.location} • ${displayCountry(job)}`;
+}
+
+/* ---- job card html ---- */
+function renderCard(job) {
+    const saved = getSaved().includes(job.id);
+    const isGov = (job.source && job.source.toLowerCase().includes('psc')) || (job.company_name && (job.company_name.includes('Government') || job.company_name.includes('Ministry')));
+    const skills = job.skills ? job.skills.split(',').slice(0,3) : [];
+    const salaryDisplay = job.salary || (job.salary_min && job.salary_max ? `$${job.salary_min.toLocaleString()} - $${job.salary_max.toLocaleString()}` : 'Not specified');
+    const remoteBadge = job.is_remote ? `<span class="badge badge-success">Remote</span>` : '';
+    const typeBadge = isGov ? `<span class="badge badge-blue">Government</span>` : `<span class="badge badge-red">Private</span>`;
+    const saveIcon = saved ? '♥' : '♡';
+
+    const companyName = job.company_name || '?';
+    const initials = companyName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    const colorIdx = companyName.length % 6;
+    const logoColors = [
+        'linear-gradient(135deg, #C41E3A, #E8485E)',
+        'linear-gradient(135deg, #003893, #1E5AB5)',
+        'linear-gradient(135deg, #1B7A3D, #22C55E)',
+        'linear-gradient(135deg, #D4A800, #FFD700)',
+        'linear-gradient(135deg, #7C3AED, #A855F7)',
+        'linear-gradient(135deg, #0D9488, #14B8A6)'
+    ];
+    const logoGradient = logoColors[colorIdx];
+    const logoHtml = job.company_logo
+        ? `<img class="org-logo-img" src="${job.company_logo}" alt="${companyName}" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;\'>${initials}</span>'">`
+        : `<span style="font-size:1rem;font-weight:800;">${initials}</span>`;
+
+    return `<div class="job-card" onclick="openDetail(${job.id})">
+        <div class="job-card-top">
+            <div class="job-card-org">
+                <div class="org-logo" style="background:${logoGradient};color:white;box-shadow:0 3px 10px rgba(0,0,0,0.12);">${logoHtml}</div>
+                <div style="min-width:0;">
+                    <div class="org-name">${job.company_name}</div>
+                    <div class="job-title-text">${job.title}</div>
+                </div>
+            </div>
+            ${typeBadge}
+        </div>
+        <div class="job-meta">
+            <span>📍 ${displayLocation(job)}</span>
+            ${remoteBadge}
+            <span>📅 ${timeAgo(job.posted_date)}</span>
+        </div>
+        <div class="job-tags">${skills.map(s => `<span class="job-tag">${s.trim()}</span>`).join('')}</div>
+        <div class="job-card-footer">
+            <div>
+                <div class="job-salary">💰 ${salaryDisplay}</div>
+                <div class="job-date">${displayCountry(job)} · ${job.source}</div>
+            </div>
+            <div style="display:flex;gap:0.3rem;">
+                <button class="btn-bookmark" onclick="event.stopPropagation();toggleSave(${job.id})">${saveIcon}</button>
+                <button class="btn-apply" onclick="event.stopPropagation();window.open('${getApplyLink(job)}','_blank','noopener,noreferrer')">Apply</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+function renderTableRow(job) {
+    const saved = getSaved().includes(job.id);
+    const saveIcon = saved ? '♥' : '♡';
+    return `<tr>
+        <td class="td-title" onclick="openDetail(${job.id})" style="cursor:pointer;">${job.title}</td>
+        <td>${job.company_name}</td>
+        <td>${displayLocation(job)}</td>
+        <td>${displayCountry(job)}</td>
+        <td class="td-salary">💰 ${job.salary || '—'}</td>
+        <td>${job.is_remote ? 'Remote' : (job.source && job.source.toLowerCase().includes('psc') ? 'Gov' : 'Private')}</td>
+        <td>${job.source}</td>
+        <td>${timeAgo(job.posted_date)}</td>
+        <td style="white-space:nowrap;">
+            <button class="btn-bookmark" onclick="toggleSave(${job.id})" style="font-size:0.8rem;">${saveIcon}</button>
+            <button class="btn-apply" style="font-size:0.6rem;padding:0.15rem 0.4rem;" onclick="window.open('${getApplyLink(job)}','_blank','noopener,noreferrer')">Apply</button>
+        </td>
+    </tr>`;
+}
+
+function getSkeletons(n = 6) {
+    return Array(n).fill('<div class="skeleton"><div class="skeleton-shimmer" style="height:18px;width:60%;margin-bottom:0.8rem;"></div><div class="skeleton-shimmer" style="height:12px;width:40%;margin-bottom:0.6rem;"></div><div class="skeleton-shimmer" style="height:40px;width:100%;"></div></div>').join('');
+}
+
+/* ---- home ---- */
+async function bootHome() {
+    const grid = document.getElementById('home-jobs-grid');
+    grid.innerHTML = getSkeletons(6);
+    const data = await fetchNepalJobs({ limit: 12 });
+    if (data && data.results) {
+        let statusMsg = '';
+        if (data.from_cache) {
+            statusMsg = `<div style="background:#E7F3FF;border:1px solid #B3D9FF;padding:0.8rem;border-radius:var(--radius-sm);margin-bottom:1rem;font-size:0.85rem;color:#004085;">
+                ⚡ <strong>Live data</strong> (from Firebase) — Server data refreshing in background...
+            </div>`;
+        } else if (data.from_backup) {
+            statusMsg = `<div style="background:#FFF3CD;border:1px solid #FFE69C;padding:0.8rem;border-radius:var(--radius-sm);margin-bottom:1rem;font-size:0.85rem;color:#856404;">
+                ⚠️ <strong>Server temporarily down</strong> — Showing cached jobs from Firebase backup. Data will auto-sync when server recovers.
+            </div>`;
+        }
+        grid.innerHTML = statusMsg + data.results.map(renderCard).join('');
+    }
+    else grid.innerHTML = '<div class="empty-state"><h3>Backend offline</h3><p>Loading from Firebase backup...</p></div>';
+    renderCategories('categories-home-grid', 6);
+    await updateStats();
+}
+
+function renderCategories(containerId, limit) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    const cats = limit ? CATEGORIES.slice(0, limit) : CATEGORIES;
+    el.innerHTML = cats.map(c => `<div class="cat-card" onclick="quickSearch('${c.name}')">
+        <div class="cat-icon">${c.icon}</div>
+        <div class="cat-name">${c.name}</div>
+        <div class="cat-count">search</div>
+    </div>`).join('');
+}
+
+async function updateStats() {
+    const stats = await fetchNepalStats();
+    if (stats) {
+        const total = stats.total_jobs || 0;
+        const govJobs = stats.government_jobs || 0;
+        const remoteJobs = stats.remote_jobs || 0;
+        const nepalJobs = stats.nepal_jobs || Math.floor(total * 0.4);
+        const globalJobs = total - nepalJobs;
+        document.getElementById('stat-total').textContent = total.toLocaleString() + '+';
+        document.getElementById('stat-gov').textContent = govJobs.toLocaleString() + '+';
+        document.getElementById('stat-private').textContent = (total - govJobs).toLocaleString() + '+';
+        document.getElementById('stat-remote').textContent = remoteJobs.toLocaleString() + '+';
+        document.getElementById('live-total').textContent = total.toLocaleString();
+        document.getElementById('live-total-bar').textContent = total.toLocaleString();
+        document.getElementById('live-status-header').textContent = `${total.toLocaleString()}+ Jobs — Official Portal`;
+        document.getElementById('stat-update').textContent = 'Every 30 min';
+
+        if (stats.countries) {
+            const chips = document.getElementById('search-chips');
+            if (chips) chips.innerHTML = stats.countries.slice(0, 8).map(c =>
+                `<div class="chip" onclick="document.getElementById('filter-location').value='${c.name}';showView('search')">${countryFlag(c.code)} ${c.name} <span>(${c.count})</span></div>`
+            ).join('');
+        }
+    }
+}
+
+/* ---- search ---- */
+const SUGGESTIONS = ['Teacher','Nurse','Engineer','Computer','Admin','Accountant','Python','React','Medical','Bank','Government','Remote','Doctor','Developer','Designer'];
+function bootSearch() { applyFilters(); }
+
+function handleFilterKey(e) {
+    const val = e.target.value;
+    const box = document.getElementById('filter-suggestions');
+    if (!val || val.length < 1) { box.style.display = 'none'; return; }
+    const filtered = SUGGESTIONS.filter(s => s.toLowerCase().includes(val.toLowerCase()));
+    if (!filtered.length) { box.style.display = 'none'; return; }
+    box.innerHTML = filtered.map(s => `<div class="suggestion-item" onclick="selectFilter('${s}')">${s}</div>`).join('');
+    box.style.display = 'block';
+    if (e.key === 'Enter') applyFilters();
+}
+
+function selectFilter(val) {
+    document.getElementById('filter-keyword').value = val;
+    document.getElementById('filter-suggestions').style.display = 'none';
+    applyFilters();
+}
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-field')) {
+        document.querySelectorAll('.suggestions').forEach(s => s.style.display = 'none');
+    }
+});
+
+function setViewMode(mode) {
+    viewMode = mode;
+    document.getElementById('view-toggle-cards').classList.toggle('active', mode === 'cards');
+    document.getElementById('view-toggle-table').classList.toggle('active', mode === 'table');
+    const active = document.querySelector('.spa-view.active');
+    if (active && active.id === 'view-search') {
+        const data = window.__lastSearchResults;
+        if (data) renderSearchResults(data);
+    }
+}
+
+function renderSearchResults(data) {
+    const results = data && data.results ? data.results : [];
+    const grid = document.getElementById('search-results-grid');
+    const tableWrap = document.getElementById('search-results-table-wrapper');
+    const tableBody = document.getElementById('search-results-table')?.querySelector('tbody');
+    const avail = document.getElementById('search-availability');
+    const chips = document.getElementById('search-chips');
+
+    if (results.length > 0) {
+        const cMap = {};
+        results.forEach(j => { const cn = j.country_name || 'Global'; cMap[cn] = (cMap[cn] || 0) + 1; });
+        chips.innerHTML = Object.entries(cMap).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([name, c]) => {
+            const country = results.find(j => (j.country_name || 'Global') === name);
+            const flag = countryFlag(country ? (country.country_code || 'GL') : 'GL');
+            return `<div class="chip" onclick="document.getElementById('filter-location').value='${name}';applyFilters()">${flag} ${name} <span>(${c})</span></div>`;
+        }).join('');
+        avail.classList.remove('hidden');
+        if (viewMode === 'cards') {
+            grid.innerHTML = results.map(renderCard).join('');
+            grid.classList.remove('hidden');
+            tableWrap.classList.add('hidden');
+        } else {
+            tableBody.innerHTML = results.map(renderTableRow).join('');
+            tableWrap.classList.remove('hidden');
+            grid.classList.add('hidden');
+        }
+    } else {
+        avail.classList.add('hidden');
+        grid.classList.remove('hidden');
+        tableWrap.classList.add('hidden');
+        grid.innerHTML = '<div class="empty-state"><h3>No jobs found</h3><p>Try adjusting your filters and search again.</p></div>';
+    }
+}
+
+async function applyFilters() {
+    const kw = document.getElementById('filter-keyword').value.trim();
+    const loc = document.getElementById('filter-location').value.trim();
+    const remoteOnly = document.getElementById('filter-remote').checked;
+    const govOnly = document.getElementById('filter-gov').checked;
+    const salMin = parseFloat(document.getElementById('filter-salary').value) || 0;
+    const grid = document.getElementById('search-results-grid');
+    const count = document.getElementById('search-count');
+    grid.innerHTML = getSkeletons(3);
+    document.getElementById('search-results-table-wrapper')?.classList.add('hidden');
+    const params = { limit: 50 };
+    if (kw) params.keyword = kw;
+    if (loc) params.location = loc;
+    if (remoteOnly) params.remote_only = true;
+    if (govOnly) params.gov_only = true;
+    if (salMin > 0) params.min_salary = salMin;
+    const data = await fetchNepalJobs(params);
+    window.__lastSearchResults = data;
+    const results = data && data.results ? data.results : [];
+    count.textContent = `${data ? data.total : 0} jobs found`;
+    renderSearchResults(data);
+}
+
+/* ---- global ---- */
+let globalPage = 1;
+let globalViewMode = 'cards';
+let allGlobalResults = [];
+
+function setGlobalViewMode(mode) {
+    globalViewMode = mode;
+    document.getElementById('gtoggle-cards').classList.toggle('active', mode === 'cards');
+    document.getElementById('gtoggle-table').classList.toggle('active', mode === 'table');
+    renderGlobalResults(allGlobalResults);
+}
+
+function renderGlobalResults(results) {
+    const grid = document.getElementById('global-jobs-grid');
+    const tWrap = document.getElementById('global-table-wrapper');
+    const tBody = document.getElementById('global-table-body');
+    if (!results.length) {
+        grid.innerHTML = '<div class="empty-state"><h3>No jobs found</h3><p>Try different filters</p></div>';
+        tWrap.classList.add('hidden'); grid.classList.remove('hidden'); return;
+    }
+    if (globalViewMode === 'cards') {
+        grid.innerHTML = results.map(renderCard).join('');
+        grid.classList.remove('hidden'); tWrap.classList.add('hidden');
+    } else {
+        tBody.innerHTML = results.map(renderTableRow).join('');
+        tWrap.classList.remove('hidden'); grid.classList.add('hidden');
+    }
+}
+
+async function applyGlobalFilters() { globalPage = 1; allGlobalResults = []; await loadGlobalPage(); }
+async function loadMoreGlobal() { globalPage++; await loadGlobalPage(true); }
+
+async function loadGlobalPage(append = false) {
+    const kw = document.getElementById('global-keyword').value.trim();
+    const cn = document.getElementById('global-country').value.trim();
+    const rem = document.getElementById('global-remote').value;
+    const count = document.getElementById('global-count');
+    const grid = document.getElementById('global-jobs-grid');
+    if (!append) {
+        grid.innerHTML = getSkeletons(6);
+        document.getElementById('global-table-body').innerHTML = '';
+        document.getElementById('global-table-wrapper').classList.add('hidden');
+    }
+    const params = { page: globalPage, limit: 50 };
+    if (kw) params.keyword = kw;
+    if (cn) params.country = cn;
+    if (rem !== '') params.is_remote = rem;
+    const data = await fetchGlobalJobs(params);
+    const results = (data && data.results) ? data.results : [];
+    if (append) allGlobalResults = [...allGlobalResults, ...results];
+    else allGlobalResults = results;
+    count.textContent = `${data ? data.total : allGlobalResults.length} jobs found`;
+    renderGlobalResults(allGlobalResults);
+    buildGlobalCountryChips(allGlobalResults);
+    const lmBtn = document.getElementById('global-load-more');
+    if (lmBtn) lmBtn.style.display = (data && globalPage < data.total_pages) ? 'inline-flex' : 'none';
+}
+
+function buildGlobalCountryChips(results) {
+    const el = document.getElementById('global-country-chips');
+    if (!el) return;
+    const cMap = {};
+    results.forEach(j => { const cn = j.country_name || 'Global'; const cc = j.country_code || 'GL'; if (!cMap[cn]) cMap[cn] = { count: 0, code: cc }; cMap[cn].count++; });
+    el.innerHTML = Object.entries(cMap).sort((a,b) => b[1].count - a[1].count).slice(0, 12).map(([name, v]) =>
+        `<div class="chip" onclick="document.getElementById('global-country').value='${name}';applyGlobalFilters()">${countryFlag(v.code)} ${name} <span>(${v.count})</span></div>`
+    ).join('');
+}
+
+async function bootGlobal() {
+    globalPage = 1; allGlobalResults = [];
+    document.getElementById('global-keyword').value = '';
+    document.getElementById('global-country').value = '';
+    document.getElementById('global-remote').value = '';
+    await loadGlobalPage();
+}
+
+function filterLoc(name) { document.getElementById('filter-location').value = name; applyFilters(); }
+
+function resetFilters() {
+    ['filter-keyword','filter-location','filter-salary'].forEach(id => document.getElementById(id).value = '');
+    ['filter-remote','filter-gov','filter-visa'].forEach(id => document.getElementById(id).checked = false);
+    applyFilters();
+}
+
+function dashboardFilter(type) {
+    resetFilters();
+    if (type === 'gov') document.getElementById('filter-gov').checked = true;
+    else if (type === 'remote') document.getElementById('filter-remote').checked = true;
+    else if (type === 'private') document.getElementById('filter-keyword').value = 'private';
+    showView('search'); applyFilters();
+}
+
+function quickSearch(val) { document.getElementById('filter-keyword').value = val; showView('search'); applyFilters(); }
+function doHomeSearch() { const val = document.getElementById('home-search-input').value.trim(); if (val) quickSearch(val); }
+
+function handleHomeSearchKey(e) {
+    const val = e.target.value;
+    const box = document.getElementById('home-suggestions');
+    if (!val || val.length < 1) { box.style.display = 'none'; return; }
+    const filtered = SUGGESTIONS.filter(s => s.toLowerCase().includes(val.toLowerCase()));
+    if (!filtered.length) { box.style.display = 'none'; return; }
+    box.innerHTML = filtered.map(s => `<div class="suggestion-item" onclick="document.getElementById('home-search-input').value='${s}';doHomeSearch();">${s}</div>`).join('');
+    box.style.display = 'block'; if (e.key === 'Enter') doHomeSearch();
+}
+
+function bootCategories() { renderCategories('categories-full-grid'); }
+
+function getSaved() { return JSON.parse(localStorage.getItem('saved') || '[]'); }
+
+function toggleSave(id) {
+    let s = getSaved();
+    if (s.includes(id)) { s = s.filter(x => x !== id); showToast('Removed from saved'); }
+    else { s.push(id); showToast('Saved'); }
+    localStorage.setItem('saved', JSON.stringify(s));
+    const active = document.querySelector('.spa-view.active');
+    if (active) {
+        const vid = active.id.replace('view-', '');
+        if (vid === 'home') bootHome(); else if (vid === 'search') applyFilters(); else if (vid === 'saved') bootSaved();
+    }
+}
+
+async function bootSaved() {
+    const ids = getSaved();
+    const grid = document.getElementById('saved-jobs-grid');
+    if (ids.length === 0) { grid.innerHTML = '<div class="empty-state"><h3>No saved jobs</h3><p>Click the bookmark icon on job cards to save.</p></div>'; return; }
+    grid.innerHTML = getSkeletons(3);
+    const data = await fetchNepalJobs({ limit: 200 });
+    if (data && data.results) {
+        const savedJobs = data.results.filter(j => ids.includes(j.id));
+        grid.innerHTML = savedJobs.length ? savedJobs.map(renderCard).join('') : '<div class="empty-state"><h3>No saved jobs</h3></div>';
+    }
+}
+
+async function openDetail(id) {
+    showView('details');
+    const saved = getSaved().includes(id);
+    document.getElementById('detail-title').textContent = 'Loading...';
+    const jobData = await apiGet(`${API}/job/${id}`);
+    if (jobData) {
+        currentDetailJob = jobData;
+        const safeLink = getApplyLink(jobData);
+        const isGov = jobData.source && jobData.source.toLowerCase().includes('psc');
+        document.getElementById('detail-logo').style.background = 'var(--np-blue)';
+        document.getElementById('detail-logo').textContent = (jobData.company_name || 'M').charAt(0).toUpperCase();
+        document.getElementById('detail-title').textContent = jobData.title;
+        document.getElementById('detail-org').textContent = jobData.company_name;
+        document.getElementById('detail-desc').textContent = jobData.description || '—';
+        document.getElementById('detail-salary').textContent = jobData.salary || 'Not specified';
+        document.getElementById('detail-location').textContent = displayLocation(jobData);
+        document.getElementById('detail-type').textContent = (isGov ? 'Government' : 'Private') + (jobData.is_remote ? ' (Remote)' : '');
+        document.getElementById('detail-source').textContent = jobData.source || '—';
+        document.getElementById('detail-skills').innerHTML = jobData.skills ? jobData.skills.split(',').map(s => `<span class="job-tag">${s.trim()}</span>`).join('') : '—';
+        const applyBtn = document.getElementById('detail-apply-btn');
+        applyBtn.onclick = () => window.open(safeLink, '_blank', 'noopener,noreferrer');
+        applyBtn.innerHTML = `Apply Now`;
+        document.getElementById('detail-save-btn').textContent = saved ? '♥ Saved' : '♡ Save';
+    }
+}
+
+function openApplyLink() { if (currentDetailJob) window.open(getApplyLink(currentDetailJob), '_blank', 'noopener,noreferrer'); }
+
+async function bootDashboard() {
+    const stats = await fetchNepalStats();
+    if (!stats) return;
+    document.getElementById('db-total').textContent = (stats.total_jobs || 0).toLocaleString();
+    document.getElementById('db-gov').textContent = (stats.government_jobs || 0).toLocaleString();
+    document.getElementById('db-private').textContent = ((stats.total_jobs || 0) - (stats.government_jobs || 0)).toLocaleString();
+    document.getElementById('db-remote').textContent = (stats.remote_jobs || 0).toLocaleString();
+    const barColors = ['#6C5CE7','#06B6D4','#10B981','#F59E0B','#F43F5E','#8B5CF6'];
+    const maxCats = Math.max(...(stats.categories || []).map(c => c.count), 1);
+    const catBar = document.getElementById('db-source-chart');
+    if (stats.categories) {
+        catBar.innerHTML = stats.categories.slice(0, 6).map((c, i) =>
+            `<div style="margin-bottom:0.5rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.15rem;">
+                    <span style="font-weight:600;">${c.skill || 'N/A'}</span>
+                    <span style="font-weight:700;color:${barColors[i % barColors.length]};">${c.count}</span>
+                </div>
+                <div style="background:var(--np-cream-dark);height:8px;border-radius:4px;overflow:hidden;">
+                    <div style="height:100%;background:${barColors[i % barColors.length]};width:${(c.count / maxCats) * 100}%;border-radius:4px;transition:width 0.6s ease;"></div>
+                </div>
+            </div>`
+        ).join('');
+    } else catBar.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--np-text-muted);font-size:0.78rem;">No data</div>';
+    const cMax = Math.max(...(stats.countries || []).map(c => c.count), 1);
+    const ctyBar = document.getElementById('db-category-chart');
+    if (stats.countries) {
+        ctyBar.innerHTML = stats.countries.slice(0, 8).map((c, i) =>
+            `<div style="margin-bottom:0.4rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.15rem;">
+                    <span>${countryFlag(c.code)} ${c.name}</span>
+                    <span style="font-weight:700;color:var(--np-blue);">${c.count}</span>
+                </div>
+                <div style="background:var(--np-cream-dark);height:6px;border-radius:3px;overflow:hidden;">
+                    <div style="height:100%;background:linear-gradient(90deg,var(--np-blue),#8B5CF6);width:${(c.count / cMax) * 100}%;border-radius:3px;"></div>
+                </div>
+            </div>`
+        ).join('');
+    } else ctyBar.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--np-text-muted);font-size:0.78rem;">No data</div>';
+}
+
+function setAI(val) { document.getElementById('ai-input').value = val; doAISearch(); }
+
+async function doAISearch() {
+    const prompt = document.getElementById('ai-input').value.trim();
+    if (!prompt) return;
+    const grid = document.getElementById('ai-results-grid');
+    const availBox = document.getElementById('ai-availability');
+    const chips = document.getElementById('ai-chips');
+    grid.innerHTML = getSkeletons(3);
+    const data = await apiGet(`${API}/ai-search?q=${encodeURIComponent(prompt)}`);
+    const results = data && data.results ? data.results : [];
+    if (results.length > 0) {
+        const cMap = {};
+        results.forEach(j => { const cn = j.country_name || 'Global'; cMap[cn] = (cMap[cn] || 0) + 1; });
+        chips.innerHTML = Object.entries(cMap).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([n,c]) => {
+            const job = results.find(j => (j.country_name || 'Global') === n);
+            const flag = countryFlag(job ? (job.country_code || 'GL') : 'GL');
+            return `<div class="chip">${flag} ${n} <span>(${c})</span></div>`;
+        }).join('');
+        availBox.classList.remove('hidden');
+    } else availBox.classList.add('hidden');
+    grid.innerHTML = results.length ? results.map(renderCard).join('') :
+        '<div class="empty-state"><h3>AI found no matches</h3><p>Try simple phrases like "Remote Python Nepal" or "Teacher Kathmandu"</p></div>';
+}
+
+function updateComposePreview() {
+    const name = document.getElementById('compose-name').value.trim();
+    const title = document.getElementById('compose-job-title').value.trim();
+    const company = document.getElementById('compose-company').value.trim();
+    const skills = document.getElementById('compose-skills').value.trim();
+    const exp = document.getElementById('compose-experience').value;
+    const preview = document.getElementById('compose-preview');
+    if (!title && !company) { preview.innerHTML = '<span style="color:var(--np-text-muted);">Fill in the form and click "Generate Cover Letter"</span>'; return; }
+    const lines = [];
+    lines.push(`--- Application Preview ---`);
+    lines.push(`Job: ${title || '—'}`);
+    lines.push(`Company: ${company || '—'}`);
+    if (name) lines.push(`Applicant: ${name}`);
+    if (skills) lines.push(`Skills: ${skills}`);
+    lines.push(`Experience: ${exp}`);
+    lines.push(`\nClick "Generate Cover Letter" for the full letter.`);
+    preview.textContent = lines.join('\n');
+}
+
+async function generateCoverLetter() {
+    const name = document.getElementById('compose-name').value.trim();
+    const email = document.getElementById('compose-email').value.trim();
+    const title = document.getElementById('compose-job-title').value.trim();
+    const company = document.getElementById('compose-company').value.trim();
+    const skills = document.getElementById('compose-skills').value.trim();
+    const exp = document.getElementById('compose-experience').value;
+    if (!title || !company) { showToast('Please enter job title and company'); return; }
+    const preview = document.getElementById('compose-preview');
+    preview.textContent = 'Generating cover letter...';
+    const prompt = `Write a professional cover letter for ${name || 'Applicant'} applying for ${title} at ${company}. Skills: ${skills || 'Not specified'}. Experience: ${exp}. Be professional and formal.`;
+    let letter = '';
+    try {
+        const res = await fetch(`${API}/ai-search?q=${encodeURIComponent(prompt)}`);
+        if (res.ok) { const data = await res.json(); if (data && data.answer) letter = data.answer; }
+    } catch (e) {}
+    if (!letter) letter = `Dear [Hiring Manager],\n\nI am writing to express my strong interest in the ${title} position at ${company}.\n\nWith ${exp} of experience in ${skills || 'relevant skills'}, I am confident in my ability to contribute effectively to your team. My background aligns well with the requirements of this role.\n\nThank you for considering my application.\n\nBest regards,\n${name || 'Applicant'}\n${email || ''}`;
+    preview.textContent = letter;
+    showToast('Cover letter ready!');
+}
+
+function copyComposeText() {
+    const text = document.getElementById('compose-preview').textContent;
+    if (!text || text.includes('Fill in the form')) { showToast('Generate a cover letter first'); return; }
+    navigator.clipboard.writeText(text).then(() => showToast('Copied!')).catch(() => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast('Copied!'); });
+}
+
+function resetCompose() {
+    ['compose-name','compose-email','compose-job-title','compose-company','compose-skills'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('compose-experience').value = 'Fresher';
+    document.getElementById('compose-preview').innerHTML = '<span style="color:var(--np-text-muted);">Fill in the form and click "Generate Cover Letter"</span>';
+    showToast('Reset');
+}
+
+function pickComposeJob(title, company) { document.getElementById('compose-job-title').value = title; document.getElementById('compose-company').value = company; showToast(`"${title}" selected`); updateComposePreview(); }
+
+async function bootCompose() {
+    const container = document.getElementById('compose-saved-jobs');
+    const ids = getSaved();
+    if (ids.length === 0) { container.innerHTML = '<span style="color:var(--np-text-muted);font-size:0.78rem;">No saved jobs yet</span>'; return; }
+    container.innerHTML = '<span style="color:var(--np-text-muted);font-size:0.78rem;">Loading...</span>';
+    const data = await fetchNepalJobs({ limit: 100 });
+    if (data && data.results) {
+        const savedJobs = data.results.filter(j => ids.includes(j.id)).slice(0, 10);
+        container.innerHTML = savedJobs.length ? savedJobs.map(j =>
+            `<div class="chip" onclick="pickComposeJob('${j.title.replace(/'/g, "\\'")}', '${(j.company_name || '').replace(/'/g, "\\'")}')">${j.title} @ ${j.company_name}</div>`
+        ).join('') : '<span style="color:var(--np-text-muted);font-size:0.78rem;">No saved jobs found</span>';
+    }
+}
+
+async function submitJobPost() {
+    const title = document.getElementById('post-title').value.trim();
+    const company = document.getElementById('post-company').value.trim();
+    const location = document.getElementById('post-location').value.trim();
+    const salary = document.getElementById('post-salary').value.trim();
+    const description = document.getElementById('post-description').value.trim();
+    const email = document.getElementById('post-email').value.trim();
+    const phone = document.getElementById('post-phone').value.trim();
+    if (!title || !company || !location || !description || !email) { showToast('Please fill in all required fields'); return; }
+    const btn = document.querySelector('#view-post .btn-search');
+    btn.disabled = true;
+    btn.innerHTML = 'Posting...';
+    try {
+        const res = await fetch(`${API}/posts`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, company_name: company, location, salary: salary || null, description, contact_email: email, contact_phone: phone || null }) });
+        if (res.ok) {
+            showToast('Job posted successfully!');
+            ['post-title','post-company','post-location','post-salary','post-description','post-email','post-phone'].forEach(id => document.getElementById(id).value = '');
+            loadRecentPosts();
+        } else { const err = await res.json(); showToast(err.detail || 'Failed to post job'); }
+    } catch (e) { showToast('Server error. Make sure backend is running.'); }
+    btn.disabled = false; btn.innerHTML = 'Post Job';
+}
+
+async function loadRecentPosts() {
+    const container = document.getElementById('recent-posts-list');
+    container.innerHTML = '<span style="color:var(--np-text-muted);font-size:0.78rem;">Loading...</span>';
+    const data = await apiGet(`${API}/posts?limit=10`);
+    if (data && data.results) {
+        if (data.results.length === 0) { container.innerHTML = '<div class="empty-state"><h3>No jobs posted yet</h3><p>Be the first to post a job!</p></div>'; return; }
+        container.innerHTML = data.results.map(p => `
+            <div class="job-card" style="padding:0.8rem;">
+                <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;">
+                    <div style="width:34px;height:34px;border-radius:var(--radius-sm);background:var(--np-blue);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;">${p.company_name.charAt(0)}</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-size:0.82rem;font-weight:700;color:var(--np-text);">${p.title}</div>
+                        <div style="font-size:0.68rem;color:var(--np-text-muted);">${p.company_name} · ${p.location}</div>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--np-text-muted);">
+                    <span>${timeAgoSimple(p.posted_date)}</span>
+                    ${p.salary ? `<span style="font-weight:600;color:var(--np-green);">💰 ${p.salary}</span>` : ''}
+                </div>
+            </div>
+        `).join('');
+    } else container.innerHTML = '<span style="color:var(--np-text-muted);font-size:0.78rem;">Could not load posts. Backend offline?</span>';
+}
+
+function timeAgoSimple(dateStr) {
+    try {
+        const diff = Date.now() - new Date(dateStr).getTime();
+        const mins = Math.floor(diff / 60000);
+        if (mins < 1) return 'Just now';
+        if (mins < 60) return `${mins}m ago`;
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return `${hrs}h ago`;
+        const days = Math.floor(hrs / 24);
+        if (days === 1) return 'Yesterday';
+        return `${days}d ago`;
+    } catch (e) { return 'Recently'; }
+}
+
+function bootPost() { loadRecentPosts(); }
+
+setInterval(() => {
+    const active = document.querySelector('.spa-view.active');
+    if (active) {
+        const vid = active.id.replace('view-', '');
+        if (vid === 'search') applyFilters();
+        else if (vid === 'dashboard') bootDashboard();
+    }
+}, 30000);
+
+document.addEventListener('DOMContentLoaded', () => { bootHome(); setViewMode('cards'); });
+</script>
 </body>
 </html>
