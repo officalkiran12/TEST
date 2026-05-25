@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fully Remote Jobs Index | Global Job Search Aggregator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                GLOBAL<span>JOB</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="remote.html" class="nav-link active">Remote Only</a></li>
+                <li><a href="countries.html" class="nav-link">Countries</a></li>
+                <li><a href="saved.html" class="nav-link">Bookmarks</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="ai.html" class="btn-ai-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    AI Smart Search
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENT HEADER -->
+    <header class="section-container" style="margin-top: 3rem; margin-bottom: 0;">
+        <span class="hero-tag" style="background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);">Work from Anywhere</span>
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; margin-top: 1rem;">100% Remote Tech Jobs</h1>
+        <p style="color: var(--text-secondary);">Browse positions allowing full work-from-home conditions from global sources with zero geographic boundaries.</p>
+    </header>
+
+    <!-- GRID -->
+    <main class="section-container" style="margin-top: 2rem;">
+        <div class="job-grid" id="remote-jobs-board-grid">
+            <!-- Populated dynamically -->
+        </div>
+
+        <!-- PAGINATION BLOCK -->
+        <div style="margin-top: 3rem; display: flex; justify-content: center; align-items: center; gap: 1rem;" id="remote-pagination-row">
+            <!-- Loaded dynamically -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 15rem;">
+        <div class="footer-bottom" style="margin-top: 0; border-top: none; padding-top: 0;">
+            <div>&copy; 2026 Global Job Inc. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="../index.html" class="footer-link">Home</a>
+                <a href="search.html" class="footer-link">Search Board</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHARED JS MODULES -->
+    <script src="../js/saved_jobs.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Bootstrapping Remote board -->
+    <script>
+        let currentPage = 1;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchRemoteJobs(1);
+        });
+
+        async function fetchRemoteJobs(page = 1) {
+            currentPage = page;
+            const grid = document.getElementById("remote-jobs-board-grid");
+            const paginator = document.getElementById("remote-pagination-row");
+
+            grid.innerHTML = getSkeletonCardsMarkup(6);
+            paginator.innerHTML = "";
+
+            try {
+                const res = await fetch(`${API_BASE}/jobs?is_remote=true&page=${page}&limit=9`);
+                if (res.status === 200) {
+                    const data = await res.json();
+                    
+                    if (data.results.length === 0) {
+                        grid.innerHTML = `
+                            <div class="empty-state" style="grid-column: 1 / -1;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                <h3>No Remote Listings Found</h3>
+                                <p>Please run seeder actions on the server first to populating listings.</p>
+                            </div>
+                        `;
+                    } else {
+                        grid.innerHTML = data.results.map(job => createJobCardMarkup(job)).join("");
+                        renderPagination(data.total_pages, data.page);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load remote listings:", err);
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1; border-color: rgba(244, 63, 94, 0.2);">
+                        <h3>Connection Failed</h3>
+                        <p>Could not fetch listings. Make sure your FastAPI backend main.py is active.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPagination(totalPages, activePage) {
+            const paginator = document.getElementById("remote-pagination-row");
+            if (totalPages <= 1) return;
+
+            let html = "";
+            if (activePage > 1) {
+                html += `<button class="btn-card-apply" style="padding: 0.6rem 1.2rem;" onclick="fetchRemoteJobs(${activePage - 1})">&larr; Prev</button>`;
+            }
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === activePage) {
+                    html += `<button class="btn-search" style="padding: 0.6rem 1.2rem; cursor: default;">${i}</button>`;
+                } else {
+                    html += `<button class="btn-card-apply" style="padding: 0.6rem 1.2rem;" onclick="fetchRemoteJobs(${i})">${i}</button>`;
+                }
+            }
+
+            if (activePage < totalPages) {
+                html += `<button class="btn-card-apply" style="padding: 0.6rem 1.2rem;" onclick="fetchRemoteJobs(${activePage + 1})">Next &rarr;</button>`;
+            }
+
+            paginator.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

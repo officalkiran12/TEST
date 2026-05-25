@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI conversational search | Global Job Search Aggregator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                GLOBAL<span>JOB</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="remote.html" class="nav-link">Remote Only</a></li>
+                <li><a href="countries.html" class="nav-link">Countries</a></li>
+                <li><a href="saved.html" class="nav-link">Bookmarks</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="ai.html" class="btn-ai-search" style="box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    AI Smart Search
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- AI CONSOLE WRAPPER -->
+    <main class="ai-console-wrapper">
+        <header class="ai-header">
+            <span class="hero-tag">Conversational AI Engine</span>
+            <h1 style="margin-top: 1rem;">Natural Language AI Search</h1>
+            <p>Tell the engine exactly what you are looking for in plain English. Our NLP parses keywords, wages, sponsorship status, locations, and matches listings instantly.</p>
+        </header>
+
+        <!-- AI CONSOLE BOX -->
+        <div class="ai-box">
+            <div class="ai-input-row">
+                <textarea class="ai-textarea" id="ai-search-prompt-input" placeholder="e.g. Remote Python jobs in Japan under $3000" onkeydown="handlePromptKeydown(event)"></textarea>
+                <button class="btn-ai-submit" onclick="submitAISearchPrompt()" aria-label="Submit search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+            </div>
+
+            <!-- PROMPT SUGGESTIONS / TIPS -->
+            <div class="ai-prompt-tips">
+                <span style="color: var(--text-muted); align-self: center;">Try templates:</span>
+                <span class="ai-prompt-tip" onclick="applyPromptTemplate('Remote Python jobs in Japan under $3000')">&ldquo;Remote Python in Japan under $3000&rdquo;</span>
+                <span class="ai-prompt-tip" onclick="applyPromptTemplate('React developer in Canada with visa sponsorship')">&ldquo;React in Canada with Visa&rdquo;</span>
+                <span class="ai-prompt-tip" onclick="applyPromptTemplate('Lead DevOps engineer in Germany')">&ldquo;Lead DevOps in Germany&rdquo;</span>
+            </div>
+        </div>
+
+        <!-- SEARCH STATUS & DYNAMIC GRID -->
+        <div class="ai-results-status" id="ai-results-banner">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <div class="job-grid" id="ai-results-grid">
+            <!-- Loaded dynamically -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 18rem;">
+        <div class="footer-bottom" style="margin-top: 0; border-top: none; padding-top: 0;">
+            <div>&copy; 2026 Global Job Inc. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="../index.html" class="footer-link">Home</a>
+                <a href="search.html" class="footer-link">Search Board</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHARED JS MODULES -->
+    <script src="../js/saved_jobs.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- AI prompt handlers -->
+    <script>
+        function applyPromptTemplate(prompt) {
+            document.getElementById("ai-search-prompt-input").value = prompt;
+            submitAISearchPrompt();
+        }
+
+        function handlePromptKeydown(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                submitAISearchPrompt();
+            }
+        }
+
+        async function submitAISearchPrompt() {
+            const promptInput = document.getElementById("ai-search-prompt-input");
+            const prompt = promptInput.value.trim();
+            if (!prompt) return;
+
+            const grid = document.getElementById("ai-results-grid");
+            const banner = document.getElementById("details-spinner-wrapper") || document.getElementById("ai-results-banner");
+
+            banner.style.display = "block";
+            banner.innerHTML = `<span style="color: var(--accent-cyan);">AI Engine parsing query details & querying indexes...</span>`;
+            grid.innerHTML = getSkeletonCardsMarkup(3);
+
+            try {
+                const res = await fetch(`${API_BASE}/ai-search?q=${encodeURIComponent(prompt)}`);
+                if (res.status === 200) {
+                    const data = await res.json();
+                    
+                    banner.innerHTML = `🤖 parsed search: <span style="color: var(--text-primary); font-weight: 700;">&ldquo;${data.query}&rdquo;</span> &rarr; compiled ${data.count} matches`;
+                    
+                    if (data.results.length === 0) {
+                        grid.innerHTML = `
+                            <div class="empty-state" style="grid-column: 1 / -1; max-width: 100%;">
+                                <h3>No AI matches mapped</h3>
+                                <p>Our conversational parser found no direct listings. Try typing standard tech stacks and simple geo locations!</p>
+                            </div>
+                        `;
+                    } else {
+                        grid.innerHTML = data.results.map(job => createJobCardMarkup(job)).join("");
+                    }
+                }
+            } catch (err) {
+                console.error("AI Search prompt dispatch error:", err);
+                banner.innerHTML = `<span style="color: var(--accent-rose);">AI Parsing Engine failed to connect. Make sure FastAPI server main.py is active.</span>`;
+                grid.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

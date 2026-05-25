@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarked Jobs | Global Job Search Aggregator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                GLOBAL<span>JOB</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="remote.html" class="nav-link">Remote Only</a></li>
+                <li><a href="countries.html" class="nav-link">Countries</a></li>
+                <li><a href="saved.html" class="nav-link active">Bookmarks</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="ai.html" class="btn-ai-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    AI Smart Search
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENT HEADER -->
+    <header class="section-container" style="margin-top: 3rem; margin-bottom: 0;">
+        <span class="hero-tag" style="background: rgba(244, 63, 94, 0.08); border-color: rgba(244, 63, 94, 0.2); color: var(--accent-rose);">Saved Jobs</span>
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; margin-top: 1rem;">Your Bookmarked Listings</h1>
+        <p style="color: var(--text-secondary);">Jobs you've saved for future applications. Synced locally and securely to cloud channels.</p>
+    </header>
+
+    <!-- GRID -->
+    <main class="section-container" style="margin-top: 2rem;">
+        <div class="job-grid" id="saved-jobs-board-grid">
+            <!-- Populated dynamically -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 15rem;">
+        <div class="footer-bottom" style="margin-top: 0; border-top: none; padding-top: 0;">
+            <div>&copy; 2026 Global Job Inc. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="../index.html" class="footer-link">Home</a>
+                <a href="search.html" class="footer-link">Search Board</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHARED JS MODULES -->
+    <script src="../js/saved_jobs.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Bootstrapping Saved Jobs -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSavedJobs();
+        });
+
+        async function renderSavedJobs() {
+            const grid = document.getElementById("saved-jobs-board-grid");
+            grid.innerHTML = getSkeletonCardsMarkup(3);
+
+            // Pull fresh synced list
+            const savedJobs = await SavedJobsManager.syncWithServer();
+            
+            if (savedJobs.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                        <h3>No bookmarks cataloged yet</h3>
+                        <p>When searching jobs, hit the bookmark tag on any card to keep track of it here!</p>
+                        <button class="btn-sidebar-apply" style="margin-top: 1.5rem; width: auto;" onclick="window.location.href='search.html'">Browse Active Openings</button>
+                    </div>
+                `;
+            } else {
+                // Render beautiful listings
+                grid.innerHTML = savedJobs.map(job => createJobCardMarkup(job)).join("");
+
+                // Override internal bookmarks event trigger on page so that items disappear instantly on un-bookmarking!
+                const origToggle = SavedJobsManager.toggleSave.bind(SavedJobsManager);
+                SavedJobsManager.toggleSave = async (job, btn) => {
+                    await origToggle(job, btn);
+                    // Re-render
+                    renderSavedJobs();
+                };
+            }
+        }
+    </script>
+</body>
+</html>

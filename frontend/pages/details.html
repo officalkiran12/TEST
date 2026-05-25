@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details | Global Job Search Aggregator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                GLOBAL<span>JOB</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="remote.html" class="nav-link">Remote Only</a></li>
+                <li><a href="countries.html" class="nav-link">Countries</a></li>
+                <li><a href="saved.html" class="nav-link">Bookmarks</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="ai.html" class="btn-ai-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    AI Smart Search
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- LOADING SCREEN -->
+    <div id="details-spinner-wrapper" class="loading-spinner-wrapper">
+        <div class="spinner"></div>
+        <p style="color: var(--text-secondary);">Assembling listing specs...</p>
+    </div>
+
+    <!-- MAIN GRID CONTAINER -->
+    <main class="details-container" id="details-main-grid" style="display: none;">
+        <!-- Left Column: Primary Description Content -->
+        <article class="details-content">
+            <header class="company-banner">
+                <img class="company-banner-logo" id="job-logo" src="" alt="Company logo">
+                <div class="company-banner-title">
+                    <h1 id="job-title">Senior Python Developer</h1>
+                    <p id="job-company">Stripe Inc.</p>
+                </div>
+            </header>
+
+            <section>
+                <h3 style="font-size: 1.4rem; color: var(--text-primary); margin-bottom: 1rem;">Role Description</h3>
+                <!-- Preserves linebreaks and text formats -->
+                <div class="details-description" id="job-description">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+        </article>
+
+        <!-- Right Column: Sidebar Actions & Specifications -->
+        <aside class="details-sidebar">
+            <div class="sidebar-widget">
+                <button class="btn-sidebar-apply" id="btn-apply-main" onclick="openOriginalLink()">
+                    Apply Directly
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </button>
+                <button class="btn-sidebar-save" id="btn-save-main">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    Bookmark Job
+                </button>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="sidebar-widget-title">Job Summary</h3>
+                <div class="meta-item">
+                    <div class="meta-label">Salary Details</div>
+                    <div class="meta-val" id="job-salary">Not specified</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location / Hub</div>
+                    <div class="meta-val" id="job-location">Tokyo, Japan</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Work Style</div>
+                    <div class="meta-val" id="job-remote-badge">Fully Remote</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Visa Sponsorship</div>
+                    <div class="meta-val" id="job-visa-badge">N/A</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Source Aggregator</div>
+                    <div class="meta-val" id="job-source">WeWorkRemotely</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Aggregated On</div>
+                    <div class="meta-val" id="job-posted">2 days ago</div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- SIMILAR JOBS SECTION -->
+    <section class="section-container" id="details-similar-section" style="display: none;">
+        <h3 style="font-size: 1.6rem; margin-bottom: 1.5rem; background: var(--gradient-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Similar Opportunities</h3>
+        <div class="job-grid" id="similar-jobs-grid">
+            <!-- Loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 10rem;">
+        <div class="footer-bottom" style="margin-top: 0; border-top: none; padding-top: 0;">
+            <div>&copy; 2026 Global Job Inc. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="../index.html" class="footer-link">Home</a>
+                <a href="search.html" class="footer-link">Search Board</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHARED JS MODULES -->
+    <script src="../js/saved_jobs.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Detail Rendering JS -->
+    <script>
+        let currentJob = null;
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            const jobId = params.get("id");
+
+            if (!jobId) {
+                window.location.href = "../index.html";
+                return;
+            }
+
+            try {
+                // 1. Fetch Job detail
+                const res = await fetch(`${API_BASE}/job/${jobId}`);
+                if (res.status !== 200) {
+                    throw new Error("Job not found");
+                }
+                
+                currentJob = await res.json();
+                populateDetails(currentJob);
+                
+                // Hide spinner and show page components
+                document.getElementById("details-spinner-wrapper").style.display = "none";
+                document.getElementById("details-main-grid").style.display = "grid";
+                document.getElementById("details-similar-section").style.display = "block";
+
+                // 2. Fetch recommendations
+                fetchSimilarJobs(jobId);
+
+            } catch (err) {
+                console.error("Details page failed to load:", err);
+                document.getElementById("details-spinner-wrapper").innerHTML = `
+                    <div class="empty-state" style="border-color: rgba(244, 63, 94, 0.2);">
+                        <h3>Error Loading Details</h3>
+                        <p>This job listing may have been updated, removed, or the backend is offline.</p>
+                        <button class="btn-sidebar-apply" style="margin-top: 1.5rem; width: auto;" onclick="window.location.href='search.html'">Back to Search</button>
+                    </div>
+                `;
+            }
+        });
+
+        function populateDetails(job) {
+            document.title = `${job.title} at ${job.company_name} | Global Job Search`;
+
+            // Text contents
+            document.getElementById("job-title").innerText = job.title;
+            document.getElementById("job-company").innerText = job.company_name;
+            document.getElementById("job-salary").innerText = job.salary || "Not specified";
+            document.getElementById("job-location").innerText = job.location;
+            document.getElementById("job-source").innerText = job.source;
+            document.getElementById("job-posted").innerText = timeAgo(job.posted_date);
+
+            // Description block markup
+            document.getElementById("job-description").innerText = job.description;
+
+            // Badges
+            document.getElementById("job-remote-badge").innerText = job.is_remote ? "Yes (Fully Remote)" : "No (On-Site/Hybrid)";
+            document.getElementById("job-visa-badge").innerText = job.visa_sponsorship ? "Yes (Visa Sponsored)" : "Not Mentioned";
+
+            // Logo
+            const initials = job.company_name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const logoElem = document.getElementById("job-logo");
+            if (job.company_logo && job.company_logo.startsWith("http")) {
+                logoElem.src = job.company_logo;
+                logoElem.onerror = () => {
+                    logoElem.onerror = null;
+                    logoElem.outerHTML = `<div class="company-banner-logo company-logo-init" style="font-size:1.5rem;">${initials}</div>`;
+                };
+            } else {
+                logoElem.outerHTML = `<div class="company-banner-logo company-logo-init" style="font-size:1.5rem;">${initials}</div>`;
+            }
+
+            // Saved states binder
+            const saveBtn = document.getElementById("btn-save-main");
+            const isSaved = SavedJobsManager.isSaved(job.id);
+            updateSaveBtnState(saveBtn, isSaved);
+
+            saveBtn.onclick = () => {
+                SavedJobsManager.toggleSave(job);
+                const newlySaved = SavedJobsManager.isSaved(job.id);
+                updateSaveBtnState(saveBtn, newlySaved);
+            };
+        }
+
+        function updateSaveBtnState(btn, saved) {
+            if (saved) {
+                btn.style.color = "#f43f5e";
+                btn.style.borderColor = "#f43f5e";
+                btn.style.background = "rgba(244, 63, 94, 0.08)";
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #f43f5e;"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    Saved to Bookmarks
+                `;
+            } else {
+                btn.style.color = "var(--text-primary)";
+                btn.style.borderColor = "var(--border-color)";
+                btn.style.background = "rgba(255, 255, 255, 0.04)";
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    Bookmark Job
+                `;
+            }
+        }
+
+        function isFakeSearchLink(link) {
+            if (!link || !link.startsWith('http')) return true;
+            const patterns = [/ref=\d+/i, /refId=\d+/i, /\/search\//i, /[?&]q=/i, /[?&]keywords=/i, /[?&]term=/i];
+            return patterns.some(p => p.test(link));
+        }
+
+        function getApplyUrl(job) {
+            const link = job.apply_link;
+            if (!link || !link.startsWith('http') || isFakeSearchLink(link)) {
+                return `details.html?id=${job.id}`;
+            }
+            if (link.includes('karmakarta.com')) {
+                return `details.html?id=${job.id}`;
+            }
+            if (link.includes('psc.gov.np') && (link.includes('/?s=') || link.includes('/notice/'))) {
+                return `details.html?id=${job.id}`;
+            }
+            return link;
+        }
+
+        function openOriginalLink() {
+            if (currentJob && currentJob.apply_link) {
+                window.open(getApplyUrl(currentJob), "_blank", "noopener,noreferrer");
+            }
+        }
+
+        async function fetchSimilarJobs(jobId) {
+            const grid = document.getElementById("similar-jobs-grid");
+            grid.innerHTML = getSkeletonCardsMarkup(3);
+
+            try {
+                const res = await fetch(`${API_BASE}/job/${jobId}/similar?limit=3`);
+                if (res.status === 200) {
+                    const similar = await res.json();
+                    if (similar.length === 0) {
+                        grid.innerHTML = `<p style="color: var(--text-muted);">No similar opportunities compiled at this moment.</p>`;
+                    } else {
+                        grid.innerHTML = similar.map(job => createJobCardMarkup(job)).join("");
+                    }
+                }
+            } catch (err) {
+                console.warn("Could not load recommendations.");
+                grid.innerHTML = `<p style="color: var(--text-muted);">Could not load recommendations.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

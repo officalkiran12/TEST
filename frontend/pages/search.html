@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search Board | Global Job Search Aggregator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                GLOBAL<span>JOB</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link active">Search</a></li>
+                <li><a href="remote.html" class="nav-link">Remote Only</a></li>
+                <li><a href="countries.html" class="nav-link">Countries</a></li>
+                <li><a href="saved.html" class="nav-link">Bookmarks</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="ai.html" class="btn-ai-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    AI Smart Search
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SEARCH HERO / HEADER -->
+    <header class="section-container" style="margin-top: 2rem; margin-bottom: 0;">
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Explore Tech Roles</h1>
+        <p style="color: var(--text-secondary);" id="search-result-count">Compiling all active jobs...</p>
+    </header>
+
+    <!-- GRID LAYOUT: FILTER SIDEBAR & JOBS FEED -->
+    <main class="search-page-container">
+        <!-- Sidebar containing advanced filters -->
+        <aside class="filters-sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">Keyword Search</h3>
+                <div class="range-inputs" style="margin-top: 0.5rem;">
+                    <input type="text" id="filter-keyword" placeholder="FastAPI, React, Stripe..." onkeypress="handleFilterKeypress(event)">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Country / Location</h3>
+                <div class="range-inputs" style="margin-top: 0.5rem;">
+                    <input type="text" id="filter-location" placeholder="Japan, Germany, USA..." onkeypress="handleFilterKeypress(event)">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Job Perks</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-remote">
+                        <span>Remote Only</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-visa">
+                        <span>Visa Sponsorship</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Compensation</h3>
+                <div class="range-inputs">
+                    <label for="filter-salary-min">Minimum Annual Salary ($)</label>
+                    <input type="number" id="filter-salary-min" placeholder="e.g. 100000" min="0">
+                </div>
+            </div>
+
+            <button class="btn-apply-filters" onclick="triggerSearch(1)">Apply Filters</button>
+            <button class="btn-reset-filters" onclick="resetAllFilters()">Reset Filters</button>
+        </aside>
+
+        <!-- Right container hosting cards and pagination -->
+        <section>
+            <div class="job-grid" id="search-results-grid">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <!-- PAGINATION BLOCK -->
+            <div style="margin-top: 3rem; display: flex; justify-content: center; align-items: center; gap: 1rem;" id="search-pagination-row">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 10rem;">
+        <div class="footer-bottom" style="margin-top: 0; border-top: none; padding-top: 0;">
+            <div>&copy; 2026 Global Job Inc. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="../index.html" class="footer-link">Home</a>
+                <a href="search.html" class="footer-link">Search</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHARED JS MODULES -->
+    <script src="../js/saved_jobs.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Page Specific Script -->
+    <script>
+        let currentPage = 1;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Read URL variables (for tag clicks, country clicks, or primary hero inputs!)
+            const params = new URLSearchParams(window.location.search);
+            const keyword = params.get("keyword") || "";
+            const country = params.get("country") || "";
+            const remote = params.get("remote") === "true";
+            
+            if (keyword) document.getElementById("filter-keyword").value = keyword;
+            if (country) document.getElementById("filter-location").value = country;
+            if (remote) document.getElementById("filter-remote").checked = true;
+
+            // Trigger search bootstrap
+            triggerSearch(1);
+        });
+
+        function handleFilterKeypress(event) {
+            if (event.key === "Enter") {
+                triggerSearch(1);
+            }
+        }
+
+        async function triggerSearch(pageNumber = 1) {
+            currentPage = pageNumber;
+            const grid = document.getElementById("search-results-grid");
+            const paginator = document.getElementById("search-pagination-row");
+            const counterText = document.getElementById("search-result-count");
+
+            grid.innerHTML = getSkeletonCardsMarkup(6);
+            paginator.innerHTML = "";
+
+            const keyword = document.getElementById("filter-keyword").value.trim();
+            const location = document.getElementById("filter-location").value.trim();
+            const remote = document.getElementById("filter-remote").checked;
+            const visa = document.getElementById("filter-visa").checked;
+            const salary = document.getElementById("filter-salary-min").value;
+
+            // Build query params
+            let url = `${API_BASE}/jobs?page=${pageNumber}&limit=9`;
+            if (keyword) url += `&keyword=${encodeURIComponent(keyword)}`;
+            if (location) url += `&country=${encodeURIComponent(location)}`;
+            if (remote) url += `&is_remote=true`;
+            if (visa) url += `&visa_sponsorship=true`;
+            if (salary) url += `&min_salary=${encodeURIComponent(salary)}`;
+
+            try {
+                const res = await fetch(url);
+                if (res.status === 200) {
+                    const data = await res.json();
+                    counterText.innerText = `${data.total} matching jobs compiled globally`;
+                    
+                    if (data.results.length === 0) {
+                        grid.innerHTML = `
+                            <div class="empty-state" style="grid-column: 1 / -1; max-width: 100%;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                <h3>No job listings match these filters</h3>
+                                <p>Try adjusting your tags, checking spelling, or resetting advanced criteria.</p>
+                            </div>
+                        `;
+                    } else {
+                        grid.innerHTML = data.results.map(job => createJobCardMarkup(job)).join("");
+                        renderPagination(data.total_pages, data.page);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load search results:", err);
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1; border-color: rgba(244, 63, 94, 0.2);">
+                        <h3>Search Engine Offline</h3>
+                        <p>Could not fetch listings. Make sure your FastAPI backend main.py is active.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPagination(totalPages, activePage) {
+            const paginator = document.getElementById("search-pagination-row");
+            if (totalPages <= 1) return;
+
+            let html = "";
+            // Prev Button
+            if (activePage > 1) {
+                html += `<button class="btn-card-apply" style="padding: 0.6rem 1.2rem;" onclick="triggerSearch(${activePage - 1})">&larr; Prev</button>`;
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === activePage) {
+                    html += `<button class="btn-search" style="padding: 0.6rem 1.2rem; cursor: default;">${i}</button>`;
+                } else {
+                    html += `<button class="btn-card-apply" style="padding: 0.6rem 1.2rem;" onclick="triggerSearch(${i})">${i}</button>`;
+                }
+            }
+
+            // Next Button
+            if (activePage < totalPages) {
+                html += `<button class="btn-card-apply" style="padding: 0.6rem 1.2rem;" onclick="triggerSearch(${activePage + 1})">Next &rarr;</button>`;
+            }
+
+            paginator.innerHTML = html;
+        }
+
+        function resetAllFilters() {
+            document.getElementById("filter-keyword").value = "";
+            document.getElementById("filter-location").value = "";
+            document.getElementById("filter-remote").checked = false;
+            document.getElementById("filter-visa").checked = false;
+            document.getElementById("filter-salary-min").value = "";
+            triggerSearch(1);
+        }
+    </script>
+</body>
+</html>

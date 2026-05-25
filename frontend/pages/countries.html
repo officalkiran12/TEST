@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Country Hubs | Global Job Search Aggregator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                GLOBAL<span>JOB</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="remote.html" class="nav-link">Remote Only</a></li>
+                <li><a href="countries.html" class="nav-link active">Countries</a></li>
+                <li><a href="saved.html" class="nav-link">Bookmarks</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="ai.html" class="btn-ai-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    AI Smart Search
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENT HEADER -->
+    <header class="section-container" style="margin-top: 3rem; margin-bottom: 0;">
+        <span class="hero-tag" style="background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.2); color: var(--accent-violet);">Hiring Geographies</span>
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; margin-top: 1rem;">Global Tech Hiring Hubs</h1>
+        <p style="color: var(--text-secondary);">Filter active listings compiled across leading developer markets and tech ecosystems.</p>
+    </header>
+
+    <!-- COUNTRIES GRID -->
+    <main class="section-container" style="margin-top: 2rem;">
+        <div class="countries-list" id="global-country-index-grid">
+            <!-- Loaded dynamically -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 18rem;">
+        <div class="footer-bottom" style="margin-top: 0; border-top: none; padding-top: 0;">
+            <div>&copy; 2026 Global Job Inc. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="../index.html" class="footer-link">Home</a>
+                <a href="search.html" class="footer-link">Search Board</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHARED JS MODULES -->
+    <script src="../js/saved_jobs.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Script to fetch countries list -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const grid = document.getElementById("global-country-index-grid");
+            
+            try {
+                const res = await fetch(`${API_BASE}/countries`);
+                if (res.status === 200) {
+                    const countries = await res.json();
+                    
+                    if (countries.length === 0) {
+                        grid.innerHTML = `
+                            <div class="empty-state" style="grid-column: 1 / -1;">
+                                <h3>No countries found</h3>
+                                <p>Aggregated crawlers haven't mapped country lists yet.</p>
+                            </div>
+                        `;
+                    } else {
+                        grid.innerHTML = countries.map(c => `
+                            <div class="country-card" onclick="quickSearchCountry('${c.name}')">
+                                <div class="country-flag">${getCountryEmoji(c.code)}</div>
+                                <div class="country-info">
+                                    <h4>${c.name}</h4>
+                                    <p>${c.job_count} active jobs</p>
+                                </div>
+                            </div>
+                        `).join("");
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load country list:", err);
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1; border-color: rgba(244, 63, 94, 0.2);">
+                        <h3>Connection Failed</h3>
+                        <p>Could not fetch country lists. Make sure your FastAPI backend main.py is active.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
