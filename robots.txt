@@ -1,0 +1,31 @@
+# Job Finder Portal - Robots.txt Configuration
+
+# Allow all bots
+User-agent: *
+Allow: /
+Allow: /frontend/
+Allow: /api/jobs
+Allow: /docs
+
+# Disallow crawling of internal paths
+Disallow: /backend/
+Disallow: /database/
+Disallow: /utils/
+Disallow: /scrapers/
+
+# Google Search Bot optimization
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Site map location
+Sitemap: http://127.0.0.1:8000/sitemap.xml
+
+# General crawl delay to prevent overload (in seconds)
+Crawl-delay: 1
+Request-rate: 30/60
